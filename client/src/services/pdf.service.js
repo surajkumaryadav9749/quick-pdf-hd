@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API = "http://localhost:5000/api/convert";
+const API = `${import.meta.env.VITE_API_URL}/api/convert`;
 
 export const convertImagesToPdf = async (images) => {
   const formData = new FormData();
@@ -13,7 +13,6 @@ export const convertImagesToPdf = async (images) => {
     headers: {
       "Content-Type": "multipart/form-data",
     },
-
     responseType: "blob",
   });
 

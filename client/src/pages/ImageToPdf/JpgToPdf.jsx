@@ -50,50 +50,6 @@ const JpgToPdf = () => {
           </div>
         </section>
 
-        {/* About JPG to PDF */}
-        <section className="bg-white px-4 py-16 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-4xl">
-            <h2 className="text-3xl font-bold text-slate-900">
-              Free JPG to PDF Converter
-            </h2>
-
-            <p className="mt-5 leading-8 text-slate-600">
-              QuickPDFHD is a free online JPG to PDF converter that lets you
-              turn your JPG images into PDF documents directly from your
-              browser. You can upload one or multiple images, arrange them in
-              the order you want and convert them into a single PDF file.
-            </p>
-
-            <p className="mt-5 leading-8 text-slate-600">
-              No software installation or account is required. After the
-              conversion is completed, your PDF is downloaded automatically to
-              your device.
-            </p>
-
-            <h2 className="mt-10 text-2xl font-bold text-slate-900">
-              Convert Multiple JPG Images to One PDF
-            </h2>
-
-            <p className="mt-5 leading-8 text-slate-600">
-              QuickPDFHD allows you to upload multiple JPG images and combine
-              them into a single PDF document. You can also change the image
-              order before starting the conversion, making it easy to create a
-              PDF in the exact sequence you need.
-            </p>
-
-            <h2 className="mt-10 text-2xl font-bold text-slate-900">
-              How to Convert JPG to PDF
-            </h2>
-
-            <ol className="mt-5 list-decimal space-y-3 pl-6 leading-7 text-slate-600">
-              <li>Upload one or more JPG images.</li>
-              <li>Arrange the images in your preferred order.</li>
-              <li>Click the Convert JPG to PDF button.</li>
-              <li>Your PDF will be generated and downloaded automatically.</li>
-            </ol>
-          </div>
-        </section>
-
         {/* How It Works */}
         <HowToSection />
 

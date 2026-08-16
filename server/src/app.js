@@ -6,8 +6,34 @@ const contactRoute = require("./routes/contact.route");
 
 const app = express();
 
-// Middlewares
-app.use(cors());
+// Allowed frontend origins
+const allowedOrigins = [
+  // "http://localhost:5173",
+  "https://quickpdfhd.com",
+  "https://www.quickpdfhd.com",
+  "https://quick-pdf-hd.vercel.app",
+];
+
+// CORS
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // Allow requests without an origin
+      // (Postman, server-to-server requests, etc.)
+      if (!origin) {
+        return callback(null, true);
+      }
+
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      return callback(new Error("Not allowed by CORS"));
+    },
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  }),
+);
 
 app.use(express.json());
 

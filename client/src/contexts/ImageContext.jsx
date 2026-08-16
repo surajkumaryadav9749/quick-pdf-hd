@@ -16,7 +16,7 @@ export const ImageProvider = ({ children }) => {
 
   // Add Images
   const addImages = useCallback(
-    (files) => {
+    (files, allowedTypes = ALLOWED_TYPES) => {
       const incomingFiles = Array.from(files);
 
       // Maximum Image Count
@@ -29,8 +29,8 @@ export const ImageProvider = ({ children }) => {
 
       incomingFiles.forEach((file) => {
         // File Type
-        if (!ALLOWED_TYPES.includes(file.type)) {
-          toast.error(`${file.name} is not a supported image.`);
+        if (!allowedTypes.includes(file.type)) {
+          toast.error(`${file.name} is not a supported image for this tool.`);
           return;
         }
 
@@ -105,7 +105,7 @@ export const ImageProvider = ({ children }) => {
       addImages,
       removeImage,
       clearImages,
-      reorderImages, //
+      reorderImages,
     }),
     [images, addImages, removeImage, clearImages, reorderImages],
   );

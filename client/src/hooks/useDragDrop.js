@@ -1,7 +1,8 @@
 import { useCallback, useRef, useState } from "react";
 import useImageUpload from "./useImageUpload";
+import { ALLOWED_TYPES } from "../constants/upload";
 
-const useDragDrop = () => {
+const useDragDrop = (allowedTypes = ALLOWED_TYPES) => {
   const { addImages } = useImageUpload();
 
   const [isDragging, setIsDragging] = useState(false);
@@ -13,9 +14,9 @@ const useDragDrop = () => {
     (files) => {
       if (!files || files.length === 0) return;
 
-      addImages(Array.from(files));
+      addImages(Array.from(files), allowedTypes);
     },
-    [addImages],
+    [addImages, allowedTypes],
   );
 
   // Open File Picker
@@ -72,7 +73,6 @@ const useDragDrop = () => {
       onDragOver: handleDragOver,
       onDragLeave: handleDragLeave,
       onDrop: handleDrop,
-
       onFilesSelected: handleFiles,
     },
   };

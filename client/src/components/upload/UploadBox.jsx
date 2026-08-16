@@ -1,8 +1,9 @@
 import { HiOutlineCloudArrowUp } from "react-icons/hi2";
 import useDragDrop from "../../hooks/useDragDrop";
 
-const UploadBox = () => {
-  const { isDragging, dragProps, openFilePicker, fileInputRef } = useDragDrop();
+const UploadBox = ({ allowedTypes, accept }) => {
+  const { isDragging, dragProps, openFilePicker, fileInputRef } =
+    useDragDrop(allowedTypes);
 
   return (
     <div
@@ -13,14 +14,14 @@ const UploadBox = () => {
         border-2
         border-dashed
         p-12
-        transition-all
-        duration-300
         text-center
         shadow-sm
+        transition-all
+        duration-300
 
         ${
           isDragging
-            ? "border-blue-600 bg-blue-50 scale-[1.01]"
+            ? "scale-[1.01] border-blue-600 bg-blue-50"
             : "border-slate-300 bg-white hover:border-blue-500"
         }
       `}
@@ -30,7 +31,7 @@ const UploadBox = () => {
         ref={fileInputRef}
         type="file"
         multiple
-        accept="image/jpeg,image/png,image/webp"
+        accept={accept}
         className="hidden"
         onChange={(e) => {
           if (e.target.files?.length) {
@@ -50,7 +51,7 @@ const UploadBox = () => {
             transition-all
             duration-300
 
-            ${isDragging ? "bg-blue-200 scale-110" : "bg-blue-100"}
+            ${isDragging ? "scale-110 bg-blue-200" : "bg-blue-100"}
           `}
         >
           {isDragging ? (
@@ -69,7 +70,7 @@ const UploadBox = () => {
           <p className="mt-4 text-slate-500">
             {isDragging
               ? "Release your mouse to upload images."
-              : "Upload JPG, PNG and WEBP images."}
+              : "Upload supported images for PDF conversion."}
           </p>
 
           <p className="mt-2 text-sm text-slate-400">
@@ -79,11 +80,11 @@ const UploadBox = () => {
 
         {/* Divider */}
         <div className="flex w-full max-w-xs items-center gap-3">
-          <div className="h-px flex-1 bg-slate-300"></div>
+          <div className="h-px flex-1 bg-slate-300" />
 
           <span className="text-sm font-medium text-slate-400">OR</span>
 
-          <div className="h-px flex-1 bg-slate-300"></div>
+          <div className="h-px flex-1 bg-slate-300" />
         </div>
 
         {/* Browse Button */}

@@ -33,7 +33,10 @@ const tools = [
 
 const ImageToPdfTools = () => {
   return (
-    <section className="bg-slate-50 px-4 py-16 sm:px-6 lg:px-8">
+    <section
+      id="upload"
+      className="scroll-mt-20 bg-slate-50 px-4 py-16 sm:px-6 lg:px-8"
+    >
       <div className="mx-auto max-w-6xl">
         {/* Section Heading */}
         <div className="mx-auto max-w-2xl text-center">

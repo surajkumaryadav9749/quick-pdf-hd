@@ -67,13 +67,13 @@ const UploadBox = ({ allowedTypes, accept }) => {
             {isDragging ? "Drop Images Here" : "Drag & Drop Images Here"}
           </h2>
 
-          <p className="mt-4 text-slate-500">
+          <p className="mt-4 text-slate-600">
             {isDragging
               ? "Release your mouse to upload images."
               : "Upload supported images for PDF conversion."}
           </p>
 
-          <p className="mt-2 text-sm text-slate-400">
+          <p className="mt-2 text-sm text-slate-600">
             Maximum 20 Images • 10 MB each
           </p>
         </div>
@@ -82,7 +82,7 @@ const UploadBox = ({ allowedTypes, accept }) => {
         <div className="flex w-full max-w-xs items-center gap-3">
           <div className="h-px flex-1 bg-slate-300" />
 
-          <span className="text-sm font-medium text-slate-400">OR</span>
+          <span className="text-sm font-medium text-slate-600">OR</span>
 
           <div className="h-px flex-1 bg-slate-300" />
         </div>

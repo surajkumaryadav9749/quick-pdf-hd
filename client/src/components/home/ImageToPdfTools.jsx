@@ -6,28 +6,28 @@ const tools = [
     description: "Convert JPG images into PDF documents online.",
     format: "JPG",
     path: "/jpg-to-pdf",
-    badgeClass: "bg-blue-100 text-blue-600",
+    badgeClass: "bg-blue-100 text-blue-700",
   },
   {
     title: "PNG to PDF",
     description: "Convert PNG images into PDF documents quickly.",
     format: "PNG",
     path: "/png-to-pdf",
-    badgeClass: "bg-green-100 text-green-600",
+    badgeClass: "bg-green-100 text-green-800",
   },
   {
     title: "JPEG to PDF",
     description: "Turn JPEG images into a single PDF file with ease.",
     format: "JPEG",
     path: "/jpeg-to-pdf",
-    badgeClass: "bg-purple-100 text-purple-600",
+    badgeClass: "bg-purple-100 text-purple-700",
   },
   {
     title: "WEBP to PDF",
     description: "Convert WEBP images into PDF files online.",
     format: "WEBP",
     path: "/webp-to-pdf",
-    badgeClass: "bg-orange-100 text-orange-600",
+    badgeClass: "bg-orange-100 text-orange-800",
   },
 ];
 

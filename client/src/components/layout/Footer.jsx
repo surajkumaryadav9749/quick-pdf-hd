@@ -66,11 +66,11 @@ const Footer = () => {
 
         {/* Bottom */}
         <div className="border-t border-slate-800 py-8 text-center">
-          <p className="text-sm text-slate-500">
+          <p className="text-sm text-slate-400">
             © {new Date().getFullYear()} QuickPDFHD. All Rights Reserved.
           </p>
 
-          <p className="mt-2 text-sm text-slate-500">
+          <p className="mt-2 text-sm text-slate-400">
             Built with ❤️ using the MERN Stack.
           </p>
         </div>

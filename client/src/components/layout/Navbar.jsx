@@ -15,9 +15,11 @@ const Navbar = () => {
         {/* Logo */}
         <NavLink to="/" className="flex items-center gap-3" onClick={closeMenu}>
           <img
-            src="/quickPDFHD_logo.png"
+            src="/quickPDFHD_logo-176.png"
             alt="QuickPDFHD logo"
             className="h-11 w-auto"
+            width="176"
+            height="96"
           />
 
           <span className="text-2xl font-bold text-slate-900">quickPDFHD</span>

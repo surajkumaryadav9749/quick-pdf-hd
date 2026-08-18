@@ -1,23 +1,42 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Google tag (gtag.js) -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-GCSX9ZGCL1"
-    ></script>
+    <!-- Load analytics after the page is interactive so it does not block initial rendering. -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
         dataLayer.push(arguments);
       }
-      gtag("js", new Date());
 
-      gtag("config", "G-GCSX9ZGCL1");
+      window.addEventListener("load", () => {
+        let analyticsLoaded = false;
+
+        const loadAnalytics = () => {
+          if (analyticsLoaded) return;
+
+          analyticsLoaded = true;
+          const script = document.createElement("script");
+          script.src = "https://www.googletagmanager.com/gtag/js?id=G-GCSX9ZGCL1";
+          script.async = true;
+          document.head.appendChild(script);
+
+          gtag("js", new Date());
+          gtag("config", "G-GCSX9ZGCL1");
+        };
+
+        ["pointerdown", "keydown", "touchstart"].forEach((eventName) => {
+          window.addEventListener(eventName, loadAnalytics, {
+            once: true,
+            passive: true,
+          });
+        });
+
+        window.setTimeout(loadAnalytics, 10000);
+      });
     </script>
     <meta charset="UTF-8" />
 
-    <link rel="icon" type="image/png" href="/quickPDFHD_logo.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 

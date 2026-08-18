@@ -13,7 +13,7 @@ const Footer = () => {
               <img
                 src="/quickPDFHD_logo.png"
                 alt="QuickPDFHD logo"
-                className="h-11 w-11"
+                className="h-11 w-auto"
               />
 
               <span className="text-2xl font-bold text-white">QuickPDFHD</span>

@@ -4,11 +4,9 @@ import UploadBox from "../../components/upload/UploadBox";
 import ImagePreview from "../../components/upload/ImagePreview";
 import ConvertButton from "../../components/upload/ConvertButton";
 
-import HowToSection from "../../components/seo/HowToSection";
 import RelatedTools from "../../components/seo/RelatedTools";
+import JpgToPdfContent from "../../components/seo/JpgToPdfContent";
 import SEO from "../../components/seo/SEO";
-
-import FAQSection from "../../components/home/FAQSection";
 
 const JpgToPdf = () => {
   return (
@@ -19,7 +17,7 @@ const JpgToPdf = () => {
         canonical="https://quickpdfhd.com/jpg-to-pdf"
       />
 
-      <main className="bg-slate-50">
+      <main>
         {/* Hero Section */}
         <section className="px-4 pb-10 pt-16 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-5xl text-center">
@@ -50,14 +48,10 @@ const JpgToPdf = () => {
           </div>
         </section>
 
-        {/* How It Works */}
-        <HowToSection />
+        <JpgToPdfContent />
 
         {/* Related Tools */}
-        <RelatedTools />
-
-        {/* FAQs */}
-        <FAQSection />
+        <RelatedTools currentPath="/jpg-to-pdf" />
       </main>
     </Layout>
   );

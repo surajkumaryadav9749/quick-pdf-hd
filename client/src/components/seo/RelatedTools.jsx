@@ -23,7 +23,9 @@ const tools = [
   },
 ];
 
-const RelatedTools = () => {
+const RelatedTools = ({ currentPath }) => {
+  const relatedTools = tools.filter((tool) => tool.path !== currentPath);
+
   return (
     <section
       aria-labelledby="related-tools-heading"
@@ -49,7 +51,7 @@ const RelatedTools = () => {
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {tools.map((tool) => (
+          {relatedTools.map((tool) => (
             <Link
               key={tool.path}
               to={tool.path}

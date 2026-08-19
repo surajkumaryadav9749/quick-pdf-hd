@@ -50,7 +50,10 @@ const ImageToPdfTools = () => {
 
           <p className="mt-4 text-lg leading-8 text-slate-600">
             Choose an image format and convert your images into PDF files
-            quickly and easily.
+            quickly and easily. To combine JPG photos, use our{" "}
+            <Link to="/jpg-to-pdf" className="font-semibold text-blue-600 hover:underline">
+              JPG to PDF converter
+            </Link>.
           </p>
         </div>
 

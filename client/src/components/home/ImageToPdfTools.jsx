@@ -1,6 +1,14 @@
 import { Link } from "react-router-dom";
+import { FiFileText } from "react-icons/fi";
 
 const tools = [
+  {
+    title: "Document Scanner",
+    description: "Clean document photos and create a smaller, page-numbered PDF.",
+    format: "SCAN",
+    path: "/document-scanner",
+    badgeClass: "bg-cyan-100 text-cyan-700",
+  },
   {
     title: "JPG to PDF",
     description: "Convert JPG images into PDF documents online.",
@@ -34,23 +42,23 @@ const tools = [
 const ImageToPdfTools = () => {
   return (
     <section
-      id="upload"
+      id="services"
       className="scroll-mt-20 bg-slate-50 px-4 py-16 sm:px-6 lg:px-8"
     >
       <div className="mx-auto max-w-6xl">
         {/* Section Heading */}
         <div className="mx-auto max-w-2xl text-center">
           <p className="text-sm font-semibold uppercase tracking-wide text-blue-600">
-            Image to PDF Tools
+            Our PDF Services
           </p>
 
           <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
-            Convert Images to PDF Online
+            Choose the PDF tool you need
           </h2>
 
           <p className="mt-4 text-lg leading-8 text-slate-600">
-            Choose an image format and convert your images into PDF files
-            quickly and easily. To combine JPG photos, use our{" "}
+            Create PDFs from images or prepare clean, compact document scans.
+            To combine JPG photos, use our{" "}
             <Link to="/jpg-to-pdf" className="font-semibold text-blue-600 hover:underline">
               JPG to PDF converter
             </Link>.
@@ -58,18 +66,15 @@ const ImageToPdfTools = () => {
         </div>
 
         {/* Tool Cards */}
-        <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {tools.map((tool) => (
             <Link
               key={tool.path}
               to={tool.path}
               className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-blue-300 hover:shadow-xl"
             >
-              {/* Format Badge */}
-              <div
-                className={`flex h-14 w-14 items-center justify-center rounded-xl text-xl font-bold ${tool.badgeClass}`}
-              >
-                {tool.format}
+              <div className={`flex h-14 w-14 items-center justify-center rounded-xl text-sm font-bold ${tool.badgeClass}`}>
+                {tool.format === "SCAN" ? <FiFileText className="text-2xl" aria-hidden="true" /> : tool.format}
               </div>
 
               {/* Title */}

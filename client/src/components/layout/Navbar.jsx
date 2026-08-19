@@ -47,10 +47,10 @@ const Navbar = () => {
 
         {/* Desktop CTA */}
         <a
-          href="/#upload"
+          href="/#services"
           className="hidden rounded-xl bg-blue-600 px-5 py-3 font-semibold text-white shadow-md transition hover:bg-blue-700 hover:shadow-lg md:block"
         >
-          Convert Images
+          Explore Services
         </a>
 
         {/* Mobile Hamburger */}
@@ -120,11 +120,11 @@ const Navbar = () => {
             {/* Mobile CTA */}
             <li className="mt-2">
               <a
-                href="/#upload"
+                href="/#services"
                 onClick={closeMenu}
                 className="block rounded-xl bg-blue-600 px-4 py-3 text-center font-semibold text-white shadow-md transition hover:bg-blue-700"
               >
-                Convert Images
+                Explore Services
               </a>
             </li>
           </ul>

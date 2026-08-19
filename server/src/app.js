@@ -3,12 +3,13 @@ const cors = require("cors");
 
 const convertRoute = require("./routes/convert.route");
 const contactRoute = require("./routes/contact.route");
+const scanRoute = require("./routes/scan.route");
 
 const app = express();
 
 // Allowed frontend origins
 const allowedOrigins = [
-  // "http://localhost:5173",
+  "http://localhost:5173",
   "https://quickpdfhd.com",
   "https://www.quickpdfhd.com",
   "https://quick-pdf-hd.vercel.app",
@@ -49,6 +50,7 @@ app.get("/", (req, res) => {
 
 // Routes
 app.use("/api/convert", convertRoute);
+app.use("/api/scan", scanRoute);
 app.use("/api/contact", contactRoute);
 
 module.exports = app;

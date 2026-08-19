@@ -11,6 +11,7 @@ const JpgToPdf = lazy(() => import("../pages/ImageToPdf/JpgToPdf"));
 const PngToPdf = lazy(() => import("../pages/ImageToPdf/PngToPdf"));
 const JpegToPdf = lazy(() => import("../pages/ImageToPdf/JpegToPdf"));
 const WebpToPdf = lazy(() => import("../pages/ImageToPdf/WebpToPdf"));
+const DocumentScanner = lazy(() => import("../pages/DocumentScanner/DocumentScanner"));
 
 const AppRoutes = () => {
   return (
@@ -28,6 +29,7 @@ const AppRoutes = () => {
           <Route path="/png-to-pdf" element={<PngToPdf />} />
           <Route path="/jpeg-to-pdf" element={<JpegToPdf />} />
           <Route path="/webp-to-pdf" element={<WebpToPdf />} />
+          <Route path="/document-scanner" element={<DocumentScanner />} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>

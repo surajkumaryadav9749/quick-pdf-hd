@@ -4,14 +4,38 @@ const sharp = require("sharp");
 const A4_WIDTH = 595.28;
 const A4_HEIGHT = 841.89;
 
-const generatePdf = async (files) => {
+const generatePdf = async (files, options = {}) => {
   const pdfDoc = await PDFDocument.create();
+  const {
+    autoCrop = false,
+    enhance = "color",
+    pageNumbers = false,
+    rotation = 0,
+    targetKb = 0,
+  } = options;
 
-  for (const file of files) {
+  const qualityByTarget = { 100: 35, 200: 45, 500: 60, 1024: 75 };
+  const quality = qualityByTarget[targetKb] || 82;
+
+  for (const [index, file] of files.entries()) {
     console.log("Processing:", file.originalname);
 
-    // Convert image buffer to PNG
-    const imageBuffer = await sharp(file.buffer).png().toBuffer();
+    let processor = sharp(file.buffer).rotate(rotation);
+
+    if (autoCrop) {
+      processor = processor.trim({ background: "#ffffff", threshold: 12 });
+    }
+
+    if (enhance === "grayscale") {
+      processor = processor.grayscale().normalise();
+    }
+
+    if (enhance === "bw") {
+      processor = processor.grayscale().normalise().threshold(180);
+    }
+
+    // JPEG keeps scanned PDFs small while preserving useful document detail.
+    const imageBuffer = await processor.jpeg({ quality, mozjpeg: true }).toBuffer();
 
     // Get image metadata
     const metadata = await sharp(imageBuffer).metadata();
@@ -19,8 +43,8 @@ const generatePdf = async (files) => {
     const originalWidth = metadata.width;
     const originalHeight = metadata.height;
 
-    // Embed image into PDF
-    const image = await pdfDoc.embedPng(imageBuffer);
+    // Embed the compressed image into PDF
+    const image = await pdfDoc.embedJpg(imageBuffer);
 
     // Calculate scale while maintaining aspect ratio
     const scale = Math.min(
@@ -54,6 +78,15 @@ const generatePdf = async (files) => {
       width,
       height,
     });
+
+    if (pageNumbers) {
+      page.drawText(`${index + 1}`, {
+        x: A4_WIDTH / 2 - 3,
+        y: 18,
+        size: 9,
+        color: rgb(0.35, 0.4, 0.48),
+      });
+    }
   }
 
   return await pdfDoc.save();

@@ -4,6 +4,8 @@ const cors = require("cors");
 const convertRoute = require("./routes/convert.route");
 const contactRoute = require("./routes/contact.route");
 const scanRoute = require("./routes/scan.route");
+const resizeRoute = require("./routes/resize.route");
+const pdfZipRoute = require("./routes/pdf-zip.route");
 
 const app = express();
 
@@ -51,6 +53,8 @@ app.get("/", (req, res) => {
 // Routes
 app.use("/api/convert", convertRoute);
 app.use("/api/scan", scanRoute);
+app.use("/api/resize-image", resizeRoute);
+app.use("/api/pdf-to-zip", pdfZipRoute);
 app.use("/api/contact", contactRoute);
 
 module.exports = app;

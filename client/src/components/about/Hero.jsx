@@ -40,9 +40,8 @@ const Hero = () => {
 
         {/* Description */}
         <p className="mt-8 max-w-3xl text-lg leading-8 text-slate-600">
-          QuickPDFHD is a fast, secure and completely free online Image to PDF
-          converter that helps you transform multiple images into professional
-          PDF documents within seconds.
+          QuickPDFHD is an online image-to-PDF tool that helps you turn multiple
+          images into one PDF document without installing additional software.
         </p>
       </div>
     </section>

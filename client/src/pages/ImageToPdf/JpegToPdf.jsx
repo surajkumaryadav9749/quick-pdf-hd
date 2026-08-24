@@ -4,19 +4,20 @@ import UploadBox from "../../components/upload/UploadBox";
 import ImagePreview from "../../components/upload/ImagePreview";
 import ConvertButton from "../../components/upload/ConvertButton";
 
-import HowToSection from "../../components/seo/HowToSection";
 import RelatedTools from "../../components/seo/RelatedTools";
 import SEO from "../../components/seo/SEO";
-
-import FAQSection from "../../components/home/FAQSection";
+import ToolPageContent from "../../components/seo/ToolPageContent";
+import imageToPdfToolContent from "../../config/imageToPdfToolContent";
 
 const JpegToPdf = () => {
+  const tool = imageToPdfToolContent.jpeg;
   return (
     <Layout>
       <SEO
         title="JPEG to PDF Converter Online - Free | QuickPDFHD"
         description="Convert JPEG images to PDF online for free with QuickPDFHD. Upload one or multiple JPEG images, arrange them and download your PDF automatically."
         canonical="https://quickpdfhd.com/jpeg-to-pdf"
+        structuredData={{ "@context": "https://schema.org", "@type": "WebApplication", name: "QuickPDFHD JPEG to PDF Converter", url: "https://quickpdfhd.com/jpeg-to-pdf", applicationCategory: "UtilitiesApplication", operatingSystem: "Web", description: "Convert JPEG and JPG images into a PDF document online." }}
       />
 
       <main className="bg-slate-50">
@@ -50,14 +51,9 @@ const JpegToPdf = () => {
           </div>
         </section>
 
-        {/* How It Works */}
-        <HowToSection />
+        <ToolPageContent tool={tool} />
 
-        {/* Related Tools */}
-        <RelatedTools />
-
-        {/* FAQs */}
-        <FAQSection />
+        <RelatedTools currentPath="/jpeg-to-pdf" />
       </main>
     </Layout>
   );

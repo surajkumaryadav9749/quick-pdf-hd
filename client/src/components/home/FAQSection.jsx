@@ -13,9 +13,9 @@ const faqs = [
       "QuickPDFHD currently supports JPG, JPEG, PNG and WEBP image formats for PDF conversion.",
   },
   {
-    question: "Are my uploaded images stored on your server?",
+    question: "How are uploaded images handled?",
     answer:
-      "No. Your privacy is important to us. Uploaded files are processed securely and are not stored permanently on our servers.",
+      "Images are uploaded to the conversion server and processed in memory to generate your PDF. The application does not write uploaded files to its own disk or database.",
   },
   {
     question: "Can I upload multiple images?",
@@ -25,7 +25,7 @@ const faqs = [
   {
     question: "Do I need to install any software?",
     answer:
-      "No. QuickPDFHD works entirely in your browser. There is no need to install any software or browser extensions.",
+      "No. You use QuickPDFHD in a browser, and no software or browser extension needs to be installed. Files are uploaded to the conversion server to generate the PDF.",
   },
   {
     question: "How do I convert images to PDF?",

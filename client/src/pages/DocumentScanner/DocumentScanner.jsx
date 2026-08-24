@@ -4,7 +4,7 @@ import ScannerWorkspace from "../../components/scanner/ScannerWorkspace";
 
 const DocumentScanner = () => (
   <Layout>
-    <SEO title="Document Scanner & PDF Compressor Online | QuickPDFHD" description="Scan document photos, clean white edges, use grayscale or black and white mode, add page numbers, and create a smaller PDF online." canonical="https://quickpdfhd.com/document-scanner" />
+    <SEO title="Document Scanner & PDF Compressor Online | QuickPDFHD" description="Scan document photos, clean white edges, use grayscale or black and white mode, add page numbers, and create a smaller PDF online." canonical="https://quickpdfhd.com/document-scanner" structuredData={{ "@context": "https://schema.org", "@type": "WebApplication", name: "QuickPDFHD Document Scanner", url: "https://quickpdfhd.com/document-scanner", applicationCategory: "UtilitiesApplication", operatingSystem: "Web", description: "Convert document photos into a cleaned and compressed PDF." }} />
     <main>
       <section className="bg-slate-50 pb-10 pt-16 text-center sm:pt-20">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
@@ -35,7 +35,7 @@ const DocumentScanner = () => (
           <dl className="mt-8 space-y-4">
             <div className="rounded-2xl border border-slate-200 bg-white p-6"><dt className="text-lg font-semibold text-slate-900">Can I combine several document photos into one PDF?</dt><dd className="mt-3 leading-7 text-slate-600">Yes. Upload up to 20 images and QuickPDFHD will create one PDF with one image on each page.</dd></div>
             <div className="rounded-2xl border border-slate-200 bg-white p-6"><dt className="text-lg font-semibold text-slate-900">Can I reduce the PDF file size?</dt><dd className="mt-3 leading-7 text-slate-600">Choose a size goal of 100 KB, 200 KB, 500 KB, or 1 MB. The final size depends on the number of pages and image detail.</dd></div>
-            <div className="rounded-2xl border border-slate-200 bg-white p-6"><dt className="text-lg font-semibold text-slate-900">Are my document photos stored permanently?</dt><dd className="mt-3 leading-7 text-slate-600">No. Files are processed only to create your PDF and are not stored permanently.</dd></div>
+            <div className="rounded-2xl border border-slate-200 bg-white p-6"><dt className="text-lg font-semibold text-slate-900">How are document photos handled?</dt><dd className="mt-3 leading-7 text-slate-600">Files are uploaded to the conversion server and processed in memory to create the PDF. The application does not write uploaded files to its own disk or database.</dd></div>
           </dl>
         </div>
       </section>

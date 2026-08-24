@@ -23,8 +23,8 @@ const HeroSection = () => {
 
         {/* Introduction */}
         <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-slate-600">
-          Convert JPG, PNG and WEBP images into a single high-quality PDF in
-          seconds. QuickPDFHD is fast, secure and completely free to use.
+          Convert JPG, PNG and WEBP images into a single PDF. Add your images,
+          set their order, and download the generated document.
         </p>
 
         {/* PDF Upload Tool */}

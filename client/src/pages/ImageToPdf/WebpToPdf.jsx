@@ -4,19 +4,20 @@ import UploadBox from "../../components/upload/UploadBox";
 import ImagePreview from "../../components/upload/ImagePreview";
 import ConvertButton from "../../components/upload/ConvertButton";
 
-import HowToSection from "../../components/seo/HowToSection";
 import RelatedTools from "../../components/seo/RelatedTools";
 import SEO from "../../components/seo/SEO";
-
-import FAQSection from "../../components/home/FAQSection";
+import ToolPageContent from "../../components/seo/ToolPageContent";
+import imageToPdfToolContent from "../../config/imageToPdfToolContent";
 
 const WebpToPdf = () => {
+  const tool = imageToPdfToolContent.webp;
   return (
     <Layout>
       <SEO
         title="WEBP to PDF Converter Online - Free | QuickPDFHD"
         description="Convert WEBP images to PDF online for free with QuickPDFHD. Upload one or multiple WEBP images, arrange them and download your PDF automatically."
         canonical="https://quickpdfhd.com/webp-to-pdf"
+        structuredData={{ "@context": "https://schema.org", "@type": "WebApplication", name: "QuickPDFHD WEBP to PDF Converter", url: "https://quickpdfhd.com/webp-to-pdf", applicationCategory: "UtilitiesApplication", operatingSystem: "Web", description: "Convert WEBP images into a PDF document online." }}
       />
 
       <main className="bg-slate-50">
@@ -50,14 +51,9 @@ const WebpToPdf = () => {
           </div>
         </section>
 
-        {/* How It Works */}
-        <HowToSection />
+        <ToolPageContent tool={tool} />
 
-        {/* Related Tools */}
-        <RelatedTools />
-
-        {/* FAQs */}
-        <FAQSection />
+        <RelatedTools currentPath="/webp-to-pdf" />
       </main>
     </Layout>
   );

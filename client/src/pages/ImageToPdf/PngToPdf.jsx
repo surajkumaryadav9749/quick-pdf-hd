@@ -4,19 +4,20 @@ import UploadBox from "../../components/upload/UploadBox";
 import ImagePreview from "../../components/upload/ImagePreview";
 import ConvertButton from "../../components/upload/ConvertButton";
 
-import HowToSection from "../../components/seo/HowToSection";
 import RelatedTools from "../../components/seo/RelatedTools";
 import SEO from "../../components/seo/SEO";
-
-import FAQSection from "../../components/home/FAQSection";
+import ToolPageContent from "../../components/seo/ToolPageContent";
+import imageToPdfToolContent from "../../config/imageToPdfToolContent";
 
 const PngToPdf = () => {
+  const tool = imageToPdfToolContent.png;
   return (
     <Layout>
       <SEO
         title="PNG to PDF Converter Online - Free | QuickPDFHD"
         description="Convert PNG images to PDF online for free with QuickPDFHD. Upload one or multiple PNG images, arrange them and download your PDF automatically."
         canonical="https://quickpdfhd.com/png-to-pdf"
+        structuredData={{ "@context": "https://schema.org", "@type": "WebApplication", name: "QuickPDFHD PNG to PDF Converter", url: "https://quickpdfhd.com/png-to-pdf", applicationCategory: "UtilitiesApplication", operatingSystem: "Web", description: "Convert PNG images into a PDF document online." }}
       />
 
       <main className="bg-slate-50">
@@ -50,14 +51,9 @@ const PngToPdf = () => {
           </div>
         </section>
 
-        {/* How It Works */}
-        <HowToSection />
+        <ToolPageContent tool={tool} />
 
-        {/* Related Tools */}
-        <RelatedTools />
-
-        {/* FAQs */}
-        <FAQSection />
+        <RelatedTools currentPath="/png-to-pdf" />
       </main>
     </Layout>
   );

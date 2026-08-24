@@ -5,6 +5,8 @@ const SEO = ({
   description = "QuickPDFHD provides free online PDF tools to convert images to PDF, create PDFs, and manage your documents quickly and easily.",
   canonical = "https://quickpdfhd.com/",
   ogImage = "https://quickpdfhd.com/quickPDFHD_logo.png",
+  structuredData,
+  robots = "index,follow",
 }) => {
   useEffect(() => {
     // Update page title
@@ -27,6 +29,7 @@ const SEO = ({
 
     // Basic SEO
     setMetaTag("name", "description", description);
+    setMetaTag("name", "robots", robots);
 
     // Open Graph
     setMetaTag("property", "og:type", "website");
@@ -52,7 +55,21 @@ const SEO = ({
     }
 
     canonicalLink.setAttribute("href", canonical);
-  }, [title, description, canonical, ogImage]);
+
+    const schemaId = "quickpdfhd-structured-data";
+    const existingSchema = document.getElementById(schemaId);
+
+    if (structuredData) {
+      const schemaScript = existingSchema || document.createElement("script");
+      schemaScript.id = schemaId;
+      schemaScript.type = "application/ld+json";
+      schemaScript.textContent = JSON.stringify(structuredData);
+
+      if (!existingSchema) document.head.appendChild(schemaScript);
+    } else {
+      existingSchema?.remove();
+    }
+  }, [title, description, canonical, ogImage, structuredData, robots]);
 
   return null;
 };

@@ -1,10 +1,12 @@
 import Layout from "../../components/layout/Layout";
 import Hero from "../../components/legal/Hero";
 import LegalSection from "../../components/legal/LegalSection";
+import SEO from "../../components/seo/SEO";
 
 const Terms = () => {
   return (
     <Layout>
+      <SEO title="Terms and Conditions | QuickPDFHD" description="Read the terms for using QuickPDFHD's online image-to-PDF and document-scanning tools." canonical="https://quickpdfhd.com/terms" />
       <main>
         <Hero
           badge="Terms & Conditions"
@@ -39,9 +41,10 @@ const Terms = () => {
 
         <LegalSection title="File Processing">
           <p>
-            Uploaded files are processed only for generating PDF documents.
-            Files are not permanently stored on our servers and are
-            automatically removed after processing.
+            Uploaded files are processed to generate the requested PDF. The
+            application uses memory storage for conversion requests and does not
+            include a feature that writes uploaded files to its own disk or
+            database. You remain responsible for the files you choose to upload.
           </p>
         </LegalSection>
 
@@ -50,6 +53,14 @@ const Terms = () => {
             QuickPDFHD is provided "as is" without warranties of any kind. We
             are not responsible for any loss, damage or interruption resulting
             from the use of our services.
+          </p>
+        </LegalSection>
+
+        <LegalSection title="Service Availability">
+          <p>
+            QuickPDFHD is provided on an as-available basis. Tool availability,
+            processing time, and output may vary with file size, file content,
+            browser, network, and service conditions.
           </p>
         </LegalSection>
 

@@ -9,9 +9,9 @@ const features = [
   },
   {
     icon: <FiLock aria-hidden="true" />,
-    title: "Secure & Private",
+    title: "Clear file handling",
     description:
-      "Your uploaded images are processed securely and never stored permanently.",
+      "Images are uploaded to the conversion server and processed in memory to create the requested PDF.",
   },
   {
     icon: <FiGlobe aria-hidden="true" />,
@@ -49,7 +49,7 @@ const AboutQuickPDFHD = () => {
 
           <p className="mt-6 text-lg leading-8 text-slate-600">
             QuickPDFHD is a modern online Image to PDF converter built to make
-            document conversion simple, fast and secure. Whether you're a
+            document conversion simple and practical. Whether you're a
             student, professional, freelancer or business owner, QuickPDFHD
             helps you convert multiple images into a professional PDF without
             installing any software.

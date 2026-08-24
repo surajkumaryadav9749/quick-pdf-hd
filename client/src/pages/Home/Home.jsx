@@ -17,6 +17,7 @@ const Home = () => {
         title="QuickPDFHD - Free Online PDF Tools"
         description="QuickPDFHD provides free online PDF tools to convert images to PDF, create PDFs, and manage your documents quickly and easily."
         canonical="https://quickpdfhd.com/"
+        structuredData={{ "@context": "https://schema.org", "@graph": [{ "@type": "WebSite", name: "QuickPDFHD", url: "https://quickpdfhd.com/" }, { "@type": "WebApplication", name: "QuickPDFHD", url: "https://quickpdfhd.com/", applicationCategory: "UtilitiesApplication", operatingSystem: "Web", description: "Online tools for converting image files and document photos into PDF documents." }] }}
       />
 
       <main>

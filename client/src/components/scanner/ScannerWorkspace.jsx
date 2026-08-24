@@ -4,10 +4,10 @@ import { FiAlertTriangle, FiCheckCircle, FiFileText, FiUploadCloud, FiX } from "
 import { scanImagesToPdf } from "../../services/scanner.service";
 
 const targets = [
-  { value: 100, label: "Under 100 KB" },
-  { value: 200, label: "Under 200 KB" },
-  { value: 500, label: "Under 500 KB" },
-  { value: 1024, label: "Under 1 MB" },
+  { value: 100, label: "About 100 KB" },
+  { value: 200, label: "About 200 KB" },
+  { value: 500, label: "About 500 KB" },
+  { value: 1024, label: "About 1 MB" },
 ];
 
 const inspectImage = (file) =>
@@ -69,7 +69,7 @@ const ScannerWorkspace = () => {
   const [selectedPage, setSelectedPage] = useState(null);
 
   const addFiles = async (fileList) => {
-    const files = Array.from(fileList || []).filter((file) => file.type.startsWith("image/"));
+    const files = Array.from(fileList || []).filter((file) => ["image/jpeg", "image/png", "image/webp"].includes(file.type) && file.size <= 10 * 1024 * 1024);
     if (!files.length) return toast.error("Please choose JPG, PNG, or WEBP images.");
     if (pages.length + files.length > 20) return toast.error("You can scan up to 20 pages at once.");
 
@@ -162,7 +162,7 @@ const ScannerWorkspace = () => {
               <label className="flex cursor-pointer items-start gap-3"><input type="checkbox" checked={settings.pageNumbers} onChange={(event) => setSettings((current) => ({ ...current, pageNumbers: event.target.checked }))} className="mt-1 h-4 w-4 accent-blue-600" /><span><strong className="text-slate-900">Add page numbers</strong><small className="mt-1 block leading-5 text-slate-600">Places a page number at the bottom of each PDF page.</small></span></label>
             </div>
             <button type="button" disabled={!pages.length || isCreating} onClick={createPdf} className="mt-8 flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-5 py-3.5 font-semibold text-white shadow-sm transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-slate-400"><FiFileText />{isCreating ? "Creating PDF..." : "Create scanned PDF"}</button>
-            <p className="mt-4 flex gap-2 text-xs leading-5 text-slate-500"><FiCheckCircle className="mt-0.5 shrink-0 text-emerald-600" />Files are processed only to generate your PDF and are not stored permanently.</p>
+            <p className="mt-4 flex gap-2 text-xs leading-5 text-slate-500"><FiCheckCircle className="mt-0.5 shrink-0 text-emerald-600" />Files are sent to the conversion server and processed in memory to create your PDF.</p>
           </aside>
         </div>
       </div>

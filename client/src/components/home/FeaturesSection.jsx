@@ -12,9 +12,9 @@ const features = [
   },
   {
     icon: <FiShield aria-hidden="true" />,
-    title: "Secure & Private",
+    title: "Clear file handling",
     description:
-      "Your uploaded files are processed securely and are not stored permanently.",
+      "Uploaded images are sent to the conversion server and processed in memory to create your PDF.",
   },
   {
     icon: <FiMonitor aria-hidden="true" />,
@@ -63,9 +63,8 @@ const FeaturesSection = () => {
           </h2>
 
           <p className="mt-4 text-lg leading-8 text-slate-600">
-            Convert JPG, PNG and WEBP images into high-quality PDF files in
-            seconds. No registration, no installation and completely free to
-            use.
+            Convert JPG, PNG and WEBP images into PDF files without installing
+            software or creating an account.
           </p>
         </div>
 

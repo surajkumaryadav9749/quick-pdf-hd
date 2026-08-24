@@ -15,9 +15,9 @@ const faqs = [
       "No. You don't need to register or log in. Simply upload your images and convert them instantly.",
   },
   {
-    question: "Are my uploaded images secure?",
+    question: "How are uploaded images handled?",
     answer:
-      "Absolutely. Your images are processed securely and are not stored permanently on our servers.",
+      "Images are uploaded to the conversion server and processed in memory to generate the requested PDF. The application does not write uploaded files to its own disk or database.",
   },
   {
     question: "Which image formats are supported?",

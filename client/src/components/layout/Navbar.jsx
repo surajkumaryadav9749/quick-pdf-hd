@@ -43,6 +43,11 @@ const Navbar = () => {
               </NavLink>
             </li>
           ))}
+          <li>
+            <a href="/#services" className="font-medium text-slate-600 transition hover:text-blue-600">
+              PDF Tools
+            </a>
+          </li>
         </ul>
 
         {/* Desktop CTA */}
@@ -116,6 +121,11 @@ const Navbar = () => {
                 </NavLink>
               </li>
             ))}
+            <li>
+              <a href="/#services" onClick={closeMenu} className="block rounded-lg px-4 py-3 font-medium text-slate-600 transition hover:bg-slate-50 hover:text-blue-600">
+                PDF Tools
+              </a>
+            </li>
 
             {/* Mobile CTA */}
             <li className="mt-2">

@@ -6,7 +6,7 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
 const PreviewCard = ({ image }) => {
-  const [previewUrl, setPreviewUrl] = useState("");
+  const [previewUrl] = useState(() => URL.createObjectURL(image.file));
 
   const { removeImage } = useImageUpload();
 
@@ -29,13 +29,7 @@ const PreviewCard = ({ image }) => {
     opacity: isDragging ? 0.8 : 1,
   };
 
-  useEffect(() => {
-    const objectUrl = URL.createObjectURL(image.file);
-
-    setPreviewUrl(objectUrl);
-
-    return () => URL.revokeObjectURL(objectUrl);
-  }, [image]);
+  useEffect(() => () => URL.revokeObjectURL(previewUrl), [previewUrl]);
 
   const fileName = useMemo(() => {
     if (image.file.name.length <= 22) return image.file.name;

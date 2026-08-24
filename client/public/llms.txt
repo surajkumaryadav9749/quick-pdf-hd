@@ -9,6 +9,7 @@ QuickPDFHD is a free, browser-based image-to-PDF converter. Users can upload, ar
 - [JPEG to PDF](https://quickpdfhd.com/jpeg-to-pdf): Convert JPEG images to PDF.
 - [PNG to PDF](https://quickpdfhd.com/png-to-pdf): Convert PNG images to PDF.
 - [WEBP to PDF](https://quickpdfhd.com/webp-to-pdf): Convert WEBP images to PDF.
+- [Document Scanner](https://quickpdfhd.com/document-scanner): Clean document photos and create a PDF.
 
 ## Additional information
 

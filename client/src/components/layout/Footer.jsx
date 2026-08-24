@@ -1,12 +1,12 @@
 import { NavLink } from "react-router-dom";
 import Container from "../common/Container";
-import { NAV_LINKS, LEGAL_LINKS } from "../../constants/navigation";
+import { NAV_LINKS, LEGAL_LINKS, TOOL_LINKS } from "../../constants/navigation";
 
 const Footer = () => {
   return (
     <footer className="bg-slate-950 text-slate-300">
       <Container>
-        <div className="grid gap-12 py-16 md:grid-cols-3">
+        <div className="grid gap-12 py-16 md:grid-cols-4">
           {/* Logo */}
           <div>
             <NavLink to="/" className="mb-5 flex items-center gap-3">
@@ -22,9 +22,22 @@ const Footer = () => {
             </NavLink>
 
             <p className="max-w-sm leading-7 text-slate-400">
-              Convert JPG, PNG and WEBP images into high-quality PDF files
-              instantly. Fast, secure, privacy-friendly and completely free.
+              Create PDF documents from image files and prepare document photos
+              for sharing or uploading.
             </p>
+          </div>
+
+          <div>
+            <h3 className="mb-5 text-lg font-semibold text-white">PDF Tools</h3>
+            <ul className="space-y-3">
+              {TOOL_LINKS.map((link) => (
+                <li key={link.path}>
+                  <NavLink to={link.path} className="transition-colors duration-200 hover:text-blue-400">
+                    {link.name}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
           </div>
 
           {/* Quick Links */}

@@ -16,9 +16,9 @@ const benefits = [
   },
   {
     icon: <FiLock aria-hidden="true" />,
-    title: "Privacy First",
+    title: "Straightforward file handling",
     description:
-      "Your files are processed securely and are never stored permanently on our servers.",
+      "Files are uploaded for conversion and processed in memory by the application.",
   },
   {
     icon: <FiSmartphone aria-hidden="true" />,

@@ -1,10 +1,16 @@
 import Layout from "../../components/layout/Layout";
 import Hero from "../../components/legal/Hero";
 import LegalSection from "../../components/legal/LegalSection";
+import SEO from "../../components/seo/SEO";
 
 const Privacy = () => {
   return (
     <Layout>
+      <SEO
+        title="Privacy Policy | QuickPDFHD"
+        description="Learn how QuickPDFHD handles uploaded files, contact-form information, analytics, and advertising services."
+        canonical="https://quickpdfhd.com/privacy-policy"
+      />
       <main>
         <Hero
           badge="Privacy Policy"
@@ -14,8 +20,9 @@ const Privacy = () => {
 
         <LegalSection title="Introduction">
           <p>
-            Welcome to QuickPDFHD. We are committed to protecting your privacy
-            while providing a fast and secure Image to PDF conversion service.
+            This policy explains how QuickPDFHD handles information when you use
+            its image-to-PDF and document-scanner tools or send a message through
+            the contact form.
           </p>
 
           <p>
@@ -26,47 +33,52 @@ const Privacy = () => {
 
         <LegalSection title="Information We Collect">
           <p>
-            QuickPDFHD does not permanently store your uploaded images or PDF
-            files.
+            The conversion tools receive the image files you choose to upload.
+            The current application processes those files in server memory to
+            create your requested PDF; it does not write uploaded files to its
+            own disk or database.
           </p>
 
           <ul className="list-disc space-y-3 pl-6">
-            <li>Uploaded image files (temporarily for conversion)</li>
-            <li>Browser type</li>
-            <li>Device information</li>
-            <li>IP address</li>
-            <li>Anonymous usage statistics</li>
+            <li>Uploaded image files while a conversion request is being processed</li>
+            <li>Contact-form details you submit, such as your name, email address, subject, and message</li>
+            <li>Usage information collected by enabled analytics or advertising providers, subject to their policies</li>
           </ul>
         </LegalSection>
 
         <LegalSection title="How We Use Your Information">
           <ul className="list-disc space-y-3 pl-6">
-            <li>Generate PDF files.</li>
-            <li>Improve website performance.</li>
-            <li>Fix bugs and technical issues.</li>
-            <li>Maintain website security.</li>
+            <li>Generate the PDF or scan result you request.</li>
+            <li>Respond to messages sent through the contact form.</li>
+            <li>Understand site usage and maintain the service.</li>
           </ul>
         </LegalSection>
 
         <LegalSection title="Cookies">
           <p>
-            We may use cookies to improve your browsing experience, remember
-            your preferences, and analyze website traffic.
+            QuickPDFHD may use cookies or similar technologies through Google
+            Analytics and Google AdSense. These services may collect or receive
+            information from your browser and use cookies to measure usage,
+            provide advertising, and limit ad repetition. You can manage cookies
+            through your browser settings.
           </p>
         </LegalSection>
 
-        <LegalSection title="Data Security">
+        <LegalSection title="Uploaded Files">
           <p>
-            All uploaded files are processed securely and are automatically
-            removed after processing. We do not sell or share your files with
-            third parties.
+            Uploaded files are sent to the conversion server only to process your
+            request. The application uses memory storage for these requests and
+            does not include a feature that saves uploaded files to its own disk
+            or database. Do not upload files you are not authorized to handle.
           </p>
         </LegalSection>
 
         <LegalSection title="Third-Party Services">
           <p>
-            We may use trusted third-party services such as Google Analytics and
-            Google AdSense to improve our website and display relevant content.
+            QuickPDFHD currently includes Google Analytics and Google AdSense.
+            These providers handle data under their own privacy policies. The
+            contact form uses an email delivery service configured by the site
+            operator to send your message.
           </p>
         </LegalSection>
 
@@ -86,8 +98,8 @@ const Privacy = () => {
 
         <LegalSection title="Contact Us">
           <p>
-            If you have any questions regarding this Privacy Policy, please
-            visit our Contact page.
+            If you have questions about this Privacy Policy, use the contact form
+            on our Contact page.
           </p>
         </LegalSection>
       </main>

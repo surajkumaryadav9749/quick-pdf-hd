@@ -47,6 +47,7 @@ const Footer = () => {
             </h3>
 
             <ul className="space-y-3">
+              <li><NavLink to="/all-services" className="transition-colors duration-200 hover:text-blue-400">All Services</NavLink></li>
               {NAV_LINKS.map((link) => (
                 <li key={link.path}>
                   <NavLink

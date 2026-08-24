@@ -2,6 +2,16 @@ import { Link } from "react-router-dom";
 
 const tools = [
   {
+    title: "PDF to ZIP",
+    description: "Package several PDF files into a single ZIP archive.",
+    path: "/pdf-to-zip",
+  },
+  {
+    title: "Resize Image",
+    description: "Resize JPG, PNG, and WebP images online.",
+    path: "/resize-image",
+  },
+  {
     title: "JPG to PDF",
     description: "Convert JPG images to PDF online for free.",
     path: "/jpg-to-pdf",

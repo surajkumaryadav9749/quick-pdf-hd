@@ -31,7 +31,7 @@ const createZip = (entries) => {
   let offset = 0;
 
   entries.forEach(({ name, buffer }) => {
-    const fileName = Buffer.from(name.replace(/[^a-zA-Z0-9._-]/g, "_"));
+    const fileName = Buffer.from(String(name).replace(/[\\/]+/g, "_").replace(/[^a-zA-Z0-9._ -]/g, "_").slice(0, 180));
     const checksum = crc32(buffer);
     const localHeader = Buffer.concat([
       uint32(0x04034b50), uint16(20), uint16(0), uint16(0), uint16(0), uint16(0),

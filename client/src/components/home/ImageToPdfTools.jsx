@@ -3,6 +3,20 @@ import { FiFileText } from "react-icons/fi";
 
 const tools = [
   {
+    title: "PDF to ZIP",
+    description: "Package several PDF files together in one ZIP archive.",
+    format: "ZIP",
+    path: "/pdf-to-zip",
+    badgeClass: "bg-red-100 text-red-700",
+  },
+  {
+    title: "Resize Image",
+    description: "Resize JPG, PNG, and WebP images by pixels or percentage.",
+    format: "SIZE",
+    path: "/resize-image",
+    badgeClass: "bg-violet-100 text-violet-700",
+  },
+  {
     title: "Document Scanner",
     description: "Clean document photos and create a smaller, page-numbered PDF.",
     format: "SCAN",
@@ -63,6 +77,7 @@ const ImageToPdfTools = () => {
               JPG to PDF converter
             </Link>.
           </p>
+          <Link to="/all-services" className="mt-5 inline-flex font-semibold text-blue-600 hover:underline">View all QuickPDFHD services →</Link>
         </div>
 
         {/* Tool Cards */}

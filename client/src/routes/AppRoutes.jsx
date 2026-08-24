@@ -12,6 +12,9 @@ const PngToPdf = lazy(() => import("../pages/ImageToPdf/PngToPdf"));
 const JpegToPdf = lazy(() => import("../pages/ImageToPdf/JpegToPdf"));
 const WebpToPdf = lazy(() => import("../pages/ImageToPdf/WebpToPdf"));
 const DocumentScanner = lazy(() => import("../pages/DocumentScanner/DocumentScanner"));
+const PdfToZip = lazy(() => import("../pages/PdfToZip/PdfToZip"));
+const ResizeImage = lazy(() => import("../pages/ResizeImage/ResizeImage"));
+const AllServices = lazy(() => import("../pages/AllServices/AllServices"));
 
 const AppRoutes = () => {
   return (
@@ -30,6 +33,9 @@ const AppRoutes = () => {
           <Route path="/jpeg-to-pdf" element={<JpegToPdf />} />
           <Route path="/webp-to-pdf" element={<WebpToPdf />} />
           <Route path="/document-scanner" element={<DocumentScanner />} />
+          <Route path="/pdf-to-zip" element={<PdfToZip />} />
+          <Route path="/resize-image" element={<ResizeImage />} />
+          <Route path="/all-services" element={<AllServices />} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -17,7 +17,19 @@ const resizeImages = async (req, res) => {
     const quality = Math.max(20, Math.min(Number(req.body.quality) || 80, 95));
 
     const outputs = await Promise.all(req.files.map(async (file, index) => {
-      const image = sharp(file.buffer).rotate().resize({ width, height, fit: "inside", withoutEnlargement: false });
+      // Keep the photo's proportions while producing the exact requested canvas.
+      // For example, a landscape image exported at 1000 x 1000 is not stretched.
+      const background = format === "jpeg"
+        ? { r: 255, g: 255, b: 255, alpha: 1 }
+        : { r: 0, g: 0, b: 0, alpha: 0 };
+      const image = sharp(file.buffer).rotate().resize({
+        width,
+        height,
+        fit: "contain",
+        position: "centre",
+        background,
+        withoutEnlargement: false,
+      });
       const buffer = await image.toFormat(format, outputOptions[format](quality)).toBuffer();
       const baseName = file.originalname.replace(/\.[^.]+$/, "") || `resized-image-${index + 1}`;
       return { name: `${baseName}.${format === "jpeg" ? "jpg" : format}`, buffer };

@@ -121,7 +121,7 @@ const ScannerWorkspace = () => {
         <div className="grid gap-6 lg:grid-cols-[1.3fr_0.7fr]">
           <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
             <input ref={inputRef} type="file" accept="image/jpeg,image/png,image/webp" multiple className="hidden" onChange={(event) => { addFiles(event.target.files); event.target.value = ""; }} />
-            <button type="button" onClick={() => inputRef.current?.click()} className="flex w-full flex-col items-center rounded-2xl border-2 border-dashed border-blue-200 bg-blue-50 px-6 py-10 text-center transition hover:border-blue-500 hover:bg-blue-100">
+            <button id="upload" type="button" onClick={() => inputRef.current?.click()} className="scroll-mt-24 flex w-full flex-col items-center rounded-2xl border-2 border-dashed border-blue-200 bg-blue-50 px-6 py-10 text-center transition hover:border-blue-500 hover:bg-blue-100">
               <FiUploadCloud className="text-5xl text-blue-600" />
               <span className="mt-4 text-xl font-bold text-slate-900">Upload document photos</span>
               <span className="mt-2 text-slate-600">JPG, PNG or WEBP · up to 20 pages · 10 MB each</span>

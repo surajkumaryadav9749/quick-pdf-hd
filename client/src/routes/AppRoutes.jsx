@@ -1,5 +1,6 @@
 import { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import HashFocus from "../components/common/HashFocus";
 
 import Home from "../pages/Home/Home";
 const About = lazy(() => import("../pages/About/About"));
@@ -19,6 +20,7 @@ const AllServices = lazy(() => import("../pages/AllServices/AllServices"));
 const AppRoutes = () => {
   return (
     <BrowserRouter>
+      <HashFocus />
       <Suspense fallback={null}>
         <Routes>
           <Route path="/" element={<Home />} />

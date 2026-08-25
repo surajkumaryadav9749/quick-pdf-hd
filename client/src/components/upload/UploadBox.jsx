@@ -8,6 +8,8 @@ const UploadBox = ({ allowedTypes, accept }) => {
   return (
     <div
       {...dragProps}
+      id="upload"
+      tabIndex={-1}
       className={`
         cursor-pointer
         rounded-3xl

@@ -85,7 +85,7 @@ const ImageToPdfTools = () => {
           {tools.map((tool) => (
             <Link
               key={tool.path}
-              to={tool.path}
+              to={`${tool.path}#upload`}
               className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-blue-300 hover:shadow-xl"
             >
               <div className={`flex h-14 w-14 items-center justify-center rounded-xl text-sm font-bold ${tool.badgeClass}`}>

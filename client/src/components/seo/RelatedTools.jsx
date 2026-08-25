@@ -64,7 +64,7 @@ const RelatedTools = ({ currentPath }) => {
           {relatedTools.map((tool) => (
             <Link
               key={tool.path}
-              to={tool.path}
+              to={`${tool.path}#upload`}
               className="rounded-2xl border border-slate-200 p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
             >
               <h3 className="text-xl font-semibold text-slate-900">

@@ -14,4 +14,4 @@ const postFiles = async (path, fieldName, files, fields = {}) => {
 };
 
 export const createPdfZip = (files) => postFiles("/api/pdf-to-zip", "pdfs", files);
-export const resizeImageFile = (file, options) => postFiles("/api/resize-image", "images", [file], options);
+export const resizeImageFiles = (files, options) => postFiles("/api/resize-image", "images", files, options);

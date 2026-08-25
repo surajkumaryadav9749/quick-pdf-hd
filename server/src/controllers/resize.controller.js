@@ -7,6 +7,19 @@ const outputOptions = {
   webp: (quality) => ({ quality }),
 };
 
+const outputName = (originalName, format, index, usedNames) => {
+  const extension = format === "jpeg" ? "jpg" : format;
+  const baseName = (originalName.replace(/\.[^.]+$/, "") || `resized-image-${index + 1}`).slice(0, 150);
+  let name = `${baseName}.${extension}`;
+  let suffix = 1;
+  while (usedNames.has(name.toLowerCase())) {
+    name = `${baseName} (${suffix}).${extension}`;
+    suffix += 1;
+  }
+  usedNames.add(name.toLowerCase());
+  return name;
+};
+
 const resizeImages = async (req, res) => {
   try {
     if (!req.files?.length) return res.status(400).json({ success: false, message: "No images uploaded." });
@@ -16,6 +29,7 @@ const resizeImages = async (req, res) => {
     const format = ["jpeg", "png", "webp"].includes(req.body.format) ? req.body.format : "jpeg";
     const quality = Math.max(20, Math.min(Number(req.body.quality) || 80, 95));
 
+    const usedNames = new Set();
     const outputs = await Promise.all(req.files.map(async (file, index) => {
       // Keep the photo's proportions while producing the exact requested canvas.
       // For example, a landscape image exported at 1000 x 1000 is not stretched.
@@ -31,14 +45,8 @@ const resizeImages = async (req, res) => {
         withoutEnlargement: false,
       });
       const buffer = await image.toFormat(format, outputOptions[format](quality)).toBuffer();
-      const baseName = file.originalname.replace(/\.[^.]+$/, "") || `resized-image-${index + 1}`;
-      return { name: `${baseName}.${format === "jpeg" ? "jpg" : format}`, buffer };
+      return { name: outputName(file.originalname, format, index, usedNames), buffer };
     }));
-
-    if (outputs.length === 1) {
-      res.set({ "Content-Type": `image/${format}`, "Content-Disposition": `attachment; filename="${outputs[0].name}"` });
-      return res.send(outputs[0].buffer);
-    }
 
     const zipBuffer = createZip(outputs);
     res.set({ "Content-Type": "application/zip", "Content-Disposition": 'attachment; filename="QuickPDFHD-resized-images.zip"' });

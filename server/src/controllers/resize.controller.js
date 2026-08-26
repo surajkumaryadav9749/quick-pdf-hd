@@ -31,17 +31,14 @@ const resizeImages = async (req, res) => {
 
     const usedNames = new Set();
     const outputs = await Promise.all(req.files.map(async (file, index) => {
-      // Keep the photo's proportions while producing the exact requested canvas.
-      // For example, a landscape image exported at 1000 x 1000 is not stretched.
-      const background = format === "jpeg"
-        ? { r: 255, g: 255, b: 255, alpha: 1 }
-        : { r: 0, g: 0, b: 0, alpha: 0 };
+      // Fill the requested canvas without distortion. `cover` scales the image
+      // proportionally, then crops excess pixels from the centre; unlike
+      // `contain`, it never adds padding or blank strips.
       const image = sharp(file.buffer).rotate().resize({
         width,
         height,
-        fit: "contain",
+        fit: "cover",
         position: "centre",
-        background,
         withoutEnlargement: false,
       });
       const buffer = await image.toFormat(format, outputOptions[format](quality)).toBuffer();

@@ -1,7 +1,8 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { FiAlertTriangle, FiCheckCircle, FiFileText, FiUploadCloud, FiX } from "react-icons/fi";
 import { scanImagesToPdf } from "../../services/scanner.service";
+import useResultFocus from "../common/useResultFocus";
 
 const targets = [
   { value: 100, label: "About 100 KB" },
@@ -9,6 +10,8 @@ const targets = [
   { value: 500, label: "About 500 KB" },
   { value: 1024, label: "About 1 MB" },
 ];
+
+const formatBytes = (bytes) => `${(bytes / 1024 / 1024).toFixed(bytes >= 10 * 1024 * 1024 ? 1 : 2)} MB`;
 
 const inspectImage = (file) =>
   new Promise((resolve) => {
@@ -67,6 +70,12 @@ const ScannerWorkspace = () => {
   });
   const [isCreating, setIsCreating] = useState(false);
   const [selectedPage, setSelectedPage] = useState(null);
+  const [result, setResult] = useState(null);
+  const resultRef = useResultFocus(result);
+
+  useEffect(() => () => {
+    if (result?.url) URL.revokeObjectURL(result.url);
+  }, [result]);
 
   const addFiles = async (fileList) => {
     const files = Array.from(fileList || []).filter((file) => ["image/jpeg", "image/png", "image/webp"].includes(file.type) && file.size <= 10 * 1024 * 1024);
@@ -100,11 +109,7 @@ const ScannerWorkspace = () => {
       const toastId = toast.loading("Cleaning pages and creating your PDF...");
       const pdfBlob = await scanImagesToPdf(pages.map((page) => page.file), settings);
       const url = URL.createObjectURL(pdfBlob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = "QuickPDFHD-scanned-document.pdf";
-      link.click();
-      URL.revokeObjectURL(url);
+      setResult({ url, size: pdfBlob.size });
       toast.success("Your scanned PDF is ready.", { id: toastId });
     } catch (error) {
       toast.error(error?.response?.data?.message || "Could not create the PDF. Please try again.");
@@ -114,6 +119,29 @@ const ScannerWorkspace = () => {
   };
 
   const warnings = pages.filter((page) => page.blank || page.blurry);
+
+  const reset = () => {
+    pages.forEach((page) => URL.revokeObjectURL(page.preview));
+    setPages([]);
+    setSelectedPage(null);
+    setResult(null);
+  };
+
+  if (result) return (
+    <section ref={resultRef} tabIndex="-1" aria-live="polite" className="scroll-mt-24 bg-slate-50 pb-16 outline-none sm:pb-20">
+      <div className="mx-auto max-w-3xl px-4 sm:px-6">
+        <div className="rounded-3xl border border-emerald-200 bg-white p-8 text-center shadow-sm">
+          <FiCheckCircle className="mx-auto text-5xl text-emerald-600" />
+          <h2 className="mt-4 text-2xl font-bold text-slate-900">Your scanned PDF is ready</h2>
+          <p className="mt-3 text-slate-600">{pages.length} page{pages.length > 1 ? "s" : ""} scanned · {formatBytes(result.size)}</p>
+          <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
+            <a href={result.url} download="QuickPDFHD-scanned-document.pdf" className="rounded-xl bg-blue-600 px-6 py-3 font-semibold text-white hover:bg-blue-700">Download PDF</a>
+            <button type="button" onClick={reset} className="rounded-xl border border-slate-300 px-6 py-3 font-semibold text-slate-700 hover:bg-slate-50">Scan more pages</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 
   return (
     <section className="bg-slate-50 pb-16 sm:pb-20">

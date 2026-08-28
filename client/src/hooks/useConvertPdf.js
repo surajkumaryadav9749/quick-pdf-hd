@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 import { convertImagesToPdf } from "../services/pdf.service";
@@ -8,6 +8,11 @@ const useConvertPdf = () => {
   const { images, clearImages } = useImageUpload();
 
   const [isConverting, setIsConverting] = useState(false);
+  const [result, setResult] = useState(null);
+
+  useEffect(() => () => {
+    if (result?.url) URL.revokeObjectURL(result.url);
+  }, [result]);
 
   const convertPdf = useCallback(async () => {
     if (!images.length) {
@@ -26,33 +31,11 @@ const useConvertPdf = () => {
       // Create temporary browser URL
       const pdfUrl = URL.createObjectURL(pdfBlob);
 
-      // Create download link
-      const link = document.createElement("a");
+      setResult({ url: pdfUrl, size: pdfBlob.size, imageCount: images.length });
 
-      link.href = pdfUrl;
-      link.download = "QuickPDFHD.pdf";
-
-      // Add link temporarily
-      document.body.appendChild(link);
-
-      // Start download
-      link.click();
-
-      // Remove temporary link
-      document.body.removeChild(link);
-
-      // Free browser memory
-      URL.revokeObjectURL(pdfUrl);
-
-      // Success Toast
-      toast.success("PDF downloaded successfully!", {
+      toast.success("Your PDF is ready.", {
         id: toastId,
       });
-
-      // Wait a little, then clear uploaded images
-      setTimeout(() => {
-        clearImages();
-      }, 300);
     } catch (error) {
       console.error("PDF Conversion Error:", error);
 
@@ -64,11 +47,18 @@ const useConvertPdf = () => {
     } finally {
       setIsConverting(false);
     }
-  }, [images, clearImages]);
+  }, [images]);
+
+  const resetResult = useCallback(() => {
+    setResult(null);
+    clearImages();
+  }, [clearImages]);
 
   return {
     convertPdf,
     isConverting,
+    result,
+    resetResult,
   };
 };
 

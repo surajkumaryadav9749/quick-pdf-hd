@@ -14,8 +14,8 @@ const WebpToPdf = () => {
   return (
     <Layout>
       <SEO
-        title="WEBP to PDF Converter Online - Free | QuickPDFHD"
-        description="Convert WEBP images to PDF online for free with QuickPDFHD. Upload one or multiple WEBP images, arrange them and download your PDF automatically."
+        title="WEBP to PDF Converter – Convert Multiple WEBP Images | QuickPDFHD"
+        description="Convert multiple WEBP images into one PDF online. Upload, reorder up to 20 web images, and download one shareable PDF document."
         canonical="https://quickpdfhd.com/webp-to-pdf"
         structuredData={{ "@context": "https://schema.org", "@type": "WebApplication", name: "QuickPDFHD WEBP to PDF Converter", url: "https://quickpdfhd.com/webp-to-pdf", applicationCategory: "UtilitiesApplication", operatingSystem: "Web", description: "Convert WEBP images into a PDF document online." }}
       />
@@ -29,13 +29,11 @@ const WebpToPdf = () => {
             </p>
 
             <h1 className="mt-4 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl lg:text-6xl">
-              Convert WEBP to PDF Online
+              Convert Multiple WEBP Images to PDF
             </h1>
 
             <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-slate-600">
-              Convert WEBP images to PDF online for free. Upload one or multiple
-              WEBP images, arrange them in your preferred order and download
-              your PDF automatically after conversion.
+              Turn WEBP images saved from websites or browsers into one PDF. Upload up to 20 images, arrange the pages, and download your completed document.
             </p>
           </div>
         </section>

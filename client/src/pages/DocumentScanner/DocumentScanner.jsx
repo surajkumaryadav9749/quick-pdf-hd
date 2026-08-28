@@ -1,16 +1,17 @@
 import Layout from "../../components/layout/Layout";
 import SEO from "../../components/seo/SEO";
 import ScannerWorkspace from "../../components/scanner/ScannerWorkspace";
+import RelatedTools from "../../components/seo/RelatedTools";
 
 const DocumentScanner = () => (
   <Layout>
-    <SEO title="Document Scanner & PDF Compressor Online | QuickPDFHD" description="Scan document photos, clean white edges, use grayscale or black and white mode, add page numbers, and create a smaller PDF online." canonical="https://quickpdfhd.com/document-scanner" structuredData={{ "@context": "https://schema.org", "@type": "WebApplication", name: "QuickPDFHD Document Scanner", url: "https://quickpdfhd.com/document-scanner", applicationCategory: "UtilitiesApplication", operatingSystem: "Web", description: "Convert document photos into a cleaned and compressed PDF." }} />
+    <SEO title="Scan Multiple Photos to PDF – Document Scanner | QuickPDFHD" description="Scan up to 20 document photos into one PDF. Crop white edges, choose color or black-and-white mode, add page numbers, and set a compact size goal." canonical="https://quickpdfhd.com/document-scanner" structuredData={{ "@context": "https://schema.org", "@type": "WebApplication", name: "QuickPDFHD Document Scanner", url: "https://quickpdfhd.com/document-scanner", applicationCategory: "UtilitiesApplication", operatingSystem: "Web", description: "Scan up to 20 document photos into a cleaned, page-numbered PDF with size and color settings." }} />
     <main>
       <section className="bg-slate-50 pb-10 pt-16 text-center sm:pt-20">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <p className="text-sm font-semibold uppercase tracking-wide text-blue-600">Document scanner</p>
-          <h1 className="mt-3 text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl">Scan photos into a clean, smaller PDF</h1>
-          <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-slate-600">Clean document photos, choose a compact PDF size, add page numbers, and download one submission-ready PDF.</p>
+          <h1 className="mt-3 text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl">Scan Multiple Document Photos to PDF</h1>
+          <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-slate-600">Turn up to 20 JPG, PNG, or WEBP document photos into one clean PDF. Crop white edges, choose a document mode and size goal, add page numbers, and download it.</p>
         </div>
       </section>
       <ScannerWorkspace />
@@ -19,7 +20,7 @@ const DocumentScanner = () => (
           <div className="max-w-3xl">
             <p className="text-sm font-semibold uppercase tracking-wide text-blue-600">How it works</p>
             <h2 className="mt-3 text-3xl font-bold text-slate-900 sm:text-4xl">Turn document photos into a submission-ready PDF</h2>
-            <p className="mt-4 text-lg leading-8 text-slate-600">Use this scanner for notes, forms, certificates, and other document photos. Review every page before creating a compact PDF for sharing or uploading.</p>
+            <p className="mt-4 text-lg leading-8 text-slate-600">Use this multi-page document scanner for notes, forms, certificates, and other document photos. Review every page, choose color, grayscale, or black-and-white processing, then create a compact PDF for sharing or uploading.</p>
           </div>
           <ol className="mt-10 grid gap-5 md:grid-cols-3">
             <li className="rounded-2xl border border-slate-200 bg-slate-50 p-6"><span className="font-bold text-blue-600">01</span><h3 className="mt-3 text-xl font-semibold text-slate-900">Upload and review</h3><p className="mt-3 leading-7 text-slate-600">Add JPG, PNG, or WEBP document photos, then open the full preview to check every page.</p></li>
@@ -39,6 +40,7 @@ const DocumentScanner = () => (
           </dl>
         </div>
       </section>
+      <RelatedTools currentPath="/document-scanner" />
     </main>
   </Layout>
 );

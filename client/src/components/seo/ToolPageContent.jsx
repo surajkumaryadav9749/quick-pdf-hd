@@ -6,6 +6,8 @@ const relatedTools = [
   { name: "JPEG to PDF", path: "/jpeg-to-pdf" },
   { name: "WEBP to PDF", path: "/webp-to-pdf" },
   { name: "Document Scanner", path: "/document-scanner" },
+  { name: "Resize Image", path: "/resize-image" },
+  { name: "PDF to ZIP", path: "/pdf-to-zip" },
 ];
 
 const ToolPageContent = ({ tool }) => {
@@ -35,7 +37,20 @@ const ToolPageContent = ({ tool }) => {
         </div>
       </section>
 
-      <section aria-labelledby={`${tool.id}-uses`} className="bg-slate-50 py-16 sm:py-20">
+      <section aria-labelledby={`${tool.id}-batch`} className="bg-slate-50 py-16 sm:py-20">
+        <div className="mx-auto grid max-w-5xl gap-6 px-4 sm:grid-cols-2 sm:px-6 lg:px-8">
+          <article className="rounded-2xl border border-slate-200 bg-white p-7 shadow-sm">
+            <h2 id={`${tool.id}-batch`} className="text-2xl font-bold text-slate-900">Convert multiple {tool.shortName} images into one PDF</h2>
+            <p className="mt-4 leading-7 text-slate-600">Upload up to 20 {tool.shortName} files in one conversion, including by drag and drop. Review the previews, arrange the page order, then create one PDF instead of sharing separate image files.</p>
+          </article>
+          <article className="rounded-2xl border border-slate-200 bg-white p-7 shadow-sm">
+            <h2 className="text-2xl font-bold text-slate-900">{tool.shortName} to PDF file details</h2>
+            <p className="mt-4 leading-7 text-slate-600">This converter accepts {tool.formats} files up to 10 MB each. It is useful for turning photos, screenshots, or saved images into an ordered PDF document for printing, sharing, or uploading.</p>
+          </article>
+        </div>
+      </section>
+
+      <section aria-labelledby={`${tool.id}-uses`} className="bg-white py-16 sm:py-20">
         <div className="mx-auto grid max-w-5xl gap-6 px-4 sm:grid-cols-2 sm:px-6 lg:px-8">
           <article className="rounded-2xl border border-slate-200 bg-white p-7 shadow-sm">
             <h2 id={`${tool.id}-uses`} className="text-2xl font-bold text-slate-900">When {tool.name} is useful</h2>

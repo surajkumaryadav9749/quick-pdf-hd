@@ -14,8 +14,8 @@ const JpegToPdf = () => {
   return (
     <Layout>
       <SEO
-        title="JPEG to PDF Converter Online - Free | QuickPDFHD"
-        description="Convert JPEG images to PDF online for free with QuickPDFHD. Upload one or multiple JPEG images, arrange them and download your PDF automatically."
+        title="JPEG to PDF Converter – Combine JPEG Images | QuickPDFHD"
+        description="Convert multiple JPEG or JPG photos into one PDF online. Upload, reorder up to 20 images, and download a single PDF document."
         canonical="https://quickpdfhd.com/jpeg-to-pdf"
         structuredData={{ "@context": "https://schema.org", "@type": "WebApplication", name: "QuickPDFHD JPEG to PDF Converter", url: "https://quickpdfhd.com/jpeg-to-pdf", applicationCategory: "UtilitiesApplication", operatingSystem: "Web", description: "Convert JPEG and JPG images into a PDF document online." }}
       />
@@ -29,13 +29,11 @@ const JpegToPdf = () => {
             </p>
 
             <h1 className="mt-4 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl lg:text-6xl">
-              Convert JPEG to PDF Online
+              Convert Multiple JPEG Images to PDF
             </h1>
 
             <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-slate-600">
-              Convert JPEG images to PDF online for free. Upload one or multiple
-              JPEG images, arrange them in your preferred order and download
-              your PDF automatically after conversion.
+              Combine JPEG or JPG camera photos into one PDF. Upload up to 20 images, drag them into the correct page order, and download the finished document.
             </p>
           </div>
         </section>

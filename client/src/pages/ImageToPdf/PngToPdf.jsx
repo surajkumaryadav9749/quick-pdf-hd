@@ -14,8 +14,8 @@ const PngToPdf = () => {
   return (
     <Layout>
       <SEO
-        title="PNG to PDF Converter Online - Free | QuickPDFHD"
-        description="Convert PNG images to PDF online for free with QuickPDFHD. Upload one or multiple PNG images, arrange them and download your PDF automatically."
+        title="PNG to PDF Converter – Combine PNG Images | QuickPDFHD"
+        description="Convert multiple PNG images, screenshots, or graphics into one PDF online. Reorder up to 20 PNG files and download one document."
         canonical="https://quickpdfhd.com/png-to-pdf"
         structuredData={{ "@context": "https://schema.org", "@type": "WebApplication", name: "QuickPDFHD PNG to PDF Converter", url: "https://quickpdfhd.com/png-to-pdf", applicationCategory: "UtilitiesApplication", operatingSystem: "Web", description: "Convert PNG images into a PDF document online." }}
       />
@@ -29,13 +29,11 @@ const PngToPdf = () => {
             </p>
 
             <h1 className="mt-4 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl lg:text-6xl">
-              Convert PNG to PDF Online
+              Convert Multiple PNG Images to PDF
             </h1>
 
             <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-slate-600">
-              Convert PNG images to PDF online for free. Upload one or multiple
-              PNG images, arrange them in your preferred order and download your
-              PDF automatically after conversion.
+              Turn PNG screenshots, diagrams, and graphics into one ordered PDF. Upload up to 20 images, arrange the pages, and download the completed document.
             </p>
           </div>
         </section>

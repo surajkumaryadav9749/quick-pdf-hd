@@ -13,6 +13,8 @@
     { "source": "/document-scanner", "destination": "/index.html" },
     { "source": "/pdf-to-zip", "destination": "/index.html" },
     { "source": "/resize-image", "destination": "/index.html" },
-    { "source": "/all-services", "destination": "/index.html" }
+    { "source": "/all-services", "destination": "/index.html" },
+    { "source": "/pdf-guides", "destination": "/index.html" },
+    { "source": "/pdf-guides/(.*)", "destination": "/index.html" }
   ]
 }

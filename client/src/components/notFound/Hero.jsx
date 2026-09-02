@@ -26,14 +26,25 @@ const Hero = () => {
           </p>
 
           {/* CTA */}
-          <div className="mt-10 flex justify-center">
+          <div className="mt-10 flex flex-wrap justify-center gap-4">
             <Link to="/">
               <Button>
                 <FiArrowLeft size={20} />
                 Back to Home
               </Button>
             </Link>
+            <Link
+              to="/all-services"
+              className="rounded-xl border border-slate-300 px-5 py-3 font-semibold text-slate-700 transition hover:border-blue-400 hover:text-blue-700"
+            >
+              Browse all tools
+            </Link>
           </div>
+          <p className="mt-7 text-sm text-slate-600">
+            Popular tools: <Link to="/document-scanner" className="font-semibold text-blue-600 hover:underline">Document Scanner</Link>,{" "}
+            <Link to="/jpg-to-pdf" className="font-semibold text-blue-600 hover:underline">JPG to PDF</Link>, and{" "}
+            <Link to="/resize-image" className="font-semibold text-blue-600 hover:underline">Resize Image</Link>.
+          </p>
         </div>
       </Container>
     </section>

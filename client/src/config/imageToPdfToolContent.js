@@ -9,6 +9,9 @@ const imageToPdfToolContent = {
     introduction: "Convert multiple JPG or JPEG images into one ordered PDF online. Upload up to 20 photos, scanned pages, or saved images, drag them into the right sequence, and download one document for sharing, printing, or uploading.",
     useCaseIntro: "JPG is a common photo format, so this tool is useful whenever a group of images needs to become a single document.",
     useCases: ["Combining photographed notes or receipts into one file", "Preparing image attachments for an application or upload", "Keeping a sequence of scanned pages in the right order"],
+    formatNotes: "JPG is a practical choice for photographs, camera scans, and receipts. It is usually already the format produced by a phone camera, so no format change is needed before making the PDF.",
+    tips: ["Photograph pages in even light so text stays readable.", "Put photos in reading order before conversion.", "For multi-page paperwork, use Document Scanner when you want trim, modes, or page numbers."],
+    problems: ["If a photo is sideways, rotate it on your device before uploading.", "If text is hard to read, retake the photo closer and in better light.", "If a file is rejected, confirm it is a JPG/JPEG under 10 MB."],
     steps: [
       { title: "Add JPG images", description: "Choose one or more JPG files from your device or drag them into the upload area." },
       { title: "Check the sequence", description: "Review the preview cards and drag images to the order you need." },
@@ -35,6 +38,9 @@ const imageToPdfToolContent = {
     introduction: "Convert multiple PNG images into one PDF online. Add up to 20 screenshots, diagrams, or exported graphics, arrange their order with drag and drop, and download a single shareable document.",
     useCaseIntro: "PNG is commonly used for screenshots and graphics where clear edges and text matter, making it useful for visual records and reference documents.",
     useCases: ["Combining screenshots for a bug report or support request", "Sharing a set of diagrams or UI mockups as one document", "Preparing image-based instructions for printing or review"],
+    formatNotes: "PNG is commonly used for screenshots, diagrams, and graphics because edges and interface text can stay crisp. Transparent areas are placed on a white PDF page.",
+    tips: ["Use the original screenshot rather than a compressed copy when small text matters.", "Review each preview to keep screenshots in the order of the workflow.", "Choose Resize Image first if the screenshots need matching dimensions."],
+    problems: ["Transparent areas will appear against white in the PDF.", "Very large screenshots may be easier to read if split into separate images.", "If a PNG is over 10 MB, resize it before uploading."],
     steps: [
       { title: "Upload PNG files", description: "Choose one or more PNG screenshots or graphics from your device." },
       { title: "Review every image", description: "Use the previews to make sure the images are present and in the needed order." },
@@ -61,6 +67,9 @@ const imageToPdfToolContent = {
     introduction: "Convert multiple JPEG or JPG images into one PDF online. Upload up to 20 camera photos or downloaded images, set their order with drag and drop, and create one document instead of sending separate attachments.",
     useCaseIntro: "This page is helpful when your files use the .jpeg extension, which is another common filename extension for JPEG images.",
     useCases: ["Creating a PDF from camera photos saved as .jpeg", "Collecting document photos before sending them by email", "Saving a visual record as one ordered document"],
+    formatNotes: "JPEG and JPG describe the same image format; the different extension is usually a camera, device, or export preference. This page accepts either extension.",
+    tips: ["Use this tool when files are labelled .jpeg or .jpg—both are accepted.", "Keep a consistent orientation across camera photos for a neater document.", "For photographed paperwork that needs cleanup, use the Document Scanner."],
+    problems: ["A .jpeg filename is accepted just like .jpg.", "If images are out of sequence, drag the preview cards into order before creating the PDF.", "If a camera image exceeds 10 MB, reduce its size first."],
     steps: [
       { title: "Select JPEG images", description: "Upload one or more .jpeg or .jpg image files from your device." },
       { title: "Arrange the pages", description: "Use the preview cards to confirm and adjust the image sequence." },
@@ -87,6 +96,9 @@ const imageToPdfToolContent = {
     introduction: "Convert multiple WEBP images into one PDF online. Upload up to 20 images saved from websites or browsers, arrange them in the needed order, and create a more easily shared or printable PDF document.",
     useCaseIntro: "WEBP is often used for web images. Converting it to PDF can make a set of reference images easier to send, review, or print together.",
     useCases: ["Combining WEBP reference images from a web project", "Creating a printable document from saved web graphics", "Sending several WEBP images as one attachment"],
+    formatNotes: "WEBP is widely used for browser-delivered images. A PDF is useful when several saved web graphics need to be reviewed, printed, or shared as one document.",
+    tips: ["Save the original WEBP files from your browser before uploading.", "Check the previews because web images may have different orientations or dimensions.", "Use Resize Image first when a batch needs a consistent output size."],
+    problems: ["If a downloaded image is not a WEBP file, use the matching image-to-PDF tool instead.", "Animated WEBP is not presented as a multi-frame document; use a still image where a single page is needed.", "If an image is over 10 MB, resize it before conversion."],
     steps: [
       { title: "Upload WEBP images", description: "Choose one or more .webp files from your device." },
       { title: "Set the image order", description: "Review the previews and drag images into the sequence you need." },

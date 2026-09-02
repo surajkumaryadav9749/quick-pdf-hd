@@ -16,6 +16,8 @@ const DocumentScanner = lazy(() => import("../pages/DocumentScanner/DocumentScan
 const PdfToZip = lazy(() => import("../pages/PdfToZip/PdfToZip"));
 const ResizeImage = lazy(() => import("../pages/ResizeImage/ResizeImage"));
 const AllServices = lazy(() => import("../pages/AllServices/AllServices"));
+const PdfGuides = lazy(() => import("../pages/PdfGuides/PdfGuides").then((module) => ({ default: module.PdfGuides })));
+const PdfGuide = lazy(() => import("../pages/PdfGuides/PdfGuides").then((module) => ({ default: module.PdfGuide })));
 
 const AppRoutes = () => {
   return (
@@ -38,6 +40,8 @@ const AppRoutes = () => {
           <Route path="/pdf-to-zip" element={<PdfToZip />} />
           <Route path="/resize-image" element={<ResizeImage />} />
           <Route path="/all-services" element={<AllServices />} />
+          <Route path="/pdf-guides" element={<PdfGuides />} />
+          <Route path="/pdf-guides/:slug" element={<PdfGuide />} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -23,8 +23,8 @@ const HeroSection = () => {
 
         {/* Introduction */}
         <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-slate-600">
-          Convert JPG, PNG and WEBP images into a single PDF. Add your images,
-          set their order, and download the generated document.
+          Create one ordered PDF from up to 20 JPG, JPEG, PNG, or WEBP images.
+          Add files, set their reading order, and download the generated document.
         </p>
 
         {/* PDF Upload Tool */}

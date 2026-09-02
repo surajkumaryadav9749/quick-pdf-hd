@@ -11,6 +11,10 @@ export const NAV_LINKS = [
     name: "Contact",
     path: "/contact",
   },
+  {
+    name: "PDF Guides",
+    path: "/pdf-guides",
+  },
 ];
 
 export const LEGAL_LINKS = [

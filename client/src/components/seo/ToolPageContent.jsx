@@ -37,6 +37,20 @@ const ToolPageContent = ({ tool }) => {
         </div>
       </section>
 
+      <section aria-labelledby={`${tool.id}-tips`} className="bg-slate-50 py-16 sm:py-20">
+        <div className="mx-auto grid max-w-5xl gap-6 px-4 sm:grid-cols-2 sm:px-6 lg:px-8">
+          <article className="rounded-2xl border border-slate-200 bg-white p-7 shadow-sm">
+            <h2 id={`${tool.id}-tips`} className="text-2xl font-bold text-slate-900">{tool.shortName}-specific tips</h2>
+            <p className="mt-4 leading-7 text-slate-600">{tool.formatNotes}</p>
+            <ul className="mt-5 list-disc space-y-2 pl-5 leading-7 text-slate-600">{tool.tips.map((tip) => <li key={tip}>{tip}</li>)}</ul>
+          </article>
+          <article className="rounded-2xl border border-slate-200 bg-white p-7 shadow-sm">
+            <h2 className="text-2xl font-bold text-slate-900">If the result is not what you expected</h2>
+            <ul className="mt-4 list-disc space-y-3 pl-5 leading-7 text-slate-600">{tool.problems.map((problem) => <li key={problem}>{problem}</li>)}</ul>
+          </article>
+        </div>
+      </section>
+
       <section aria-labelledby={`${tool.id}-batch`} className="bg-slate-50 py-16 sm:py-20">
         <div className="mx-auto grid max-w-5xl gap-6 px-4 sm:grid-cols-2 sm:px-6 lg:px-8">
           <article className="rounded-2xl border border-slate-200 bg-white p-7 shadow-sm">

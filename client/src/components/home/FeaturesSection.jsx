@@ -59,12 +59,12 @@ const FeaturesSection = () => {
             id="features-heading"
             className="mt-4 text-3xl font-bold text-slate-900 sm:text-4xl"
           >
-            Fast, Secure & Reliable Image to PDF Converter
+            Practical tools for documents and images
           </h2>
 
           <p className="mt-4 text-lg leading-8 text-slate-600">
-            Convert JPG, PNG and WEBP images into PDF files without installing
-            software or creating an account.
+            Create ordered image PDFs, clean photographed documents, package PDFs,
+            or resize image batches without installing software.
           </p>
         </div>
 

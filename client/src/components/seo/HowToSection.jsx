@@ -33,7 +33,7 @@ const HowToSection = () => {
     >
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto mb-12 max-w-3xl text-center">
-          <p className="text-sm font-semibold uppercase tracking-wide text-blue-600">
+          <p className="text-sm font-semibold uppercase tracking-wide text-teal-800">
             How It Works
           </p>
 
@@ -56,7 +56,7 @@ const HowToSection = () => {
               key={step.number}
               className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
             >
-              <span className="text-sm font-bold text-blue-600">
+              <span className="text-sm font-bold text-teal-800">
                 {step.number}
               </span>
 

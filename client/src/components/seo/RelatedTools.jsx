@@ -18,7 +18,7 @@ const RelatedTools = ({ currentPath }) => {
   return <section aria-labelledby="related-tools-heading" className="bg-white py-16 sm:py-20">
     <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
       <div className="mx-auto mb-10 max-w-3xl text-center">
-        <p className="text-sm font-semibold uppercase tracking-wide text-blue-600">Explore QuickPDFHD</p>
+        <p className="text-sm font-semibold uppercase tracking-wide text-teal-800">Explore QuickPDFHD</p>
         <h2 id="related-tools-heading" className="mt-3 text-3xl font-bold text-slate-900 sm:text-4xl">Related tools for your next step</h2>
         <p className="mt-4 text-lg leading-8 text-slate-600">Continue with a tool that fits the files or document task you are working on.</p>
       </div>
@@ -26,7 +26,7 @@ const RelatedTools = ({ currentPath }) => {
         {relatedTools.map((tool) => <Link key={tool.path} to={tool.path} className="rounded-2xl border border-slate-200 p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
           <h3 className="text-xl font-semibold text-slate-900">{tool.name}</h3>
           <p className="mt-3 leading-7 text-slate-600">{tool.description}</p>
-          <span className="mt-4 inline-block font-medium text-blue-600">Open tool →</span>
+          <span className="mt-4 inline-block font-medium text-teal-800">Open tool →</span>
         </Link>)}
       </div>
     </div>

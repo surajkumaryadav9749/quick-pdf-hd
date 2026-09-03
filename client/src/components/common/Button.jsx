@@ -1,11 +1,11 @@
 const variants = {
-  primary: "bg-blue-600 text-white hover:bg-blue-700 shadow-lg hover:shadow-xl",
+  primary: "bg-teal-600 text-white hover:bg-teal-700 shadow-lg hover:shadow-xl",
 
   secondary:
     "bg-white text-slate-900 border border-slate-300 hover:bg-slate-100",
 
   outline:
-    "border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white",
+    "border-2 border-teal-600 text-teal-800 hover:bg-teal-600 hover:text-white",
 
   danger: "bg-red-600 text-white hover:bg-red-700",
 

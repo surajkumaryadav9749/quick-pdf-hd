@@ -7,7 +7,7 @@ const SectionTitle = ({ badge, title, subtitle, align = "center" }) => {
   return (
     <div className={`mb-14 flex flex-col ${alignment[align]}`}>
       {badge && (
-        <span className="mb-4 rounded-full bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-600">
+        <span className="mb-4 rounded-full bg-teal-100 px-4 py-2 text-sm font-semibold text-teal-800">
           {badge}
         </span>
       )}

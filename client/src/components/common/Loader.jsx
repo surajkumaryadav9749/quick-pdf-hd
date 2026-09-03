@@ -14,7 +14,7 @@ const Loader = ({
     <div className="flex flex-col items-center justify-center gap-4">
       {/* Spinner */}
       <div
-        className={`${spinnerSizes[size]} animate-spin rounded-full border-blue-600 border-t-transparent`}
+        className={`${spinnerSizes[size]} animate-spin rounded-full border-teal-600 border-t-transparent`}
       />
 
       {/* Text */}

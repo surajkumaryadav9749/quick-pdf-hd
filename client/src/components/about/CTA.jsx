@@ -5,7 +5,7 @@ const CTA = () => {
   return (
     <section
       aria-labelledby="about-cta-heading"
-      className="relative overflow-hidden bg-gradient-to-r from-blue-700 to-sky-600 py-20"
+      className="relative overflow-hidden bg-gradient-to-r from-teal-700 to-teal-600 py-20"
     >
       {/* Background Blur */}
       <div
@@ -14,7 +14,7 @@ const CTA = () => {
       />
 
       <div className="relative mx-auto max-w-5xl px-6 text-center">
-        <p className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-blue-100">
+        <p className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-teal-100">
           Start Converting Today
         </p>
 
@@ -25,7 +25,7 @@ const CTA = () => {
           Ready to Convert Your Images into PDF?
         </h2>
 
-        <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-blue-100">
+        <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-teal-100">
           Use QuickPDFHD for fast, secure and high-quality Image to PDF
           conversion. No signup, no watermark and completely free.
         </p>
@@ -34,7 +34,7 @@ const CTA = () => {
         <div className="mt-12 flex flex-col items-center justify-center gap-5 sm:flex-row">
           <Link
             to="/"
-            className="inline-flex items-center gap-3 rounded-xl bg-white px-8 py-4 text-lg font-semibold text-blue-700 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
+            className="inline-flex items-center gap-3 rounded-xl bg-white px-8 py-4 text-lg font-semibold text-teal-800 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
           >
             Convert Images to PDF
             <FiArrowRight aria-hidden="true" size={20} />
@@ -42,7 +42,7 @@ const CTA = () => {
 
           <Link
             to="/"
-            className="inline-flex items-center gap-3 rounded-xl border border-white/30 px-8 py-4 text-lg font-semibold text-white transition-all duration-300 hover:bg-white hover:text-blue-700"
+            className="inline-flex items-center gap-3 rounded-xl border border-white/30 px-8 py-4 text-lg font-semibold text-white transition-all duration-300 hover:bg-white hover:text-teal-800"
           >
             <FiHome aria-hidden="true" size={20} />
             Back to Home
@@ -53,17 +53,17 @@ const CTA = () => {
         <dl className="mt-16 grid grid-cols-1 gap-6 sm:grid-cols-3">
           <div>
             <dt className="text-3xl font-bold text-white">100%</dt>
-            <dd className="mt-2 text-blue-100">Free to Use</dd>
+            <dd className="mt-2 text-teal-100">Free to Use</dd>
           </div>
 
           <div>
             <dt className="text-3xl font-bold text-white">Secure</dt>
-            <dd className="mt-2 text-blue-100">Privacy Focused</dd>
+            <dd className="mt-2 text-teal-100">Privacy Focused</dd>
           </div>
 
           <div>
             <dt className="text-3xl font-bold text-white">Fast</dt>
-            <dd className="mt-2 text-blue-100">Instant PDF Generation</dd>
+            <dd className="mt-2 text-teal-100">Instant PDF Generation</dd>
           </div>
         </dl>
       </div>

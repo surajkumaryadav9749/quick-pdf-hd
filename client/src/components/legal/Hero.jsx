@@ -9,7 +9,7 @@ const Hero = ({ badge, title, description }) => {
       {/* Background Blur */}
       <div
         aria-hidden="true"
-        className="absolute left-0 top-0 h-72 w-72 rounded-full bg-blue-200/30 blur-3xl"
+        className="absolute left-0 top-0 h-72 w-72 rounded-full bg-teal-200/30 blur-3xl"
       />
 
       <div
@@ -21,7 +21,7 @@ const Hero = ({ badge, title, description }) => {
         <div className="relative z-10 mx-auto max-w-4xl text-center">
           {/* Badge */}
           {badge && (
-            <p className="inline-flex rounded-full bg-blue-100 px-5 py-2 text-sm font-semibold text-blue-600">
+            <p className="inline-flex rounded-full bg-teal-100 px-5 py-2 text-sm font-semibold text-teal-800">
               {badge}
             </p>
           )}

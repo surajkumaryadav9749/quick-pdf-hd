@@ -27,15 +27,15 @@ const Navbar = () => {
 
         {/* Desktop Navigation */}
         <ul className="hidden items-center gap-8 md:flex">
-          {NAV_LINKS.map((link) => (
+          {NAV_LINKS.slice(0, 1).map((link) => (
             <li key={link.path}>
               <NavLink
                 to={link.path}
                 className={({ isActive }) =>
                   `font-medium transition duration-200 ${
                     isActive
-                      ? "text-blue-600"
-                      : "text-slate-600 hover:text-blue-600"
+                      ? "text-teal-800"
+                      : "text-slate-600 hover:text-teal-800"
                   }`
                 }
               >
@@ -43,13 +43,29 @@ const Navbar = () => {
               </NavLink>
             </li>
           ))}
-          <li><NavLink to="/all-services#pdf-tools" className="font-medium text-slate-600 transition hover:text-blue-600">All Services</NavLink></li>
+          <li><NavLink to="/all-services#pdf-tools" className="font-medium text-slate-600 transition hover:text-teal-800">All Services</NavLink></li>
+          {NAV_LINKS.slice(1).map((link) => (
+            <li key={link.path}>
+              <NavLink
+                to={link.path}
+                className={({ isActive }) =>
+                  `font-medium transition duration-200 ${
+                    isActive
+                      ? "text-teal-800"
+                      : "text-slate-600 hover:text-teal-800"
+                  }`
+                }
+              >
+                {link.name}
+              </NavLink>
+            </li>
+          ))}
         </ul>
 
         {/* Desktop CTA */}
         <a
           href="/#services"
-          className="hidden rounded-xl bg-blue-600 px-5 py-3 font-semibold text-white shadow-md transition hover:bg-blue-700 hover:shadow-lg md:block"
+          className="hidden rounded-xl bg-teal-600 px-5 py-3 font-semibold text-white shadow-md transition hover:bg-teal-700 hover:shadow-lg md:block"
         >
           Explore Services
         </a>
@@ -100,7 +116,7 @@ const Navbar = () => {
       {isMenuOpen && (
         <div className="border-t border-slate-200 bg-white md:hidden">
           <ul className="mx-auto max-w-7xl px-5 py-4 sm:px-8">
-            {NAV_LINKS.map((link) => (
+            {NAV_LINKS.slice(0, 1).map((link) => (
               <li key={link.path}>
                 <NavLink
                   to={link.path}
@@ -108,8 +124,8 @@ const Navbar = () => {
                   className={({ isActive }) =>
                     `block rounded-lg px-4 py-3 font-medium transition duration-200 ${
                       isActive
-                        ? "bg-blue-50 text-blue-600"
-                        : "text-slate-600 hover:bg-slate-50 hover:text-blue-600"
+                        ? "bg-teal-50 text-teal-800"
+                        : "text-slate-600 hover:bg-slate-50 hover:text-teal-800"
                     }`
                   }
                 >
@@ -117,14 +133,31 @@ const Navbar = () => {
                 </NavLink>
               </li>
             ))}
-            <li><NavLink to="/all-services#pdf-tools" onClick={closeMenu} className="block rounded-lg px-4 py-3 font-medium text-slate-600 transition hover:bg-slate-50 hover:text-blue-600">All Services</NavLink></li>
+            <li><NavLink to="/all-services#pdf-tools" onClick={closeMenu} className="block rounded-lg px-4 py-3 font-medium text-slate-600 transition hover:bg-slate-50 hover:text-teal-800">All Services</NavLink></li>
+            {NAV_LINKS.slice(1).map((link) => (
+              <li key={link.path}>
+                <NavLink
+                  to={link.path}
+                  onClick={closeMenu}
+                  className={({ isActive }) =>
+                    `block rounded-lg px-4 py-3 font-medium transition duration-200 ${
+                      isActive
+                        ? "bg-teal-50 text-teal-800"
+                        : "text-slate-600 hover:bg-slate-50 hover:text-teal-800"
+                    }`
+                  }
+                >
+                  {link.name}
+                </NavLink>
+              </li>
+            ))}
 
             {/* Mobile CTA */}
             <li className="mt-2">
               <a
                 href="/#services"
                 onClick={closeMenu}
-                className="block rounded-xl bg-blue-600 px-4 py-3 text-center font-semibold text-white shadow-md transition hover:bg-blue-700"
+                className="block rounded-xl bg-teal-600 px-4 py-3 text-center font-semibold text-white shadow-md transition hover:bg-teal-700"
               >
                 Explore Services
               </a>

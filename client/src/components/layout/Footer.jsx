@@ -4,7 +4,7 @@ import { NAV_LINKS, LEGAL_LINKS, TOOL_LINKS } from "../../constants/navigation";
 
 const Footer = () => {
   return (
-    <footer className="bg-slate-950 text-slate-300">
+    <footer className="bg-footer text-slate-300">
       <Container>
         <div className="grid gap-12 py-16 md:grid-cols-4">
           {/* Logo */}
@@ -32,7 +32,7 @@ const Footer = () => {
             <ul className="space-y-3">
               {TOOL_LINKS.map((link) => (
                 <li key={link.path}>
-                  <NavLink to={link.path} className="transition-colors duration-200 hover:text-blue-400">
+                  <NavLink to={link.path} className="transition-colors duration-200 hover:text-teal-500">
                     {link.name}
                   </NavLink>
                 </li>
@@ -47,12 +47,12 @@ const Footer = () => {
             </h3>
 
             <ul className="space-y-3">
-              <li><NavLink to="/all-services#pdf-tools" className="transition-colors duration-200 hover:text-blue-400">All Services</NavLink></li>
+              <li><NavLink to="/all-services#pdf-tools" className="transition-colors duration-200 hover:text-teal-500">All Services</NavLink></li>
               {NAV_LINKS.map((link) => (
                 <li key={link.path}>
                   <NavLink
                     to={link.path}
-                    className="transition-colors duration-200 hover:text-blue-400"
+                    className="transition-colors duration-200 hover:text-teal-500"
                   >
                     {link.name}
                   </NavLink>
@@ -70,7 +70,7 @@ const Footer = () => {
                 <li key={link.path}>
                   <NavLink
                     to={link.path}
-                    className="transition-colors duration-200 hover:text-blue-400"
+                    className="transition-colors duration-200 hover:text-teal-500"
                   >
                     {link.name}
                   </NavLink>

@@ -55,7 +55,7 @@ const WhyChooseUs = () => {
       <div className="mx-auto max-w-7xl px-6">
         {/* Heading */}
         <div className="mx-auto mb-14 max-w-3xl text-center">
-          <p className="text-sm font-semibold uppercase tracking-wide text-blue-600">
+          <p className="text-sm font-semibold uppercase tracking-wide text-teal-800">
             Why Choose QuickPDFHD
           </p>
 
@@ -81,7 +81,7 @@ const WhyChooseUs = () => {
             >
               <div
                 aria-hidden="true"
-                className="mb-5 inline-flex rounded-xl bg-blue-100 p-4 text-blue-600"
+                className="mb-5 inline-flex rounded-xl bg-teal-100 p-4 text-teal-800"
               >
                 {item.icon}
               </div>

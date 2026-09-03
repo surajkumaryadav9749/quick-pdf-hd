@@ -18,7 +18,7 @@ const ToolPageContent = ({ tool }) => {
       <section aria-labelledby={`${tool.id}-guide`} className="bg-white py-16 sm:py-20">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
-            <p className="text-sm font-semibold uppercase tracking-wide text-blue-600">How this tool works</p>
+            <p className="text-sm font-semibold uppercase tracking-wide text-teal-800">How this tool works</p>
             <h2 id={`${tool.id}-guide`} className="mt-3 text-3xl font-bold text-slate-900 sm:text-4xl">
               {tool.guideTitle}
             </h2>
@@ -28,7 +28,7 @@ const ToolPageContent = ({ tool }) => {
           <ol className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {tool.steps.map((step, index) => (
               <li key={step.title} className="list-none rounded-2xl border border-slate-200 bg-slate-50 p-6">
-                <span className="text-sm font-bold text-blue-600">Step {index + 1}</span>
+                <span className="text-sm font-bold text-teal-800">Step {index + 1}</span>
                 <h3 className="mt-3 text-xl font-semibold text-slate-900">{step.title}</h3>
                 <p className="mt-3 leading-7 text-slate-600">{step.description}</p>
               </li>
@@ -85,14 +85,14 @@ const ToolPageContent = ({ tool }) => {
               <li>Up to 10 MB per image.</li>
               <li>Images can be reordered before conversion.</li>
             </ul>
-            <Link to="/privacy-policy" className="mt-5 inline-block font-semibold text-blue-600 hover:underline">Read the Privacy Policy</Link>
+            <Link to="/privacy-policy" className="mt-5 inline-block font-semibold text-teal-800 hover:underline">Read the Privacy Policy</Link>
           </article>
         </div>
       </section>
 
       <section aria-labelledby={`${tool.id}-faq`} className="bg-white py-16 sm:py-20">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-          <p className="text-sm font-semibold uppercase tracking-wide text-blue-600">FAQs</p>
+          <p className="text-sm font-semibold uppercase tracking-wide text-teal-800">FAQs</p>
           <h2 id={`${tool.id}-faq`} className="mt-3 text-3xl font-bold text-slate-900 sm:text-4xl">{tool.name} questions</h2>
           <dl className="mt-8 space-y-4">
             {tool.faqs.map((faq) => (
@@ -104,7 +104,7 @@ const ToolPageContent = ({ tool }) => {
           </dl>
           <p className="mt-10 leading-7 text-slate-600">
             Looking for another format? {links.map((link, index) => (
-              <span key={link.path}>{index > 0 && ", "}<Link to={link.path} className="font-semibold text-blue-600 hover:underline">{link.name}</Link></span>
+              <span key={link.path}>{index > 0 && ", "}<Link to={link.path} className="font-semibold text-teal-800 hover:underline">{link.name}</Link></span>
             ))}.
           </p>
         </div>

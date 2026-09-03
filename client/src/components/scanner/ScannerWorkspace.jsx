@@ -135,7 +135,7 @@ const ScannerWorkspace = () => {
           <h2 className="mt-4 text-2xl font-bold text-slate-900">Your scanned PDF is ready</h2>
           <p className="mt-3 text-slate-600">{pages.length} page{pages.length > 1 ? "s" : ""} scanned · {formatBytes(result.size)}</p>
           <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
-            <a href={result.url} download="QuickPDFHD-scanned-document.pdf" className="rounded-xl bg-blue-600 px-6 py-3 font-semibold text-white hover:bg-blue-700">Download PDF</a>
+            <a href={result.url} download="QuickPDFHD-scanned-document.pdf" className="rounded-xl bg-teal-600 px-6 py-3 font-semibold text-white hover:bg-teal-700">Download PDF</a>
             <button type="button" onClick={reset} className="rounded-xl border border-slate-300 px-6 py-3 font-semibold text-slate-700 hover:bg-slate-50">Scan more pages</button>
           </div>
         </div>
@@ -149,8 +149,8 @@ const ScannerWorkspace = () => {
         <div className="grid gap-6 lg:grid-cols-[1.3fr_0.7fr]">
           <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
             <input ref={inputRef} type="file" accept="image/jpeg,image/png,image/webp" multiple className="hidden" onChange={(event) => { addFiles(event.target.files); event.target.value = ""; }} />
-            <button id="upload" type="button" onClick={() => inputRef.current?.click()} className="scroll-mt-24 flex w-full flex-col items-center rounded-2xl border-2 border-dashed border-blue-200 bg-blue-50 px-6 py-10 text-center transition hover:border-blue-500 hover:bg-blue-100">
-              <FiUploadCloud className="text-5xl text-blue-600" />
+            <button id="upload" type="button" onClick={() => inputRef.current?.click()} className="scroll-mt-24 flex w-full flex-col items-center rounded-2xl border-2 border-dashed border-teal-200 bg-teal-50 px-6 py-10 text-center transition hover:border-teal-500 hover:bg-teal-100">
+              <FiUploadCloud className="text-5xl text-teal-800" />
               <span className="mt-4 text-xl font-bold text-slate-900">Upload document photos</span>
               <span className="mt-2 text-slate-600">JPG, PNG or WEBP · up to 20 pages · 10 MB each</span>
             </button>
@@ -170,7 +170,7 @@ const ScannerWorkspace = () => {
                       <img src={page.preview} alt={`Full preview of document page ${index + 1}`} className="h-64 w-full object-contain" />
                     </button>
                     <div className="flex items-center justify-between gap-2 p-3 text-sm font-medium text-slate-700">
-                      <button type="button" onClick={() => setSelectedPage(page)} className="hover:text-blue-600">Page {index + 1} · View full preview</button>
+                      <button type="button" onClick={() => setSelectedPage(page)} className="hover:text-teal-800">Page {index + 1} · View full preview</button>
                       {(page.blank || page.blurry) && <FiAlertTriangle className="text-amber-600" aria-label="Review page quality" />}
                       <button type="button" onClick={() => removePage(page.id)} className="rounded p-1 text-slate-500 hover:bg-slate-200 hover:text-red-600" aria-label={`Remove page ${index + 1}`}><FiX /></button>
                     </div>
@@ -183,13 +183,13 @@ const ScannerWorkspace = () => {
           <aside className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
             <h2 className="text-2xl font-bold text-slate-900">Scan settings</h2>
             <div className="mt-6 space-y-5">
-              <label className="flex cursor-pointer items-start gap-3"><input type="checkbox" checked={settings.autoCrop} onChange={(event) => setSettings((current) => ({ ...current, autoCrop: event.target.checked }))} className="mt-1 h-4 w-4 accent-blue-600" /><span><strong className="text-slate-900">Auto-crop white edges</strong><small className="mt-1 block leading-5 text-slate-600">Removes extra blank margins around the document.</small></span></label>
+              <label className="flex cursor-pointer items-start gap-3"><input type="checkbox" checked={settings.autoCrop} onChange={(event) => setSettings((current) => ({ ...current, autoCrop: event.target.checked }))} className="mt-1 h-4 w-4 accent-teal-600" /><span><strong className="text-slate-900">Auto-crop white edges</strong><small className="mt-1 block leading-5 text-slate-600">Removes extra blank margins around the document.</small></span></label>
               <label className="block text-sm font-semibold text-slate-800">Document mode<select value={settings.enhance} onChange={(event) => setSettings((current) => ({ ...current, enhance: event.target.value }))} className="mt-2 w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 font-normal text-slate-700"><option value="color">Color</option><option value="grayscale">Grayscale and enhanced</option><option value="bw">Black and white</option></select></label>
               <label className="block text-sm font-semibold text-slate-800">PDF size goal<select value={settings.targetKb} onChange={(event) => setSettings((current) => ({ ...current, targetKb: Number(event.target.value) }))} className="mt-2 w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 font-normal text-slate-700">{targets.map((target) => <option key={target.value} value={target.value}>{target.label}</option>)}</select><small className="mt-1 block font-normal leading-5 text-slate-500">We optimize image quality toward this size; the final PDF can vary by page count and content.</small></label>
-              <div><span className="text-sm font-semibold text-slate-800">Rotate all pages</span><div className="mt-2 flex gap-2">{[0, 90, 180, 270].map((rotation) => <button key={rotation} type="button" onClick={() => setSettings((current) => ({ ...current, rotation }))} className={`rounded-lg px-3 py-2 text-sm font-medium ${settings.rotation === rotation ? "bg-blue-600 text-white" : "bg-slate-100 text-slate-700 hover:bg-slate-200"}`}>{rotation === 0 ? "Original" : `${rotation}°`}</button>)}</div></div>
-              <label className="flex cursor-pointer items-start gap-3"><input type="checkbox" checked={settings.pageNumbers} onChange={(event) => setSettings((current) => ({ ...current, pageNumbers: event.target.checked }))} className="mt-1 h-4 w-4 accent-blue-600" /><span><strong className="text-slate-900">Add page numbers</strong><small className="mt-1 block leading-5 text-slate-600">Places a page number at the bottom of each PDF page.</small></span></label>
+              <div><span className="text-sm font-semibold text-slate-800">Rotate all pages</span><div className="mt-2 flex gap-2">{[0, 90, 180, 270].map((rotation) => <button key={rotation} type="button" onClick={() => setSettings((current) => ({ ...current, rotation }))} className={`rounded-lg px-3 py-2 text-sm font-medium ${settings.rotation === rotation ? "bg-teal-600 text-white" : "bg-slate-100 text-slate-700 hover:bg-slate-200"}`}>{rotation === 0 ? "Original" : `${rotation}°`}</button>)}</div></div>
+              <label className="flex cursor-pointer items-start gap-3"><input type="checkbox" checked={settings.pageNumbers} onChange={(event) => setSettings((current) => ({ ...current, pageNumbers: event.target.checked }))} className="mt-1 h-4 w-4 accent-teal-600" /><span><strong className="text-slate-900">Add page numbers</strong><small className="mt-1 block leading-5 text-slate-600">Places a page number at the bottom of each PDF page.</small></span></label>
             </div>
-            <button type="button" disabled={!pages.length || isCreating} onClick={createPdf} className="mt-8 flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-5 py-3.5 font-semibold text-white shadow-sm transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-slate-400"><FiFileText />{isCreating ? "Creating PDF..." : "Create scanned PDF"}</button>
+            <button type="button" disabled={!pages.length || isCreating} onClick={createPdf} className="mt-8 flex w-full items-center justify-center gap-2 rounded-xl bg-teal-600 px-5 py-3.5 font-semibold text-white shadow-sm transition hover:bg-teal-700 disabled:cursor-not-allowed disabled:bg-slate-400"><FiFileText />{isCreating ? "Creating PDF..." : "Create scanned PDF"}</button>
             <p className="mt-4 flex gap-2 text-xs leading-5 text-slate-500"><FiCheckCircle className="mt-0.5 shrink-0 text-emerald-600" />Files are sent to the conversion server and processed in memory to create your PDF.</p>
           </aside>
         </div>

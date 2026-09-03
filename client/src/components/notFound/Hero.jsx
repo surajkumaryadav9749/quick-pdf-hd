@@ -6,11 +6,11 @@ import Button from "../common/Button";
 
 const Hero = () => {
   return (
-    <section className="flex min-h-[85vh] items-center bg-gradient-to-br from-slate-50 via-white to-blue-50">
+    <section className="flex min-h-[85vh] items-center bg-gradient-to-br from-slate-50 via-white to-teal-50">
       <Container>
         <div className="mx-auto max-w-3xl text-center">
           {/* Error Code */}
-          <span className="text-7xl font-extrabold text-blue-600 md:text-9xl">
+          <span className="text-7xl font-extrabold text-teal-800 md:text-9xl">
             404
           </span>
 
@@ -35,15 +35,15 @@ const Hero = () => {
             </Link>
             <Link
               to="/all-services"
-              className="rounded-xl border border-slate-300 px-5 py-3 font-semibold text-slate-700 transition hover:border-blue-400 hover:text-blue-700"
+              className="rounded-xl border border-slate-300 px-5 py-3 font-semibold text-slate-700 transition hover:border-teal-400 hover:text-teal-800"
             >
               Browse all tools
             </Link>
           </div>
           <p className="mt-7 text-sm text-slate-600">
-            Popular tools: <Link to="/document-scanner" className="font-semibold text-blue-600 hover:underline">Document Scanner</Link>,{" "}
-            <Link to="/jpg-to-pdf" className="font-semibold text-blue-600 hover:underline">JPG to PDF</Link>, and{" "}
-            <Link to="/resize-image" className="font-semibold text-blue-600 hover:underline">Resize Image</Link>.
+            Popular tools: <Link to="/document-scanner" className="font-semibold text-teal-800 hover:underline">Document Scanner</Link>,{" "}
+            <Link to="/jpg-to-pdf" className="font-semibold text-teal-800 hover:underline">JPG to PDF</Link>, and{" "}
+            <Link to="/resize-image" className="font-semibold text-teal-800 hover:underline">Resize Image</Link>.
           </p>
         </div>
       </Container>

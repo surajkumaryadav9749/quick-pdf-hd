@@ -61,7 +61,7 @@ const Features = () => {
       <div className="mx-auto grid max-w-7xl gap-14 px-6 lg:grid-cols-2 lg:items-center">
         {/* Left Side */}
         <div>
-          <p className="text-sm font-semibold uppercase tracking-wide text-blue-600">
+          <p className="text-sm font-semibold uppercase tracking-wide text-teal-800">
             Powerful Features
           </p>
 
@@ -81,11 +81,11 @@ const Features = () => {
             {features.map((feature) => (
               <article
                 key={feature.title}
-                className="flex gap-4 rounded-xl border border-slate-200 p-5 transition-all duration-300 hover:border-blue-500 hover:shadow-lg"
+                className="flex gap-4 rounded-xl border border-slate-200 p-5 transition-all duration-300 hover:border-teal-500 hover:shadow-lg"
               >
                 <div
                   aria-hidden="true"
-                  className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-blue-100 text-blue-600"
+                  className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-teal-100 text-teal-800"
                 >
                   {feature.icon}
                 </div>
@@ -104,10 +104,10 @@ const Features = () => {
 
         {/* Right Side */}
         <aside aria-label="QuickPDFHD benefits" className="flex justify-center">
-          <div className="w-full max-w-md rounded-3xl border border-slate-200 bg-gradient-to-br from-blue-600 to-sky-500 p-10 text-white shadow-2xl">
+          <div className="w-full max-w-md rounded-3xl border border-slate-200 bg-gradient-to-br from-teal-600 to-teal-500 p-10 text-white shadow-2xl">
             <h3 className="text-3xl font-bold">QuickPDFHD</h3>
 
-            <p className="mt-4 text-blue-100">
+            <p className="mt-4 text-teal-100">
               Convert images into high-quality PDFs with a clean, modern and
               fast online experience.
             </p>

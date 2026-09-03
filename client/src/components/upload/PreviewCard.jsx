@@ -57,7 +57,7 @@ const PreviewCard = ({ image }) => {
         hover:-translate-y-1
         hover:shadow-xl
 
-        ${isDragging ? "rotate-2 shadow-2xl ring-2 ring-blue-500" : ""}
+        ${isDragging ? "rotate-2 shadow-2xl ring-2 ring-teal-500" : ""}
       `}
     >
       {/* Image */}
@@ -74,7 +74,7 @@ const PreviewCard = ({ image }) => {
           {...attributes}
           {...listeners}
           title="Drag to reorder"
-          className="absolute left-3 top-3 rounded-full bg-white/90 p-2 shadow-md transition hover:bg-blue-600 hover:text-white cursor-grab active:cursor-grabbing"
+          className="absolute left-3 top-3 rounded-full bg-white/90 p-2 shadow-md transition hover:bg-teal-600 hover:text-white cursor-grab active:cursor-grabbing"
         >
           <FiMove size={18} />
         </button>
@@ -104,7 +104,7 @@ const PreviewCard = ({ image }) => {
         </div>
 
         <div className="flex items-center justify-between text-sm">
-          <span className="rounded-full bg-blue-100 px-3 py-1 font-medium text-blue-700">
+          <span className="rounded-full bg-teal-100 px-3 py-1 font-medium text-teal-800">
             {fileType}
           </span>
 

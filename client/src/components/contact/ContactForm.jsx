@@ -98,7 +98,7 @@ const ContactForm = () => {
       <Container>
         {/* Heading */}
         <div className="mx-auto mb-14 max-w-3xl text-center">
-          <p className="inline-flex rounded-full bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-700">
+          <p className="inline-flex rounded-full bg-teal-100 px-4 py-2 text-sm font-semibold text-teal-800">
             Contact Form
           </p>
 
@@ -130,7 +130,7 @@ const ContactForm = () => {
               Full Name
             </label>
 
-            <div className="flex items-center rounded-xl border border-slate-300 px-4 focus-within:border-blue-500">
+            <div className="flex items-center rounded-xl border border-slate-300 px-4 focus-within:border-teal-500">
               <FiUser aria-hidden="true" className="shrink-0 text-slate-500" />
 
               <input
@@ -156,7 +156,7 @@ const ContactForm = () => {
               Email Address
             </label>
 
-            <div className="flex items-center rounded-xl border border-slate-300 px-4 focus-within:border-blue-500">
+            <div className="flex items-center rounded-xl border border-slate-300 px-4 focus-within:border-teal-500">
               <FiMail aria-hidden="true" className="shrink-0 text-slate-500" />
 
               <input
@@ -182,7 +182,7 @@ const ContactForm = () => {
               Subject
             </label>
 
-            <div className="flex items-center rounded-xl border border-slate-300 px-4 focus-within:border-blue-500">
+            <div className="flex items-center rounded-xl border border-slate-300 px-4 focus-within:border-teal-500">
               <FiFileText
                 aria-hidden="true"
                 className="shrink-0 text-slate-500"
@@ -210,7 +210,7 @@ const ContactForm = () => {
               Message
             </label>
 
-            <div className="flex rounded-xl border border-slate-300 px-4 py-4 focus-within:border-blue-500">
+            <div className="flex rounded-xl border border-slate-300 px-4 py-4 focus-within:border-teal-500">
               <FiMessageSquare
                 aria-hidden="true"
                 className="mt-1 shrink-0 text-slate-500"
@@ -251,8 +251,8 @@ const ContactForm = () => {
             aria-busy={loading}
             className={`flex w-full items-center justify-center gap-3 rounded-xl px-6 py-4 text-lg font-semibold text-white transition ${
               loading
-                ? "cursor-not-allowed bg-blue-400"
-                : "bg-blue-600 hover:bg-blue-700"
+                ? "cursor-not-allowed bg-teal-400"
+                : "bg-teal-600 hover:bg-teal-700"
             }`}
           >
             <FiSend aria-hidden="true" />

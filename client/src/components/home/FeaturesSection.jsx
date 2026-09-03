@@ -51,7 +51,7 @@ const FeaturesSection = () => {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section Heading */}
         <div className="mx-auto mb-14 max-w-3xl text-center">
-          <p className="text-sm font-semibold uppercase tracking-wide text-blue-600">
+          <p className="text-sm font-semibold uppercase tracking-wide text-teal-800">
             Why Choose QuickPDFHD
           </p>
 
@@ -73,12 +73,12 @@ const FeaturesSection = () => {
           {features.map((feature) => (
             <article
               key={feature.title}
-              className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:border-blue-500 hover:shadow-xl"
+              className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:border-teal-500 hover:shadow-xl"
             >
               {/* Icon */}
               <div
                 aria-hidden="true"
-                className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-100 text-3xl text-blue-600"
+                className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-teal-100 text-3xl text-teal-800"
               >
                 {feature.icon}
               </div>

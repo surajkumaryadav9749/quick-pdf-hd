@@ -49,7 +49,7 @@ const FAQSection = () => {
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
         {/* Section Heading */}
         <div className="mx-auto mb-14 max-w-3xl text-center">
-          <p className="text-sm font-semibold uppercase tracking-wide text-blue-600">
+          <p className="text-sm font-semibold uppercase tracking-wide text-teal-800">
             Frequently Asked Questions
           </p>
 
@@ -91,7 +91,7 @@ const FAQSection = () => {
                   {isOpen ? (
                     <FiChevronUp
                       aria-hidden="true"
-                      className="shrink-0 text-xl text-blue-600"
+                      className="shrink-0 text-xl text-teal-800"
                     />
                   ) : (
                     <FiChevronDown

@@ -4,16 +4,16 @@ export const NAV_LINKS = [
     path: "/",
   },
   {
+    name: "PDF Guides",
+    path: "/pdf-guides",
+  },
+  {
     name: "About",
     path: "/about",
   },
   {
     name: "Contact",
     path: "/contact",
-  },
-  {
-    name: "PDF Guides",
-    path: "/pdf-guides",
   },
 ];
 

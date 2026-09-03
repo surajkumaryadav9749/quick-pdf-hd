@@ -37,7 +37,7 @@ const JpgToPdfContent = () => {
       >
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
-            <p className="text-sm font-semibold uppercase tracking-wide text-blue-600">
+            <p className="text-sm font-semibold uppercase tracking-wide text-teal-800">
               JPG to PDF guide
             </p>
             <h2
@@ -63,7 +63,7 @@ const JpgToPdfContent = () => {
                 key={number}
                 className="list-none rounded-2xl border border-slate-200 bg-slate-50 p-6"
               >
-                <span className="text-sm font-bold text-blue-600">Step {number}</span>
+                <span className="text-sm font-bold text-teal-800">Step {number}</span>
                 <h3 className="mt-3 text-xl font-semibold text-slate-900">{title}</h3>
                 <p className="mt-3 leading-7 text-slate-600">{description}</p>
               </li>
@@ -92,7 +92,7 @@ const JpgToPdfContent = () => {
               Your images are processed to generate the PDF and are not stored
               permanently. Use this tool only for files you have permission to
               handle. For full details, see our{" "}
-              <Link to="/privacy-policy" className="font-semibold text-blue-600 hover:underline">
+              <Link to="/privacy-policy" className="font-semibold text-teal-800 hover:underline">
                 Privacy Policy
               </Link>.
             </p>
@@ -102,7 +102,7 @@ const JpgToPdfContent = () => {
 
       <section aria-labelledby="jpg-faq-heading" className="bg-white py-16 sm:py-20">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-          <p className="text-sm font-semibold uppercase tracking-wide text-blue-600">FAQs</p>
+          <p className="text-sm font-semibold uppercase tracking-wide text-teal-800">FAQs</p>
           <h2 id="jpg-faq-heading" className="mt-3 text-3xl font-bold text-slate-900 sm:text-4xl">
             JPG to PDF converter questions
           </h2>
@@ -117,9 +117,9 @@ const JpgToPdfContent = () => {
 
           <p className="mt-10 leading-7 text-slate-600">
             Need a different image format? Try our{" "}
-            <Link to="/png-to-pdf" className="font-semibold text-blue-600 hover:underline">PNG to PDF</Link>,{" "}
-            <Link to="/jpeg-to-pdf" className="font-semibold text-blue-600 hover:underline">JPEG to PDF</Link>, or{" "}
-            <Link to="/webp-to-pdf" className="font-semibold text-blue-600 hover:underline">WEBP to PDF</Link> tool.
+            <Link to="/png-to-pdf" className="font-semibold text-teal-800 hover:underline">PNG to PDF</Link>,{" "}
+            <Link to="/jpeg-to-pdf" className="font-semibold text-teal-800 hover:underline">JPEG to PDF</Link>, or{" "}
+            <Link to="/webp-to-pdf" className="font-semibold text-teal-800 hover:underline">WEBP to PDF</Link> tool.
           </p>
         </div>
       </section>

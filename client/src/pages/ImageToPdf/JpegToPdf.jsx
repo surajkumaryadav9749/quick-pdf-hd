@@ -24,7 +24,7 @@ const JpegToPdf = () => {
         {/* Hero Section */}
         <section className="px-4 pb-10 pt-16 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-5xl text-center">
-            <p className="text-sm font-semibold uppercase tracking-wide text-blue-600">
+            <p className="text-sm font-semibold uppercase tracking-wide text-teal-800">
               JPEG to PDF Converter
             </p>
 

@@ -36,7 +36,7 @@ const AboutQuickPDFHD = () => {
       <div className="mx-auto max-w-7xl px-6">
         {/* Section Header */}
         <div className="mx-auto mb-14 max-w-3xl text-center">
-          <p className="text-sm font-semibold uppercase tracking-wide text-blue-600">
+          <p className="text-sm font-semibold uppercase tracking-wide text-teal-800">
             About QuickPDFHD
           </p>
 
@@ -61,11 +61,11 @@ const AboutQuickPDFHD = () => {
           {features.map((feature) => (
             <article
               key={feature.title}
-              className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:border-blue-500 hover:shadow-xl"
+              className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:border-teal-500 hover:shadow-xl"
             >
               <div
                 aria-hidden="true"
-                className="mb-6 inline-flex rounded-2xl bg-blue-100 p-4 text-blue-600"
+                className="mb-6 inline-flex rounded-2xl bg-teal-100 p-4 text-teal-800"
               >
                 {feature.icon}
               </div>

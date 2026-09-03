@@ -23,8 +23,8 @@ const UploadBox = ({ allowedTypes, accept }) => {
 
         ${
           isDragging
-            ? "scale-[1.01] border-blue-600 bg-blue-50"
-            : "border-slate-300 bg-white hover:border-blue-500"
+            ? "scale-[1.01] border-teal-600 bg-teal-50"
+            : "border-slate-300 bg-white hover:border-teal-500"
         }
       `}
     >
@@ -53,13 +53,13 @@ const UploadBox = ({ allowedTypes, accept }) => {
             transition-all
             duration-300
 
-            ${isDragging ? "scale-110 bg-blue-200" : "bg-blue-100"}
+            ${isDragging ? "scale-110 bg-teal-200" : "bg-teal-100"}
           `}
         >
           {isDragging ? (
             <span className="text-5xl">⬇️</span>
           ) : (
-            <HiOutlineCloudArrowUp className="text-5xl text-blue-600" />
+            <HiOutlineCloudArrowUp className="text-5xl text-teal-800" />
           )}
         </div>
 
@@ -96,7 +96,7 @@ const UploadBox = ({ allowedTypes, accept }) => {
             e.stopPropagation();
             openFilePicker();
           }}
-          className="rounded-xl bg-blue-600 px-7 py-3 font-semibold text-white transition hover:bg-blue-700"
+          className="rounded-xl bg-teal-600 px-7 py-3 font-semibold text-white transition hover:bg-teal-700"
         >
           Browse Files
         </button>

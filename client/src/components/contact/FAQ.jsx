@@ -51,7 +51,7 @@ const FAQ = () => {
       <Container>
         {/* Heading */}
         <div className="mx-auto mb-14 max-w-3xl text-center">
-          <p className="inline-flex rounded-full bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-700">
+          <p className="inline-flex rounded-full bg-teal-100 px-4 py-2 text-sm font-semibold text-teal-800">
             Frequently Asked Questions
           </p>
 
@@ -93,7 +93,7 @@ const FAQ = () => {
                     <FiChevronUp
                       aria-hidden="true"
                       size={22}
-                      className="shrink-0 text-blue-600"
+                      className="shrink-0 text-teal-800"
                     />
                   ) : (
                     <FiChevronDown

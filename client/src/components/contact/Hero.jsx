@@ -13,13 +13,13 @@ const Hero = () => {
       {/* Background Blur */}
       <div
         aria-hidden="true"
-        className="absolute left-1/2 top-0 h-72 w-72 -translate-x-1/2 rounded-full bg-blue-200/30 blur-3xl"
+        className="absolute left-1/2 top-0 h-72 w-72 -translate-x-1/2 rounded-full bg-teal-200/30 blur-3xl"
       />
 
       <Container>
         <div className="relative mx-auto flex max-w-4xl flex-col items-center px-6 py-24 text-center">
           {/* Badge */}
-          <p className="inline-flex items-center gap-2 rounded-full bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-700">
+          <p className="inline-flex items-center gap-2 rounded-full bg-teal-100 px-4 py-2 text-sm font-semibold text-teal-800">
             <FiMail aria-hidden="true" />
             We'd Love to Hear From You
           </p>
@@ -30,7 +30,7 @@ const Hero = () => {
             className="mt-6 text-4xl font-extrabold leading-tight text-slate-900 md:text-6xl"
           >
             Get in{" "}
-            <span className="bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-teal-600 to-teal-500 bg-clip-text text-transparent">
               Touch
             </span>
           </h1>

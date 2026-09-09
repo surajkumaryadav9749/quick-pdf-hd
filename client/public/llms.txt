@@ -1,11 +1,18 @@
 # QuickPDFHD
 
-QuickPDFHD is a free, browser-based image-to-PDF converter. Users can upload, arrange, and convert JPG, JPEG, PNG, and WEBP images into a PDF without creating an account.
+QuickPDFHD is a free, browser-based set of PDF and image tools. Users can convert, split, merge, and package documents without creating an account.
 
 ## Main pages
 
 - [All Services](https://quickpdfhd.com/all-services): Directory of available QuickPDFHD tools.
-- [Home](https://quickpdfhd.com/): Image-to-PDF conversion tools and upload interface.
+- [Home](https://quickpdfhd.com/): PDF tools and upload interface.
+- [Word to PDF](https://quickpdfhd.com/word-to-pdf): Convert DOC and DOCX files to PDF.
+- [PDF to Word](https://quickpdfhd.com/pdf-to-word): Extract selectable PDF text to DOCX.
+- [Excel to PDF](https://quickpdfhd.com/excel-to-pdf): Convert XLS and XLSX worksheets to PDF.
+- [PDF to Excel](https://quickpdfhd.com/pdf-to-excel): Extract PDF tables to XLSX.
+- [Split PDF](https://quickpdfhd.com/split-pdf): Extract pages or split a PDF into smaller files.
+- [Merge PDF](https://quickpdfhd.com/merge-pdf): Combine multiple PDF files.
+- [PDF to JPG](https://quickpdfhd.com/pdf-to-jpg): Render PDF pages as JPG images.
 - [JPG to PDF](https://quickpdfhd.com/jpg-to-pdf): Convert JPG images to PDF.
 - [JPEG to PDF](https://quickpdfhd.com/jpeg-to-pdf): Convert JPEG images to PDF.
 - [PNG to PDF](https://quickpdfhd.com/png-to-pdf): Convert PNG images to PDF.

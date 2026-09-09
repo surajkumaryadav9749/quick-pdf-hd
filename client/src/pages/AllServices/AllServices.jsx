@@ -8,7 +8,7 @@ const AllServices = () => (
   <Layout>
     <SEO
       title="All PDF & Image Tools Online | QuickPDFHD"
-      description="Explore QuickPDFHD's available online PDF and image tools, including image-to-PDF conversion, document scanning, PDF to ZIP, and image resizing."
+      description="Explore QuickPDFHD's available online PDF and image tools, including Word and Excel conversion, split and merge, PDF to JPG, image-to-PDF, scanning, ZIP packaging, and image resizing."
       canonical="https://quickpdfhd.com/all-services"
       structuredData={{
         "@context": "https://schema.org",
@@ -38,7 +38,7 @@ const AllServices = () => (
               <div className="max-w-3xl">
                 <p className="text-sm font-semibold uppercase tracking-wide text-teal-800">QuickPDFHD services</p>
                 <h2 id={category.replace(" ", "-").toLowerCase()} className="mt-3 text-3xl font-bold text-slate-900 sm:text-4xl">{category}</h2>
-                <p className="mt-3 leading-7 text-slate-600">{category === "PDF Tools" ? "Create, organize, and package PDF documents from images and document photos." : "Adjust image dimensions and prepare image files for the size you need."}</p>
+                <p className="mt-3 leading-7 text-slate-600">{category === "PDF Tools" ? "Convert office files, split or merge PDFs, render pages as images, and create PDFs from photos." : "Adjust image dimensions and prepare image files for the size you need."}</p>
               </div>
 
               <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -55,7 +55,7 @@ const AllServices = () => (
         );
       })}
 
-      <section className="bg-white py-16 sm:py-20"><div className="mx-auto max-w-4xl px-4 text-center sm:px-6"><p className="text-sm font-semibold uppercase tracking-wide text-teal-800">Choose the right tool</p><h2 className="mt-3 text-3xl font-bold text-slate-900">Start with the task you need to complete</h2><p className="mt-4 leading-8 text-slate-600">Use an image-to-PDF tool to combine images into a document, Document Scanner for document photos, PDF to ZIP to package several PDFs together, and Resize Image when you need different image dimensions.</p></div></section>
+      <section className="bg-white py-16 sm:py-20"><div className="mx-auto max-w-4xl px-4 text-center sm:px-6"><p className="text-sm font-semibold uppercase tracking-wide text-teal-800">Choose the right tool</p><h2 className="mt-3 text-3xl font-bold text-slate-900">Start with the task you need to complete</h2><p className="mt-4 leading-8 text-slate-600">Convert Word or Excel files to PDF, extract text or tables, split and merge PDFs, turn pages into JPG images, or use the existing image-to-PDF, scanner, ZIP, and resize tools.</p></div></section>
     </main>
   </Layout>
 );

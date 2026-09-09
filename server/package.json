@@ -5,20 +5,28 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/server.js",
-    "start": "node src/server.js"
+    "start": "node src/server.js",
+    "test:tools": "node scripts/check-pdf-tools.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "@napi-rs/canvas": "^1.0.8",
     "cors": "^2.8.6",
+    "docx": "^9.7.1",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "express-validator": "^7.3.2",
+    "mammoth": "^1.12.2",
     "multer": "^2.2.0",
+    "node-html-parser": "^9.0.4",
     "nodemailer": "^9.0.4",
     "pdf-lib": "^1.17.1",
-    "sharp": "^0.35.3"
+    "pdfjs-dist": "^4.10.38",
+    "sharp": "^0.35.3",
+    "word-extractor": "^1.0.4",
+    "xlsx": "^0.18.5"
   }
 }

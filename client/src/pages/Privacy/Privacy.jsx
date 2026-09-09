@@ -21,8 +21,7 @@ const Privacy = () => {
         <LegalSection title="Introduction">
           <p>
             This policy explains how QuickPDFHD handles information when you use
-            its image-to-PDF and document-scanner tools or send a message through
-            the contact form.
+            its PDF and image tools or send a message through the contact form.
           </p>
 
           <p>
@@ -33,14 +32,15 @@ const Privacy = () => {
 
         <LegalSection title="Information We Collect">
           <p>
-            The conversion tools receive the image files you choose to upload.
-            The current application processes those files in server memory to
-            create your requested PDF; it does not write uploaded files to its
-            own disk or database.
+            The conversion tools receive the files you choose to upload, such as
+            images, PDFs, Word documents, and Excel spreadsheets. The current
+            application processes those files in server memory to create your
+            requested download; it does not write uploaded files to its own disk
+            or database.
           </p>
 
           <ul className="list-disc space-y-3 pl-6">
-            <li>Uploaded image files while a conversion request is being processed</li>
+            <li>Uploaded files while a conversion request is being processed</li>
             <li>Contact-form details you submit, such as your name, email address, subject, and message</li>
             <li>Usage information collected by enabled analytics or advertising providers, subject to their policies</li>
           </ul>
@@ -48,7 +48,7 @@ const Privacy = () => {
 
         <LegalSection title="How We Use Your Information">
           <ul className="list-disc space-y-3 pl-6">
-            <li>Generate the PDF or scan result you request.</li>
+            <li>Generate the PDF, image, spreadsheet, Word, or ZIP result you request.</li>
             <li>Respond to messages sent through the contact form.</li>
             <li>Understand site usage and maintain the service.</li>
           </ul>

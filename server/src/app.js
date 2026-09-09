@@ -6,6 +6,7 @@ const contactRoute = require("./routes/contact.route");
 const scanRoute = require("./routes/scan.route");
 const resizeRoute = require("./routes/resize.route");
 const pdfZipRoute = require("./routes/pdf-zip.route");
+const pdfToolsRoute = require("./routes/pdf-tools.route");
 
 const app = express();
 
@@ -55,6 +56,7 @@ app.use("/api/convert", convertRoute);
 app.use("/api/scan", scanRoute);
 app.use("/api/resize-image", resizeRoute);
 app.use("/api/pdf-to-zip", pdfZipRoute);
+app.use("/api/pdf-tools", pdfToolsRoute);
 app.use("/api/contact", contactRoute);
 
 module.exports = app;

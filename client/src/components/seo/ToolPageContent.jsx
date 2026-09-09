@@ -2,6 +2,9 @@ import { Link } from "react-router-dom";
 
 const relatedTools = [
   { name: "JPG to PDF", path: "/jpg-to-pdf" },
+  { name: "PDF to JPG", path: "/pdf-to-jpg" },
+  { name: "Merge PDF", path: "/merge-pdf" },
+  { name: "Word to PDF", path: "/word-to-pdf" },
   { name: "PNG to PDF", path: "/png-to-pdf" },
   { name: "JPEG to PDF", path: "/jpeg-to-pdf" },
   { name: "WEBP to PDF", path: "/webp-to-pdf" },

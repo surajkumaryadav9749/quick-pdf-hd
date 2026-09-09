@@ -3,12 +3,19 @@ import { serviceCatalog } from "../../config/serviceCatalog";
 
 const relatedPaths = {
   "/document-scanner": ["/jpg-to-pdf", "/png-to-pdf", "/resize-image", "/pdf-to-zip"],
-  "/pdf-to-zip": ["/document-scanner", "/jpg-to-pdf", "/png-to-pdf"],
+  "/pdf-to-zip": ["/document-scanner", "/merge-pdf", "/jpg-to-pdf"],
   "/resize-image": ["/jpg-to-pdf", "/png-to-pdf", "/webp-to-pdf"],
-  "/jpg-to-pdf": ["/jpeg-to-pdf", "/document-scanner", "/resize-image", "/pdf-to-zip"],
-  "/jpeg-to-pdf": ["/jpg-to-pdf", "/document-scanner", "/resize-image", "/pdf-to-zip"],
-  "/png-to-pdf": ["/resize-image", "/document-scanner", "/webp-to-pdf", "/pdf-to-zip"],
-  "/webp-to-pdf": ["/resize-image", "/png-to-pdf", "/jpg-to-pdf", "/document-scanner"],
+  "/jpg-to-pdf": ["/pdf-to-jpg", "/merge-pdf", "/word-to-pdf"],
+  "/jpeg-to-pdf": ["/jpg-to-pdf", "/pdf-to-jpg", "/merge-pdf"],
+  "/png-to-pdf": ["/jpg-to-pdf", "/merge-pdf", "/resize-image"],
+  "/webp-to-pdf": ["/jpg-to-pdf", "/png-to-pdf", "/pdf-to-jpg"],
+  "/word-to-pdf": ["/pdf-to-word", "/excel-to-pdf", "/pdf-to-excel"],
+  "/pdf-to-word": ["/word-to-pdf", "/pdf-to-excel", "/split-pdf"],
+  "/excel-to-pdf": ["/pdf-to-excel", "/word-to-pdf", "/pdf-to-word"],
+  "/pdf-to-excel": ["/excel-to-pdf", "/pdf-to-word", "/merge-pdf"],
+  "/split-pdf": ["/merge-pdf", "/pdf-to-jpg", "/pdf-to-word"],
+  "/merge-pdf": ["/split-pdf", "/word-to-pdf", "/pdf-to-jpg"],
+  "/pdf-to-jpg": ["/jpg-to-pdf", "/split-pdf", "/merge-pdf"],
 };
 
 const RelatedTools = ({ currentPath }) => {

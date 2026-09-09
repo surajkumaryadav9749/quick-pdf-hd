@@ -22,8 +22,8 @@ const Footer = () => {
             </NavLink>
 
             <p className="max-w-sm leading-7 text-slate-400">
-              Create PDF documents from image files and prepare document photos
-              for sharing or uploading.
+              Create PDF documents from images and office files, then split,
+              merge, or share them.
             </p>
           </div>
 

@@ -16,6 +16,13 @@ const DocumentScanner = lazy(() => import("../pages/DocumentScanner/DocumentScan
 const PdfToZip = lazy(() => import("../pages/PdfToZip/PdfToZip"));
 const ResizeImage = lazy(() => import("../pages/ResizeImage/ResizeImage"));
 const AllServices = lazy(() => import("../pages/AllServices/AllServices"));
+const WordToPdf = lazy(() => import("../pages/PdfTools/WordToPdf"));
+const PdfToWord = lazy(() => import("../pages/PdfTools/PdfToWord"));
+const ExcelToPdf = lazy(() => import("../pages/PdfTools/ExcelToPdf"));
+const PdfToExcel = lazy(() => import("../pages/PdfTools/PdfToExcel"));
+const SplitPdf = lazy(() => import("../pages/PdfTools/SplitPdf"));
+const MergePdf = lazy(() => import("../pages/PdfTools/MergePdf"));
+const PdfToJpg = lazy(() => import("../pages/PdfTools/PdfToJpg"));
 const PdfGuides = lazy(() => import("../pages/PdfGuides/PdfGuides").then((module) => ({ default: module.PdfGuides })));
 const PdfGuide = lazy(() => import("../pages/PdfGuides/PdfGuides").then((module) => ({ default: module.PdfGuide })));
 
@@ -36,6 +43,13 @@ const AppRoutes = () => {
           <Route path="/png-to-pdf" element={<PngToPdf />} />
           <Route path="/jpeg-to-pdf" element={<JpegToPdf />} />
           <Route path="/webp-to-pdf" element={<WebpToPdf />} />
+          <Route path="/word-to-pdf" element={<WordToPdf />} />
+          <Route path="/pdf-to-word" element={<PdfToWord />} />
+          <Route path="/excel-to-pdf" element={<ExcelToPdf />} />
+          <Route path="/pdf-to-excel" element={<PdfToExcel />} />
+          <Route path="/split-pdf" element={<SplitPdf />} />
+          <Route path="/merge-pdf" element={<MergePdf />} />
+          <Route path="/pdf-to-jpg" element={<PdfToJpg />} />
           <Route path="/document-scanner" element={<DocumentScanner />} />
           <Route path="/pdf-to-zip" element={<PdfToZip />} />
           <Route path="/resize-image" element={<ResizeImage />} />

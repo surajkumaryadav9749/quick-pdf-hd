@@ -14,6 +14,13 @@
     { "source": "/pdf-to-zip", "destination": "/index.html" },
     { "source": "/resize-image", "destination": "/index.html" },
     { "source": "/all-services", "destination": "/index.html" },
+    { "source": "/word-to-pdf", "destination": "/index.html" },
+    { "source": "/pdf-to-word", "destination": "/index.html" },
+    { "source": "/excel-to-pdf", "destination": "/index.html" },
+    { "source": "/pdf-to-excel", "destination": "/index.html" },
+    { "source": "/split-pdf", "destination": "/index.html" },
+    { "source": "/merge-pdf", "destination": "/index.html" },
+    { "source": "/pdf-to-jpg", "destination": "/index.html" },
     { "source": "/pdf-guides", "destination": "/index.html" },
     { "source": "/pdf-guides/(.*)", "destination": "/index.html" }
   ]

@@ -11,6 +11,7 @@ router.post("/pdf-to-jpg", pdfToolsUpload.array("files", 1), handleUploadError, 
 router.post("/word-to-pdf", wordUpload.array("files", 1), handleUploadError, controller.convertWordToPdf);
 router.post("/excel-to-pdf", excelUpload.array("files", 1), handleUploadError, controller.convertExcelToPdf);
 router.post("/pdf-to-word", pdfToolsUpload.array("files", 1), handleUploadError, controller.convertPdfToWord);
+router.post("/pdf-inspect", pdfToolsUpload.array("files", 1), handleUploadError, controller.inspectPdf);
 router.post("/pdf-to-excel", pdfToolsUpload.array("files", 1), handleUploadError, controller.convertPdfToExcel);
 
 module.exports = router;

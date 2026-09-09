@@ -9,11 +9,11 @@ QuickPDFHD is a full-stack web application for everyday PDF and image tasks. It 
 - Scan document photos into a PDF with white-edge trimming, color/grayscale/black-and-white modes, rotation, page numbering, and PDF-size targets.
 - Detect potentially blank or blurry document-photo uploads before generating a scanned PDF.
 - Package up to 20 PDF files into a ZIP archive without modifying the PDFs.
-- Convert Word DOC/DOCX files to PDF, and extract selectable PDF text to DOCX.
+- Resize up to 20 JPG, PNG, or WEBP images by pixels, percentage, or common presets; set DPI/resolution metadata independently; choose JPG, PNG, or WEBP output and quality settings.
+- Convert Word DOC/DOCX files to PDF, extract selectable PDF text to DOCX, or run OCR on scanned PDFs.
 - Convert Excel XLS/XLSX worksheets to PDF, and extract table-like PDF text to XLSX.
 - Split a PDF by page range, separate pages, or equal chunks; merge multiple PDFs in order.
 - Render PDF pages to JPG images.
-- Resize up to 20 JPG, PNG, or WEBP images by pixels, percentage, or common presets; choose JPG, PNG, or WEBP output and quality settings.
 - Download generated PDFs, ZIP archives, and resized images directly from the browser.
 - Contact form that sends submissions through SMTP.
 - Responsive pages for Home, About, Contact, Privacy Policy, Terms, individual tools, All Services, and a 404 page.
@@ -27,7 +27,7 @@ QuickPDFHD is a full-stack web application for everyday PDF and image tasks. It 
 | Frontend | React 19, Vite, React Router, Tailwind CSS |
 | UI helpers | React Icons, React Hot Toast, React Dropzone, dnd-kit |
 | Backend | Node.js, Express 5, Multer |
-| File processing | Sharp, pdf-lib, pdfjs-dist, @napi-rs/canvas, Mammoth, SheetJS, docx, custom ZIP writer |
+| File processing | Sharp, pdf-lib, pdfjs-dist, @napi-rs/canvas, Tesseract.js, Mammoth, SheetJS, docx, custom ZIP writer |
 | Email | Nodemailer / SMTP |
 
 ## Available tools
@@ -35,7 +35,7 @@ QuickPDFHD is a full-stack web application for everyday PDF and image tasks. It 
 | Tool | Input | Output | Limits |
 | --- | --- | --- | --- |
 | Word to PDF | DOC, DOCX | PDF | 1 file, 15 MB |
-| PDF to Word | PDF with selectable text | DOCX | 1 file, 25 MB, 40 pages |
+| PDF to Word | PDF | DOCX | NO OCR: 25 MB, 40 pages. OCR: 25 MB, 15 pages; English, Hindi, or both |
 | Excel to PDF | XLS, XLSX | PDF | 1 file, 15 MB |
 | PDF to Excel | PDF with selectable text | XLSX | 1 file, 25 MB, 40 pages |
 | Split PDF | PDF | PDF or ZIP of PDFs | 1 file, 25 MB, 200 pages |
@@ -44,7 +44,7 @@ QuickPDFHD is a full-stack web application for everyday PDF and image tasks. It 
 | JPG / JPEG / PNG / WEBP to PDF | Images | Single A4 PDF | Up to 20 images, 10 MB each |
 | Document Scanner | JPG, PNG, WEBP document photos | Scanned A4 PDF | Up to 20 pages, 10 MB each |
 | PDF to ZIP | PDF files | ZIP archive | Up to 20 PDFs, 25 MB each |
-| Resize Image | JPG, PNG, WEBP images | ZIP archive of resized images | Up to 20 images, 10 MB each; max output dimension 8000 px |
+| Resize Image | JPG, PNG, WEBP images | ZIP archive of resized images | Up to 20 images, 10 MB each; max output dimension 8000 px; optional DPI 36–1200 |
 
 ## Project structure
 
@@ -138,13 +138,14 @@ Open the Vite URL shown in the terminal, normally `http://localhost:5173`. The A
 | `POST` | `/api/pdf-tools/pdf-to-jpg` | Render a PDF into JPG images |
 | `POST` | `/api/pdf-tools/word-to-pdf` | Convert a DOC/DOCX upload to PDF |
 | `POST` | `/api/pdf-tools/excel-to-pdf` | Convert an XLS/XLSX upload to PDF |
-| `POST` | `/api/pdf-tools/pdf-to-word` | Extract PDF text into a DOCX file |
+| `POST` | `/api/pdf-tools/pdf-to-word` | Extract PDF text or OCR a scan into a DOCX (`ocr`, `language`) |
+| `POST` | `/api/pdf-tools/pdf-inspect` | Report page count and whether selectable text is present |
 | `POST` | `/api/pdf-tools/pdf-to-excel` | Extract PDF text into an XLSX file |
 | `POST` | `/api/contact` | Send a contact-form email |
 
 The upload middleware uses memory storage. The API creates response buffers for the download and does not write uploaded files to its own disk or database.
 
-Word to PDF, Excel to PDF, PDF to Word, and PDF to Excel run entirely on this Node server. They do not call a paid conversion API and do not require extra environment variables. PDF to Word and PDF to Excel only work on PDFs that already contain selectable text; they do not perform OCR on scanned pages. Word and Excel to PDF keep readable content and basic structure, not every desktop-app design feature.
+Word to PDF, Excel to PDF, PDF to Word, and PDF to Excel run entirely on this Node server. They do not call a paid conversion API and do not require extra environment variables. PDF to Word NO OCR extracts selectable text. PDF to Word OCR renders pages and runs Tesseract.js (English, Hindi, or both). OCR language data is cached in the server temp directory on first use. Word and Excel to PDF keep readable content and basic structure, not every desktop-app design feature.
 
 ## Production notes
 

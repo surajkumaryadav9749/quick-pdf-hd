@@ -59,6 +59,8 @@ const ImageResizerWorkspace = () => {
   const [anchor, setAnchor] = useState("width");
   const [format, setFormat] = useState("jpeg");
   const [quality, setQuality] = useState(85);
+  const [dpiPreset, setDpiPreset] = useState("keep");
+  const [customDpi, setCustomDpi] = useState(300);
   const [isResizing, setIsResizing] = useState(false);
   const [result, setResult] = useState(null);
   const resultRef = useResultFocus(result);
@@ -144,6 +146,10 @@ const ImageResizerWorkspace = () => {
     if (previewSize.width < 1 || previewSize.height < 1 || previewSize.width > MAX_DIMENSION || previewSize.height > MAX_DIMENSION) {
       return toast.error("Enter dimensions between 1 and 8000 px.");
     }
+    if (dpiPreset === "custom") {
+      const dpi = Number(customDpi);
+      if (!Number.isFinite(dpi) || dpi < 36 || dpi > 1200) return toast.error("Enter a DPI value between 36 and 1200.");
+    }
     try {
       setIsResizing(true);
       const blob = await resizeImageFiles(images.map(({ file }) => file), {
@@ -155,6 +161,8 @@ const ImageResizerWorkspace = () => {
         anchor,
         format,
         quality,
+        dpiPreset,
+        dpi: dpiPreset === "custom" ? customDpi : dpiPreset,
       });
       setResult({ url: URL.createObjectURL(blob), size: blob.size, preview: { ...previewSize } });
       toast.success("Your resized images ZIP is ready.");
@@ -183,6 +191,8 @@ const ImageResizerWorkspace = () => {
     setPercentage(100);
     setLocked(true);
     setAnchor("width");
+    setDpiPreset("keep");
+    setCustomDpi(300);
   };
 
   const previewBox = first ? Math.min(320, Math.max(previewSize.width, previewSize.height, 1)) : 0;
@@ -303,11 +313,32 @@ const ImageResizerWorkspace = () => {
                   </label>
                 </div>
 
+                <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                  <label className="text-sm font-semibold text-slate-700">Resolution / DPI
+                    <select value={dpiPreset} onChange={(event) => setDpiPreset(event.target.value)} className="mt-1 w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 font-normal">
+                      <option value="keep">Keep original</option>
+                      <option value="72">72 DPI</option>
+                      <option value="96">96 DPI</option>
+                      <option value="150">150 DPI</option>
+                      <option value="200">200 DPI</option>
+                      <option value="300">300 DPI</option>
+                      <option value="600">600 DPI</option>
+                      <option value="custom">Custom</option>
+                    </select>
+                  </label>
+                  {dpiPreset === "custom" && (
+                    <label className="text-sm font-semibold text-slate-700">DPI
+                      <input type="number" min="36" max="1200" value={customDpi} onChange={(event) => setCustomDpi(event.target.value)} className="mt-1 w-full rounded-xl border border-slate-300 px-3 py-2.5 font-normal" />
+                    </label>
+                  )}
+                </div>
+                <p className="mt-2 text-sm leading-6 text-slate-600">DPI controls print resolution and image density. Changing DPI does not necessarily change the image's pixel dimensions.</p>
+
                 {first && (
                   <div className="mt-6 grid gap-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-start">
                     <div>
                       <p className="text-sm font-semibold text-slate-800">Original: {first.width} × {first.height} px</p>
-                      <p className="mt-1 text-sm font-semibold text-slate-800">Output preview: {previewSize.width} × {previewSize.height} px</p>
+                      <p className="mt-1 text-sm font-semibold text-slate-800">Output preview: {previewSize.width} × {previewSize.height} px{dpiPreset === "keep" ? " · original DPI" : ` · ${dpiPreset === "custom" ? customDpi : dpiPreset} DPI`}</p>
                       <p className="mt-2 text-sm leading-6 text-slate-500">
                         {locked || mode === "percentage"
                           ? images.length > 1

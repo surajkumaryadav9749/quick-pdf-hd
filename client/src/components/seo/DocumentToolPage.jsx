@@ -110,6 +110,26 @@ const DocumentToolPage = ({ tool }) => {
                 <p key={paragraph.slice(0, 32)} className="max-w-3xl leading-8 text-slate-600">{paragraph}</p>
               ))}
             </div>
+            {tool.ocrTitle && (
+              <>
+                <h2 className="mt-12 text-3xl font-bold text-slate-900">{tool.ocrTitle}</h2>
+                <div className="mt-6 grid gap-5 md:grid-cols-2">
+                  <article className="rounded-2xl border border-slate-200 bg-white p-6">
+                    <h3 className="text-xl font-semibold text-slate-900">NO OCR</h3>
+                    <p className="mt-3 leading-7 text-slate-600">Best when you can already select text in the PDF. The converter copies that text into Word and is usually the faster option.</p>
+                  </article>
+                  <article className="rounded-2xl border border-slate-200 bg-white p-6">
+                    <h3 className="text-xl font-semibold text-slate-900">OCR</h3>
+                    <p className="mt-3 leading-7 text-slate-600">Best for scanned or image-only PDFs. Pages are rendered and recognized so the Word file contains editable text.</p>
+                  </article>
+                </div>
+                <div className="mt-6 space-y-5">
+                  {tool.ocrExplanation.map((paragraph) => (
+                    <p key={paragraph.slice(0, 32)} className="max-w-3xl leading-8 text-slate-600">{paragraph}</p>
+                  ))}
+                </div>
+              </>
+            )}
             <h3 className="mt-10 text-2xl font-bold text-slate-900">{tool.usesTitle}</h3>
             <ul className="mt-4 list-disc space-y-2 pl-5 leading-7 text-slate-600">
               {tool.uses.map((item) => <li key={item}>{item}</li>)}

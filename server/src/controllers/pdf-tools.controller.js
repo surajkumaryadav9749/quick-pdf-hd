@@ -4,7 +4,8 @@ const pdfPages = require("../services/pdf-pages.service.js");
 const { pdfToJpgArchive } = require("../services/pdf-render.service");
 const { wordToPdf } = require("../services/word-pdf.service");
 const { excelToPdf } = require("../services/excel-pdf.service");
-const { pdfToWord, pdfToExcel } = require("../services/pdf-office.service");
+const { pdfToWord, pdfToExcel, inspectPdfText } = require("../services/pdf-office.service");
+const { pdfToWordOcr, OCR_MAX_PAGES, resolveOcrLanguage } = require("../services/ocr.service");
 
 const sendFile = (res, buffer, contentType, filename) => {
   res.set({
@@ -17,7 +18,7 @@ const sendFile = (res, buffer, contentType, filename) => {
 
 const fail = (res, error) => {
   console.error(error);
-  const unsafe = error instanceof TypeError || error instanceof ReferenceError;
+  const unsafe = error instanceof TypeError || error instanceof ReferenceError || /Cannot read properties/i.test(String(error.message || ""));
   return res.status(400).json({
     success: false,
     message: unsafe || !error.message
@@ -113,8 +114,24 @@ const convertExcelToPdf = async (req, res) => {
 const convertPdfToWord = async (req, res) => {
   try {
     requirePdfFiles(req.files, 1);
-    const buffer = await pdfToWord(req.files[0].buffer);
+    const useOcr = String(req.body.ocr || "").toLowerCase() === "true" || String(req.body.ocr || "").toLowerCase() === "ocr";
+    if (useOcr) {
+      resolveOcrLanguage(req.body.language);
+    }
+    const buffer = useOcr
+      ? await pdfToWordOcr(req.files[0].buffer, req.body.language)
+      : await pdfToWord(req.files[0].buffer);
     return sendFile(res, buffer, "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "QuickPDFHD-document.docx");
+  } catch (error) {
+    return fail(res, error);
+  }
+};
+
+const inspectPdf = async (req, res) => {
+  try {
+    requirePdfFiles(req.files, 1);
+    const info = await inspectPdfText(req.files[0].buffer);
+    return res.json({ success: true, ...info, ocrPageLimit: OCR_MAX_PAGES });
   } catch (error) {
     return fail(res, error);
   }
@@ -138,4 +155,5 @@ module.exports = {
   convertExcelToPdf,
   convertPdfToWord,
   convertPdfToExcel,
+  inspectPdf,
 };

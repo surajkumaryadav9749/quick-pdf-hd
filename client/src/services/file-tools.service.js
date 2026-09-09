@@ -40,4 +40,13 @@ export const resizeImageFiles = async (files, options) => {
   return blob;
 };
 
+export const inspectPdfFile = async (file) => {
+  const formData = new FormData();
+  formData.append("files", file);
+  const response = await axios.post(`${API_BASE}/api/pdf-tools/pdf-inspect`, formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+  return response.data;
+};
+
 export const processPdfTool = (path, files, fields = {}) => postFiles(path, "files", files, fields);

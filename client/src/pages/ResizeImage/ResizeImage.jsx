@@ -13,7 +13,8 @@ const faqs = [
   ["What is the maximum image size and batch size?", "You can resize up to 20 images at once. Each image can be up to 10 MB and up to 8000 pixels in either dimension."],
   ["Does resizing reduce image file size?", "Smaller dimensions often reduce file size, but the final size also depends on content, output format, and selected quality."],
   ["What does the quality setting do?", "Quality applies to JPG and WEBP output. PNG uses lossless compression, so the quality control is disabled for PNG."],
-  ["Can I resize photos for a website or upload?", "Yes. Enter the dimensions your destination requires, select an output format, and download the resized images as a ZIP file."],
+  ["Can I change an image's DPI without changing its pixel size?", "Yes. Choose a Resolution / DPI value while leaving the width and height unchanged. DPI is written as metadata and does not crop or pad the picture."],
+  ["Does changing DPI resize the image?", "No. Pixel dimensions and DPI are separate. You can change one, the other, or both."],
 ];
 
 const ResizeImage = () => (

@@ -1,7 +1,7 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { FiArrowDown, FiArrowUp, FiCheckCircle, FiFileText, FiFolderPlus, FiTrash2, FiUploadCloud, FiX } from "react-icons/fi";
-import { processPdfTool } from "../../services/file-tools.service";
+import { inspectPdfFile, processPdfTool } from "../../services/file-tools.service";
 import useResultFocus from "../common/useResultFocus";
 
 const formatBytes = (bytes) => `${(bytes / 1024 / 1024).toFixed(bytes >= 10 * 1024 * 1024 ? 1 : 2)} MB`;
@@ -28,7 +28,22 @@ const DocumentToolWorkspace = ({ tool }) => {
   const [splitMode, setSplitMode] = useState("extract");
   const [range, setRange] = useState("");
   const [chunkSize, setChunkSize] = useState(2);
+  const [wordMode, setWordMode] = useState("text");
+  const [ocrLanguage, setOcrLanguage] = useState("eng");
+  const [pdfInfo, setPdfInfo] = useState(null);
+  const [progressLabel, setProgressLabel] = useState("");
   const resultRef = useResultFocus(result);
+
+  useEffect(() => {
+    if (tool.extra !== "pdf-to-word" || !files[0]) return undefined;
+    let cancelled = false;
+    inspectPdfFile(files[0]).then((info) => {
+      if (!cancelled) setPdfInfo(info);
+    }).catch(() => {
+      if (!cancelled) setPdfInfo(null);
+    });
+    return () => { cancelled = true; };
+  }, [files, tool.extra]);
 
   const addFiles = (fileList) => {
     const selected = Array.from(fileList || []);
@@ -72,9 +87,31 @@ const DocumentToolWorkspace = ({ tool }) => {
       return toast.error("Enter a page range such as 1-3, 5.");
     }
 
+    if (tool.extra === "pdf-to-word" && wordMode === "ocr") {
+      const ocrLimit = pdfInfo?.ocrPageLimit || 15;
+      if (pdfInfo?.pageCount > ocrLimit) {
+        return toast.error(`OCR accepts PDFs with up to ${ocrLimit} pages.`);
+      }
+    }
+
     try {
       setIsWorking(true);
-      const fields = tool.extra === "split" ? { mode: splitMode === "extract" ? "extract" : splitMode, range, chunkSize } : {};
+      const fields = tool.extra === "split"
+        ? { mode: splitMode === "extract" ? "extract" : splitMode, range, chunkSize }
+        : tool.extra === "pdf-to-word"
+          ? { ocr: wordMode === "ocr", language: ocrLanguage }
+          : {};
+      if (tool.extra === "pdf-to-word" && wordMode === "ocr") {
+        setProgressLabel(pdfInfo?.pageCount
+          ? `Recognizing text on ${pdfInfo.pageCount} page${pdfInfo.pageCount === 1 ? "" : "s"}...`
+          : "Running OCR on the server...");
+        const { blob, contentType } = await processPdfTool(tool.endpoint, files, fields);
+        setProgressLabel("Creating Word document...");
+        const filename = downloadNameFromType(tool, contentType);
+        setResult({ url: URL.createObjectURL(blob), filename, size: blob.size });
+        toast.success("Your file is ready.");
+        return;
+      }
       const { blob, contentType } = await processPdfTool(tool.endpoint, files, fields);
       const filename = downloadNameFromType(tool, contentType);
       setResult({ url: URL.createObjectURL(blob), filename, size: blob.size });
@@ -83,6 +120,7 @@ const DocumentToolWorkspace = ({ tool }) => {
       toast.error(error.message || "Could not process the file. Please try again.");
     } finally {
       setIsWorking(false);
+      setProgressLabel("");
     }
   };
 
@@ -92,6 +130,9 @@ const DocumentToolWorkspace = ({ tool }) => {
     setResult(null);
     setRange("");
     setSplitMode("extract");
+    setWordMode("text");
+    setOcrLanguage("eng");
+    setPdfInfo(null);
     setChunkSize(2);
   };
 
@@ -210,10 +251,41 @@ const DocumentToolWorkspace = ({ tool }) => {
                 </fieldset>
               )}
 
+              {tool.extra === "pdf-to-word" && (
+                <fieldset className="mt-6">
+                  <legend className="text-sm font-semibold text-slate-800">PDF to Word mode</legend>
+                  <div className="mt-3 grid gap-3 sm:grid-cols-2">
+                    <button type="button" onClick={() => setWordMode("text")} className={`rounded-2xl border p-5 text-left ${wordMode === "text" ? "border-teal-500 bg-teal-50" : "border-slate-200 bg-white"}`}>
+                      <span className="text-base font-bold text-slate-900">NO OCR</span>
+                      <span className="mt-2 block text-sm leading-6 text-slate-600">Convert PDFs with selectable text into editable Word files. Faster, and no extra recognition step.</span>
+                    </button>
+                    <button type="button" onClick={() => setWordMode("ocr")} className={`rounded-2xl border p-5 text-left ${wordMode === "ocr" ? "border-teal-500 bg-teal-50" : "border-slate-200 bg-white"}`}>
+                      <span className="text-base font-bold text-slate-900">OCR</span>
+                      <span className="mt-2 block text-sm leading-6 text-slate-600">Convert scanned PDFs with non-selectable text into editable Word files. Up to 15 pages.</span>
+                    </button>
+                  </div>
+                  {pdfInfo && (
+                    <p className="mt-3 text-sm leading-6 text-slate-600">
+                      {pdfInfo.hasSelectableText ? "Selectable text detected. NO OCR is recommended." : "Little or no selectable text detected. OCR is recommended."}
+                    </p>
+                  )}
+                  {wordMode === "ocr" && (
+                    <label className="mt-4 block text-sm font-semibold text-slate-800">
+                      OCR language
+                      <select value={ocrLanguage} onChange={(event) => setOcrLanguage(event.target.value)} className="mt-2 w-full rounded-xl border border-slate-300 bg-white px-3 py-3 font-normal text-slate-700">
+                        <option value="eng">English</option>
+                        <option value="hin">Hindi</option>
+                        <option value="eng+hin">English + Hindi</option>
+                      </select>
+                    </label>
+                  )}
+                </fieldset>
+              )}
+
               <p className="mt-4 text-sm text-slate-500">Supported: {tool.formatsLabel}. Maximum size: {tool.maxSizeLabel}.</p>
               <button type="button" onClick={run} disabled={isWorking} className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-teal-600 px-5 py-3.5 font-semibold text-white transition hover:bg-teal-700 disabled:cursor-not-allowed disabled:bg-slate-400">
                 <FiFileText aria-hidden="true" />
-                {isWorking ? tool.processingLabel : tool.actionLabel}
+                {isWorking ? (progressLabel || tool.processingLabel) : tool.actionLabel}
               </button>
             </>
           )}

@@ -1,36 +1,23 @@
-const { Document, Packer, Paragraph, TextRun, HeadingLevel } = require("docx");
 const XLSX = require("xlsx");
 const { extractTextLines } = require("./pdf-render.service");
+const { pagesToDocx } = require("./docx.service");
 
 const pdfToWord = async (buffer) => {
   const pages = await extractTextLines(buffer);
   const hasText = pages.some((page) => page.lines.length);
   if (!hasText) {
-    throw new Error("No selectable text was found. Scanned or image-only PDFs cannot be converted to an editable Word file.");
+    throw new Error("No selectable text was found. Use OCR mode for scanned or image-only PDFs.");
   }
+  return pagesToDocx(pages);
+};
 
-  const children = [];
-  pages.forEach((page, index) => {
-    children.push(
-      new Paragraph({
-        heading: HeadingLevel.HEADING_2,
-        children: [new TextRun({ text: `Page ${page.pageNumber}`, bold: true })],
-      }),
-    );
-    if (!page.lines.length) {
-      children.push(new Paragraph({ children: [new TextRun({ text: "[No selectable text on this page]", italics: true })] }));
-    } else {
-      page.lines.forEach((line) => {
-        children.push(new Paragraph({ children: [new TextRun(line)] }));
-      });
-    }
-    if (index < pages.length - 1) children.push(new Paragraph({ children: [] }));
-  });
-
-  const document = new Document({
-    sections: [{ properties: {}, children }],
-  });
-  return Buffer.from(await Packer.toBuffer(document));
+const inspectPdfText = async (buffer) => {
+  const pages = await extractTextLines(buffer);
+  const selectableCharacters = pages.reduce((sum, page) => sum + page.lines.join(" ").length, 0);
+  return {
+    pageCount: pages.length,
+    hasSelectableText: selectableCharacters >= 20,
+  };
 };
 
 const pdfToExcel = async (buffer) => {
@@ -51,4 +38,4 @@ const pdfToExcel = async (buffer) => {
   return XLSX.write(workbook, { type: "buffer", bookType: "xlsx" });
 };
 
-module.exports = { pdfToWord, pdfToExcel };
+module.exports = { pdfToWord, pdfToExcel, inspectPdfText };

@@ -2,6 +2,8 @@ const sharp = require("sharp");
 
 const MAX_DIMENSION = 8000;
 const MIN_DIMENSION = 1;
+const MIN_DPI = 36;
+const MAX_DPI = 1200;
 
 const clampDimension = (value) => {
   const number = Math.round(Number(value));
@@ -25,6 +27,15 @@ const parseResizeOptions = (body = {}) => {
   const percentage = Math.max(1, Math.min(Number(body.percentage) || 100, 800));
   const width = clampDimension(body.width);
   const height = clampDimension(body.height);
+  const dpiPreset = String(body.dpiPreset || "keep").toLowerCase();
+  let dpi = null;
+  if (dpiPreset !== "keep") {
+    const rawDpi = dpiPreset === "custom" ? Number(body.dpi) : Number(dpiPreset);
+    if (!Number.isFinite(rawDpi) || rawDpi < MIN_DPI || rawDpi > MAX_DPI) {
+      throw new Error(`Enter a DPI value between ${MIN_DPI} and ${MAX_DPI}.`);
+    }
+    dpi = Math.round(rawDpi);
+  }
 
   if (mode === "pixels") {
     if (lock) {
@@ -35,7 +46,7 @@ const parseResizeOptions = (body = {}) => {
     }
   }
 
-  return { mode, lock, anchor, format, quality, percentage, width, height };
+  return { mode, lock, anchor, format, quality, percentage, width, height, dpiPreset, dpi };
 };
 
 const resizeImageBuffer = async (buffer, options) => {
@@ -75,11 +86,19 @@ const resizeImageBuffer = async (buffer, options) => {
     pipeline = pipeline.flatten({ background: { r: 255, g: 255, b: 255 } });
   }
 
+  if (options.dpi) {
+    pipeline = pipeline.withMetadata({ density: options.dpi });
+  } else {
+    pipeline = pipeline.withMetadata(metadata.density ? { density: metadata.density } : {});
+  }
+
   return pipeline.toFormat(options.format, outputOptions[options.format](options.quality)).toBuffer();
 };
 
 module.exports = {
   MAX_DIMENSION,
+  MIN_DPI,
+  MAX_DPI,
   parseResizeOptions,
   resizeImageBuffer,
 };

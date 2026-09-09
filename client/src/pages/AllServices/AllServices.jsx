@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
-import { FiArrowRight } from "react-icons/fi";
 import Layout from "../../components/layout/Layout";
 import SEO from "../../components/seo/SEO";
+import ToolCard, { toolCardGridClass } from "../../components/common/ToolCard";
+import { iconForService } from "../../components/common/toolIcons";
 import { serviceCatalog, serviceCategories } from "../../config/serviceCatalog";
 
 const AllServices = () => (
@@ -34,20 +35,22 @@ const AllServices = () => (
 
         return (
           <section key={category} aria-labelledby={category.replace(" ", "-").toLowerCase()} className={sectionClass}>
-            <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
               <div className="max-w-3xl">
                 <p className="text-sm font-semibold uppercase tracking-wide text-teal-800">QuickPDFHD services</p>
                 <h2 id={category.replace(" ", "-").toLowerCase()} className="mt-3 text-3xl font-bold text-slate-900 sm:text-4xl">{category}</h2>
                 <p className="mt-3 leading-7 text-slate-600">{category === "PDF Tools" ? "Convert office files, split or merge PDFs, render pages as images, and create PDFs from photos." : "Adjust image dimensions and prepare image files for the size you need."}</p>
               </div>
 
-              <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              <div className={toolCardGridClass}>
                 {services.map((service) => (
-                  <Link key={service.path} to={service.path} className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:border-teal-300 hover:shadow-md">
-                    <h3 className="text-xl font-semibold text-slate-900">{service.name}</h3>
-                    <p className="mt-3 leading-7 text-slate-600">{service.description}</p>
-                    <span className="mt-4 inline-flex items-center gap-2 font-medium text-teal-800">Open tool <FiArrowRight aria-hidden="true" /></span>
-                  </Link>
+                  <ToolCard
+                    key={service.path}
+                    to={service.path}
+                    title={service.name}
+                    description={service.description}
+                    icon={iconForService(service.icon)}
+                  />
                 ))}
               </div>
             </div>

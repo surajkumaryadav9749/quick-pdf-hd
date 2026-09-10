@@ -6,7 +6,7 @@ import { serviceCatalog } from "../../config/serviceCatalog";
 const sections = [
   {
     id: "services",
-    title: "PDF and document tools",
+    title: "Popular tools",
     intro: "Convert Word and Excel files, extract text or tables, split or merge PDFs, and render pages as JPG images.",
     group: "document",
   },

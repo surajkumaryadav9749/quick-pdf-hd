@@ -9,20 +9,20 @@ const Privacy = () => {
     <Layout>
       <SEO
         title="Privacy Policy | QuickPDFHD"
-        description="Learn how QuickPDFHD handles uploaded files, contact-form information, analytics, and advertising services."
+        description="Learn how QuickPDFHD handles uploaded files, contact-form information, Google Analytics, and possible advertising."
         canonical="https://quickpdfhd.com/privacy-policy"
       />
       <main>
         <Hero
           badge="Privacy Policy"
           title="Privacy Policy"
-          description="Learn how QuickPDFHD handles uploaded files, contact-form messages, analytics, and advertising."
+          description="How QuickPDFHD handles files, contact messages, analytics, and advertising for its PDF, document, and image tools."
         />
 
         <LegalSection title="Introduction">
           <p>
             This policy explains how QuickPDFHD handles information when you use
-            its PDF and image tools or send a message through the contact form.
+            its PDF, document, and image tools or send a message through the contact form.
           </p>
 
           <p>
@@ -57,12 +57,13 @@ const Privacy = () => {
 
         <LegalSection title="Cookies and advertising">
           <p>
-            QuickPDFHD currently loads Google Analytics and Google AdSense. These
-            services may use cookies or similar technologies to measure traffic,
-            show ads, and limit how often you see the same ad. Google and other
-            advertisers may collect or receive information from your browser
-            according to their own policies. You can manage cookies in your
-            browser settings.
+            QuickPDFHD currently loads Google Analytics to measure site usage.
+            The website also includes Google’s AdSense publisher script so
+            advertising can be shown if and when Google serves ads for this site.
+            The application does not place ad units inside upload areas,
+            conversion buttons, or download controls. Google and other providers
+            may use cookies or similar technologies according to their own
+            policies. You can manage cookies in your browser settings.
           </p>
         </LegalSection>
 
@@ -86,13 +87,14 @@ const Privacy = () => {
             retention schedule for uploads. Contact-form messages are sent by
             email and may be retained in that inbox or by the email provider.
             Analytics and advertising providers keep data under their own
-            retention rules.
+            retention rules if those services receive information from your visit.
           </p>
         </LegalSection>
 
         <LegalSection title="Third-Party Services">
           <p>
-            QuickPDFHD currently includes Google Analytics and Google AdSense.
+            QuickPDFHD currently loads Google Analytics. Advertising may be shown
+            through Google AdSense if and when ads are served for this website.
             These providers handle data under their own privacy policies. The
             contact form uses an email delivery service configured by the site
             operator to send your message. The site is hosted by a third-party

@@ -36,7 +36,8 @@ const HowToSection = () => (
           Common tasks people complete here
         </h2>
         <p className="mt-4 text-lg leading-8 text-slate-600">
-          Pick the tool that matches the files you already have. Limits and supported formats are listed on each tool page.
+          Pick the tool that matches the files you already have. Limits and supported formats are listed on each tool page. Step-by-step articles live in{" "}
+          <Link to="/pdf-guides" className="font-semibold text-teal-800 hover:underline">PDF Guides</Link>.
         </p>
       </div>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">

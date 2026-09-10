@@ -12,7 +12,7 @@ const Terms = () => {
         <Hero
           badge="Terms & Conditions"
           title="Terms and Conditions"
-          description="Please read these Terms and Conditions before using QuickPDFHD and its online PDF and image tools."
+          description="Please read these Terms and Conditions before using QuickPDFHD and its online PDF, document, and image tools."
         />
 
         <LegalSection title="Acceptance of Terms">
@@ -70,9 +70,9 @@ const Terms = () => {
 
         <LegalSection title="Third-Party Services">
           <p>
-            Our website may integrate third-party services such as Google
-            Analytics and Google AdSense. Their use is governed by their
-            respective policies.
+            QuickPDFHD currently loads Google Analytics. The site also includes
+            Google’s AdSense publisher script so ads can appear if and when they
+            are served. Those providers’ own policies apply to data they collect.
           </p>
         </LegalSection>
 

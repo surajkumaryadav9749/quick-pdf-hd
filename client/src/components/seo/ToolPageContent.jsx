@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import { getRelatedServices } from "../../config/serviceCatalog";
+import { getGuidesForTool } from "../../config/pdfGuides";
+import RelatedGuides from "./RelatedGuides";
 
 const ToolPageContent = ({ tool }) => {
   const links = getRelatedServices(tool.path, 5);
+  const guides = getGuidesForTool(tool.path);
 
   return (
     <>
@@ -98,8 +101,21 @@ const ToolPageContent = ({ tool }) => {
               <span key={link.path}>{index > 0 && ", "}<Link to={link.path} className="font-semibold text-teal-800 hover:underline">{link.name}</Link></span>
             ))}.
           </p>
+          {guides.length > 0 && (
+            <p className="mt-4 leading-7 text-slate-600">
+              Guides:{" "}
+              {guides.map((guide, index) => (
+                <span key={guide.slug}>
+                  {index > 0 && ", "}
+                  <Link to={`/pdf-guides/${guide.slug}`} className="font-semibold text-teal-800 hover:underline">{guide.title}</Link>
+                </span>
+              ))}
+              .
+            </p>
+          )}
         </div>
       </section>
+      <RelatedGuides toolPath={tool.path} />
     </>
   );
 };

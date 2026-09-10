@@ -3,29 +3,131 @@ import Layout from "../../components/layout/Layout";
 import ImageResizerWorkspace from "../../components/filetools/ImageResizerWorkspace";
 import SEO from "../../components/seo/SEO";
 import RelatedTools from "../../components/seo/RelatedTools";
+import RelatedGuides from "../../components/seo/RelatedGuides";
 
 const faqs = [
-  ["Can I resize multiple images at once?", "Yes. Upload up to 20 JPG, PNG, or WEBP images and resize them together. The output is packaged in one ZIP download."],
-  ["How can I resize an image without stretching it?", "Keep aspect ratio locked and change width or height. The other side updates automatically, and the full image stays visible with no crop and no added white bars."],
-  ["Can I resize JPG, PNG, and WEBP images?", "Yes. The tool accepts JPG/JPEG, PNG, and WEBP images and can output JPG, PNG, or WEBP."],
-  ["Can I resize images to the same dimensions?", "Unlock aspect ratio to stretch every image to the exact width and height you enter. Keep the lock on to resize proportionally without cropping."],
-  ["Can I resize images by percentage?", "Yes. Choose Percentage mode and select 25%, 50%, 75%, 100%, 150%, or 200% based on the first selected image."],
-  ["What is the maximum image size and batch size?", "You can resize up to 20 images at once. Each image can be up to 10 MB and up to 8000 pixels in either dimension."],
-  ["Does resizing reduce image file size?", "Smaller dimensions often reduce file size, but the final size also depends on content, output format, and selected quality."],
-  ["What does the quality setting do?", "Quality applies to JPG and WEBP output. PNG uses lossless compression, so the quality control is disabled for PNG."],
-  ["Can I change an image's DPI without changing its pixel size?", "Yes. Choose a Resolution / DPI value while leaving the width and height unchanged. DPI is written as metadata and does not crop or pad the picture."],
-  ["Does changing DPI resize the image?", "No. Pixel dimensions and DPI are separate. You can change one, the other, or both."],
+  { question: "Can I resize multiple images at once?", answer: "Yes. Upload up to 20 JPG, PNG, or WEBP images and resize them together. The output is packaged in one ZIP download." },
+  { question: "How can I resize an image without stretching it?", answer: "Keep aspect ratio locked and change width or height. The other side updates automatically, and the full image stays visible with no crop and no added white bars." },
+  { question: "Can I resize JPG, PNG, and WEBP images?", answer: "Yes. The tool accepts JPG/JPEG, PNG, and WEBP images and can output JPG, PNG, or WEBP." },
+  { question: "Can I resize images to the same dimensions?", answer: "Unlock aspect ratio to stretch every image to the exact width and height you enter. Keep the lock on to resize proportionally without cropping." },
+  { question: "Can I resize images by percentage?", answer: "Yes. Choose Percentage mode and select 25%, 50%, 75%, 100%, 150%, or 200% based on the first selected image." },
+  { question: "What is the maximum image size and batch size?", answer: "You can resize up to 20 images at once. Each image can be up to 10 MB and up to 8000 pixels in either dimension." },
+  { question: "Does resizing reduce image file size?", answer: "Smaller dimensions often reduce file size, but the final size also depends on content, output format, and selected quality." },
+  { question: "What does the quality setting do?", answer: "Quality applies to JPG and WEBP output. PNG uses lossless compression, so the quality control is disabled for PNG." },
+  { question: "Can I change an image's DPI without changing its pixel size?", answer: "Yes. Choose a Resolution / DPI value while leaving the width and height unchanged. DPI is written as metadata and does not crop or pad the picture." },
+  { question: "Does changing DPI resize the image?", answer: "No. Pixel dimensions and DPI are separate. You can change one, the other, or both." },
 ];
 
 const ResizeImage = () => (
   <Layout>
-    <SEO title="Resize Multiple Images Online – Bulk Image Resizer | QuickPDFHD" description="Resize up to 20 JPG, PNG, or WEBP images at once. Set pixels or percentage, keep aspect ratio, choose output settings, and download a ZIP." canonical="https://quickpdfhd.com/resize-image" structuredData={{ "@context": "https://schema.org", "@type": "WebApplication", name: "QuickPDFHD Bulk Image Resizer", url: "https://quickpdfhd.com/resize-image", applicationCategory: "UtilitiesApplication", operatingSystem: "Web", description: "Resize up to 20 JPG, PNG, or WEBP images together by pixels or percentage." }} />
+    <SEO
+      title="Resize Multiple Images Online – Bulk Image Resizer | QuickPDFHD"
+      description="Resize up to 20 JPG, PNG, or WEBP images at once. Set pixels or percentage, keep aspect ratio, choose output settings, and download a ZIP."
+      canonical="https://quickpdfhd.com/resize-image"
+      structuredData={{
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebApplication",
+            name: "QuickPDFHD Bulk Image Resizer",
+            url: "https://quickpdfhd.com/resize-image",
+            applicationCategory: "UtilitiesApplication",
+            operatingSystem: "Web",
+            description: "Resize up to 20 JPG, PNG, or WEBP images together by pixels or percentage.",
+          },
+          {
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: "https://quickpdfhd.com/" },
+              { "@type": "ListItem", position: 2, name: "Resize Image", item: "https://quickpdfhd.com/resize-image" },
+            ],
+          },
+          {
+            "@type": "FAQPage",
+            mainEntity: faqs.map((faq) => ({
+              "@type": "Question",
+              name: faq.question,
+              acceptedAnswer: { "@type": "Answer", text: faq.answer },
+            })),
+          },
+        ],
+      }}
+    />
     <main>
-      <section className="bg-slate-50 pb-10 pt-16 text-center sm:pt-20"><div className="mx-auto max-w-4xl px-4 sm:px-6"><nav aria-label="Breadcrumb" className="text-sm text-slate-500"><Link to="/" className="hover:text-teal-800">Home</Link> <span aria-hidden="true">/</span> Resize Image</nav><h1 className="mt-4 text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl">Resize Multiple Images Online</h1><p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-slate-600">Resize up to 20 JPG, PNG, or WEBP images at once. Choose exact dimensions or a percentage, keep proportions, and download the resized files in one ZIP.</p></div></section>
+      <section className="bg-slate-50 pb-10 pt-16 text-center sm:pt-20">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6">
+          <nav aria-label="Breadcrumb" className="text-sm text-slate-500">
+            <Link to="/" className="hover:text-teal-800">Home</Link> <span aria-hidden="true">/</span>{" "}
+            <Link to="/all-services" className="hover:text-teal-800">All Services</Link> <span aria-hidden="true">/</span> Resize Image
+          </nav>
+          <h1 className="mt-4 text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl">Resize Multiple Images Online</h1>
+          <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-slate-600">
+            Resize up to 20 JPG, PNG, or WEBP images at once. Choose exact dimensions or a percentage, keep proportions, and download the resized files in one ZIP.
+          </p>
+        </div>
+      </section>
       <ImageResizerWorkspace />
-      <section className="bg-white py-16 sm:py-20"><div className="mx-auto max-w-5xl px-4 sm:px-6"><p className="text-sm font-semibold uppercase tracking-wide text-teal-800">Bulk image resizing</p><h2 className="mt-3 text-3xl font-bold text-slate-900">Resize several images together</h2><div className="mt-5 grid gap-6 md:grid-cols-2"><p className="leading-7 text-slate-600">Use this bulk image resizer when you need to change the pixel size of up to 20 JPG, PNG, or WEBP files at once. The default lock keeps each photo's proportions so nothing is cropped and no white canvas is added.</p><p className="leading-7 text-slate-600">Use Pixels mode with the lock on for proportional resizing, or turn the lock off when you explicitly want exact width and height (which can stretch the picture). Percentage mode scales every image by the same amount.</p></div><div className="mt-10 grid gap-5 md:grid-cols-3"><article className="rounded-2xl border border-slate-200 bg-slate-50 p-6"><h3 className="text-xl font-semibold text-slate-900">Batch resize up to 20 images</h3><p className="mt-3 leading-7 text-slate-600">Process multiple JPG, PNG, or WEBP files in one operation instead of resizing each image separately.</p></article><article className="rounded-2xl border border-slate-200 bg-slate-50 p-6"><h3 className="text-xl font-semibold text-slate-900">Choose dimensions and format</h3><p className="mt-3 leading-7 text-slate-600">Set pixels or a percentage, choose JPG, PNG, or WEBP output, and adjust quality where supported.</p></article><article className="rounded-2xl border border-slate-200 bg-slate-50 p-6"><h3 className="text-xl font-semibold text-slate-900">Download one ZIP file</h3><p className="mt-3 leading-7 text-slate-600">Your resized image batch is packaged into a ZIP file for a simple single download.</p></article></div></div></section>
-      <section className="bg-slate-50 py-16 sm:py-20"><div className="mx-auto grid max-w-5xl gap-6 px-4 sm:grid-cols-2 sm:px-6"><article className="rounded-2xl border border-slate-200 bg-white p-7"><h2 className="text-2xl font-bold text-slate-900">Common image sizes</h2><p className="mt-4 leading-7 text-slate-600">1920 × 1080 and 1280 × 720 are common widescreen layouts. 1080 × 1080, 1080 × 1350, and 1080 × 1920 are useful square, portrait, and vertical starting points. Choose the dimensions your destination needs.</p></article><article className="rounded-2xl border border-slate-200 bg-white p-7"><h2 className="text-2xl font-bold text-slate-900">Need a PDF instead?</h2><p className="mt-4 leading-7 text-slate-600">After preparing images, use the <Link to="/jpg-to-pdf" className="font-semibold text-teal-800 hover:underline">JPG to PDF converter</Link>, <Link to="/png-to-pdf" className="font-semibold text-teal-800 hover:underline">PNG to PDF converter</Link>, or <Link to="/webp-to-pdf" className="font-semibold text-teal-800 hover:underline">WEBP to PDF converter</Link> to combine images into one document.</p></article></div></section>
-      <section className="bg-white py-16 sm:py-20"><div className="mx-auto max-w-4xl px-4 sm:px-6"><p className="text-sm font-semibold uppercase tracking-wide text-teal-800">FAQs</p><h2 className="mt-3 text-3xl font-bold text-slate-900">Bulk image resizer questions</h2><dl className="mt-8 space-y-4">{faqs.map(([question, answer]) => <div key={question} className="rounded-2xl border border-slate-200 p-6"><dt className="text-lg font-semibold text-slate-900">{question}</dt><dd className="mt-3 leading-7 text-slate-600">{answer}</dd></div>)}</dl></div></section>
+      <section className="bg-white py-16 sm:py-20">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6">
+          <p className="text-sm font-semibold uppercase tracking-wide text-teal-800">Bulk image resizing</p>
+          <h2 className="mt-3 text-3xl font-bold text-slate-900">Resize several images together</h2>
+          <div className="mt-5 grid gap-6 md:grid-cols-2">
+            <p className="leading-7 text-slate-600">Use this bulk image resizer when you need to change the pixel size of up to 20 JPG, PNG, or WEBP files at once. The default lock keeps each photo&apos;s proportions so nothing is cropped and no white canvas is added.</p>
+            <p className="leading-7 text-slate-600">Use Pixels mode with the lock on for proportional resizing, or turn the lock off when you explicitly want exact width and height (which can stretch the picture). Percentage mode scales every image by the same amount.</p>
+          </div>
+          <div className="mt-10 grid gap-5 md:grid-cols-3">
+            <article className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
+              <h3 className="text-xl font-semibold text-slate-900">Batch resize up to 20 images</h3>
+              <p className="mt-3 leading-7 text-slate-600">Process multiple JPG, PNG, or WEBP files in one operation instead of resizing each image separately.</p>
+            </article>
+            <article className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
+              <h3 className="text-xl font-semibold text-slate-900">Choose dimensions and format</h3>
+              <p className="mt-3 leading-7 text-slate-600">Set pixels or a percentage, choose JPG, PNG, or WEBP output, and adjust quality where supported.</p>
+            </article>
+            <article className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
+              <h3 className="text-xl font-semibold text-slate-900">Download one ZIP file</h3>
+              <p className="mt-3 leading-7 text-slate-600">Your resized image batch is packaged into a ZIP file for a simple single download.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section className="bg-slate-50 py-16 sm:py-20">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6">
+          <h2 className="text-3xl font-bold text-slate-900">Pixels, DPI, and aspect ratio</h2>
+          <div className="mt-6 space-y-5 leading-8 text-slate-600">
+            <p>Width and height in this tool are pixel dimensions: how many pixels the image is across and down. Changing those values actually resizes the picture. DPI (dots per inch) is metadata that some print workflows use to interpret how large those pixels should appear on paper. Changing DPI alone does not crop, pad, or stretch the image.</p>
+            <p>When aspect-ratio lock is on, you set one side and the other is calculated so the image stays proportional. The calculated height or width can differ from a round number you had in mind, because the original photo may not match the ratio of a preset such as 1920 × 1080.</p>
+            <p>Unlocking aspect ratio lets you enter both width and height exactly. If those numbers do not match the original proportions, the image is stretched or squashed. Use that only when distortion is acceptable.</p>
+          </div>
+        </div>
+      </section>
+      <section className="bg-white py-16 sm:py-20">
+        <div className="mx-auto grid max-w-5xl gap-6 px-4 sm:grid-cols-2 sm:px-6">
+          <article className="rounded-2xl border border-slate-200 bg-slate-50 p-7">
+            <h2 className="text-2xl font-bold text-slate-900">Common image sizes</h2>
+            <p className="mt-4 leading-7 text-slate-600">1920 × 1080 and 1280 × 720 are common widescreen layouts. 1080 × 1080, 1080 × 1350, and 1080 × 1920 are useful square, portrait, and vertical starting points. Choose the dimensions your destination needs.</p>
+          </article>
+          <article className="rounded-2xl border border-slate-200 bg-slate-50 p-7">
+            <h2 className="text-2xl font-bold text-slate-900">Need a PDF instead?</h2>
+            <p className="mt-4 leading-7 text-slate-600">After preparing images, use the <Link to="/jpg-to-pdf" className="font-semibold text-teal-800 hover:underline">JPG to PDF converter</Link>, <Link to="/png-to-pdf" className="font-semibold text-teal-800 hover:underline">PNG to PDF converter</Link>, or <Link to="/webp-to-pdf" className="font-semibold text-teal-800 hover:underline">WEBP to PDF converter</Link> to combine images into one document.</p>
+          </article>
+        </div>
+      </section>
+      <section className="bg-white py-16 sm:py-20">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6">
+          <p className="text-sm font-semibold uppercase tracking-wide text-teal-800">FAQs</p>
+          <h2 className="mt-3 text-3xl font-bold text-slate-900">Bulk image resizer questions</h2>
+          <dl className="mt-8 space-y-4">
+            {faqs.map((faq) => (
+              <div key={faq.question} className="rounded-2xl border border-slate-200 p-6">
+                <dt className="text-lg font-semibold text-slate-900">{faq.question}</dt>
+                <dd className="mt-3 leading-7 text-slate-600">{faq.answer}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </section>
+      <RelatedGuides toolPath="/resize-image" />
       <RelatedTools currentPath="/resize-image" />
     </main>
   </Layout>

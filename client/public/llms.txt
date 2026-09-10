@@ -24,7 +24,19 @@ QuickPDFHD is a free, browser-based set of PDF and image tools. Users can conver
 ## Guides
 
 - [PDF Guides](https://quickpdfhd.com/pdf-guides): Short how-to articles for common QuickPDFHD tasks.
+- [How to convert JPG to PDF](https://quickpdfhd.com/pdf-guides/how-to-convert-jpg-to-pdf)
+- [How to convert PNG to PDF](https://quickpdfhd.com/pdf-guides/how-to-convert-png-to-pdf)
+- [How to scan document photos to PDF](https://quickpdfhd.com/pdf-guides/how-to-scan-document-photos-to-pdf)
+- [How to package multiple PDFs into a ZIP](https://quickpdfhd.com/pdf-guides/how-to-package-multiple-pdfs-into-a-zip)
+- [How to resize multiple images](https://quickpdfhd.com/pdf-guides/how-to-resize-multiple-images)
 - [How to convert Word to PDF](https://quickpdfhd.com/pdf-guides/how-to-convert-word-to-pdf)
+- [How to convert PDF to Word](https://quickpdfhd.com/pdf-guides/how-to-convert-pdf-to-word)
+- [How to convert a scanned PDF to Word](https://quickpdfhd.com/pdf-guides/how-to-convert-scanned-pdf-to-word)
+- [How to convert Excel to PDF](https://quickpdfhd.com/pdf-guides/how-to-convert-excel-to-pdf)
+- [How to convert PDF to Excel](https://quickpdfhd.com/pdf-guides/how-to-convert-pdf-to-excel)
+- [How to split a PDF](https://quickpdfhd.com/pdf-guides/how-to-split-a-pdf)
+- [How to merge PDF files](https://quickpdfhd.com/pdf-guides/how-to-merge-pdf-files)
+- [How to convert PDF pages to JPG](https://quickpdfhd.com/pdf-guides/how-to-convert-pdf-to-jpg)
 - [How to merge or split PDFs](https://quickpdfhd.com/pdf-guides/how-to-merge-or-split-pdfs)
 
 ## Additional information

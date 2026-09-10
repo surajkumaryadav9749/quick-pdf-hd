@@ -1,12 +1,13 @@
 import Layout from "../../components/layout/Layout";
 import HowToSection from "../../components/seo/HowToSection";
-import RelatedTools from "../../components/seo/RelatedTools";
+import HomeGuides from "../../components/home/HomeGuides";
+import FAQSection from "../../components/home/FAQSection";
+import { homeFaqs } from "../../config/homeFaqs";
 
 import HeroSection from "../../components/home/HeroSection";
 import ImageToPdfTools from "../../components/home/ImageToPdfTools";
 import FeaturesSection from "../../components/home/FeaturesSection";
 import HowItWorks from "../../components/home/HowItWorks";
-import FAQSection from "../../components/home/FAQSection";
 import HomeCta from "../../components/home/HomeCta";
 
 import SEO from "../../components/seo/SEO";
@@ -30,6 +31,14 @@ const Home = () => {
               operatingSystem: "Web",
               description: "Browser-based tools for converting and organizing PDF, Word, Excel, and image files.",
             },
+            {
+              "@type": "FAQPage",
+              mainEntity: homeFaqs.map((faq) => ({
+                "@type": "Question",
+                name: faq.question,
+                acceptedAnswer: { "@type": "Answer", text: faq.answer },
+              })),
+            },
           ],
         }}
       />
@@ -37,11 +46,11 @@ const Home = () => {
       <main>
         <HeroSection />
         <ImageToPdfTools />
-        <HowItWorks />
         <FeaturesSection />
+        <HowItWorks />
         <HowToSection />
+        <HomeGuides />
         <FAQSection />
-        <RelatedTools />
         <HomeCta />
       </main>
     </Layout>

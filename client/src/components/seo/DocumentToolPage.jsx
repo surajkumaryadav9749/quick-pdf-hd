@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import Layout from "../layout/Layout";
 import SEO from "../seo/SEO";
 import RelatedTools from "../seo/RelatedTools";
+import RelatedGuides from "../seo/RelatedGuides";
 import DocumentToolWorkspace from "../filetools/DocumentToolWorkspace";
 import { getRelatedServices } from "../../config/serviceCatalog";
 
@@ -166,6 +167,7 @@ const DocumentToolPage = ({ tool }) => {
           </div>
         </section>
 
+        <RelatedGuides toolPath={tool.path} />
         <RelatedTools currentPath={tool.path} />
 
         <section className="bg-slate-50 py-16 sm:py-20">

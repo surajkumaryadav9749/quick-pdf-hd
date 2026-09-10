@@ -21,7 +21,7 @@ const features = [
   },
   {
     icon: <FiCheckCircle aria-hidden="true" />,
-    title: "100% Free",
+    title: "Free to use",
     description:
       "No registration is required. Each tool page lists its own file-size and page limits.",
   },

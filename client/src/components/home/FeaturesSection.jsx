@@ -52,7 +52,7 @@ const FeaturesSection = () => {
         {/* Section Heading */}
         <div className="mx-auto mb-14 max-w-3xl text-center">
           <p className="text-sm font-semibold uppercase tracking-wide text-teal-800">
-            Why Choose QuickPDFHD
+            Why QuickPDFHD
           </p>
 
           <h2

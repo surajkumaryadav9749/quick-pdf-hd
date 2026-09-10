@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Layout from "../../components/layout/Layout";
 
 import UploadBox from "../../components/upload/UploadBox";
@@ -17,14 +18,25 @@ const WebpToPdf = () => {
         title="WEBP to PDF Converter – Convert Multiple WEBP Images | QuickPDFHD"
         description="Convert multiple WEBP images into one PDF online. Upload, reorder up to 20 web images, and download one shareable PDF document."
         canonical="https://quickpdfhd.com/webp-to-pdf"
-        structuredData={{ "@context": "https://schema.org", "@type": "WebApplication", name: "QuickPDFHD WEBP to PDF Converter", url: "https://quickpdfhd.com/webp-to-pdf", applicationCategory: "UtilitiesApplication", operatingSystem: "Web", description: "Convert WEBP images into a PDF document online." }}
+        structuredData={{
+          "@context": "https://schema.org",
+          "@graph": [
+            { "@type": "WebApplication", name: "QuickPDFHD WEBP to PDF Converter", url: "https://quickpdfhd.com/webp-to-pdf", applicationCategory: "UtilitiesApplication", operatingSystem: "Web", description: "Convert WEBP images into a PDF document online." },
+            { "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: "https://quickpdfhd.com/" }, { "@type": "ListItem", position: 2, name: "WEBP to PDF", item: "https://quickpdfhd.com/webp-to-pdf" }] },
+            { "@type": "FAQPage", mainEntity: tool.faqs.map((faq) => ({ "@type": "Question", name: faq.question, acceptedAnswer: { "@type": "Answer", text: faq.answer } })) },
+          ],
+        }}
       />
 
       <main className="bg-slate-50">
         {/* Hero Section */}
         <section className="px-4 pb-10 pt-16 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-5xl text-center">
-            <p className="text-sm font-semibold uppercase tracking-wide text-teal-800">
+            <nav aria-label="Breadcrumb" className="text-sm text-slate-500">
+              <Link to="/" className="hover:text-teal-800">Home</Link> <span aria-hidden="true">/</span>{" "}
+              <Link to="/all-services" className="hover:text-teal-800">All Services</Link> <span aria-hidden="true">/</span> WEBP to PDF
+            </nav>
+            <p className="mt-4 text-sm font-semibold uppercase tracking-wide text-teal-800">
               WEBP to PDF Converter
             </p>
 

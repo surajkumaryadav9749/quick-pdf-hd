@@ -5,7 +5,7 @@ QuickPDFHD is a free, browser-based set of PDF and image tools. Users can conver
 ## Main pages
 
 - [All Services](https://quickpdfhd.com/all-services): Directory of available QuickPDFHD tools.
-- [Home](https://quickpdfhd.com/): PDF tools and upload interface.
+- [Home](https://quickpdfhd.com/): Overview of PDF, Word, Excel, and image tools.
 - [Word to PDF](https://quickpdfhd.com/word-to-pdf): Convert DOC and DOCX files to PDF.
 - [PDF to Word](https://quickpdfhd.com/pdf-to-word): Extract selectable PDF text to DOCX.
 - [Excel to PDF](https://quickpdfhd.com/excel-to-pdf): Convert XLS and XLSX worksheets to PDF.
@@ -20,6 +20,12 @@ QuickPDFHD is a free, browser-based set of PDF and image tools. Users can conver
 - [Document Scanner](https://quickpdfhd.com/document-scanner): Clean document photos and create a PDF.
 - [PDF to ZIP](https://quickpdfhd.com/pdf-to-zip): Package multiple PDF files in one ZIP archive.
 - [Resize Image](https://quickpdfhd.com/resize-image): Resize JPG, PNG, and WEBP images.
+
+## Guides
+
+- [PDF Guides](https://quickpdfhd.com/pdf-guides): Short how-to articles for common QuickPDFHD tasks.
+- [How to convert Word to PDF](https://quickpdfhd.com/pdf-guides/how-to-convert-word-to-pdf)
+- [How to merge or split PDFs](https://quickpdfhd.com/pdf-guides/how-to-merge-or-split-pdfs)
 
 ## Additional information
 

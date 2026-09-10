@@ -5,13 +5,13 @@ const features = [
     icon: <FiZap aria-hidden="true" />,
     title: "Fast Conversion",
     description:
-      "Convert multiple images into a high-quality PDF within seconds.",
+      "Create a PDF, Word, Excel, image, or ZIP download from a supported file without installing a desktop app.",
   },
   {
     icon: <FiLock aria-hidden="true" />,
     title: "Clear file handling",
     description:
-      "Images are uploaded to the conversion server and processed in memory to create the requested PDF.",
+      "Files are uploaded to the conversion server and processed in memory to create the requested download.",
   },
   {
     icon: <FiGlobe aria-hidden="true" />,
@@ -23,7 +23,7 @@ const features = [
     icon: <FiCheckCircle aria-hidden="true" />,
     title: "100% Free",
     description:
-      "No registration, subscriptions or hidden charges. Convert your images for free.",
+      "No registration is required. Each tool page lists its own file-size and page limits.",
   },
 ];
 
@@ -48,11 +48,10 @@ const AboutQuickPDFHD = () => {
           </h2>
 
           <p className="mt-6 text-lg leading-8 text-slate-600">
-            QuickPDFHD is a modern online Image to PDF converter built to make
-            document conversion simple and practical. Whether you're a
-            student, professional, freelancer or business owner, QuickPDFHD
-            helps you convert multiple images into a professional PDF without
-            installing any software.
+            QuickPDFHD is a practical set of online PDF and image tools. You can
+            convert Word and Excel files, extract PDF text, split or merge PDFs,
+            create PDFs from photos, scan document pages, package PDFs into a ZIP
+            file, and resize images from a browser.
           </p>
         </div>
 

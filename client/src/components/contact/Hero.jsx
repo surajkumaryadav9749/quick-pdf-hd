@@ -37,19 +37,16 @@ const Hero = () => {
 
           {/* Description */}
           <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-slate-600">
-            Have questions, feedback, or need assistance with QuickPDFHD? Our
-            team is here to help you with image-to-PDF conversion and answer
-            your general inquiries.
+            Have a question, feedback, or an issue with a QuickPDFHD tool? Use the contact form and include the tool name when you can.
           </p>
 
-          {/* Buttons */}
           <div className="mt-10 flex flex-wrap justify-center gap-4">
             <a href="#contact-form">
-              <Button>Contact Support</Button>
+              <Button>Open contact form</Button>
             </a>
 
-            <Link to="/">
-              <Button variant="secondary">Convert Images</Button>
+            <Link to="/all-services">
+              <Button variant="secondary">Browse tools</Button>
             </Link>
           </div>
         </div>

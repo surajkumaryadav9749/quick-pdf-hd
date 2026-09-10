@@ -5,34 +5,34 @@ import Container from "../common/Container";
 
 const faqs = [
   {
-    question: "Is QuickPDFHD completely free?",
+    question: "Is QuickPDFHD free?",
     answer:
-      "Yes. QuickPDFHD is completely free to use. You can convert your images into PDF without any hidden charges or subscriptions.",
+      "Yes. You can use the tools in the browser without creating an account. Each tool still has file-size and page limits listed on its page.",
   },
   {
     question: "Do I need to create an account?",
     answer:
-      "No. You don't need to register or log in. Simply upload your images and convert them instantly.",
+      "No. Open a tool, upload a supported file, and download the result.",
   },
   {
-    question: "How are uploaded images handled?",
+    question: "How are uploaded files handled?",
     answer:
-      "Images are uploaded to the conversion server and processed in memory to generate the requested PDF. The application does not write uploaded files to its own disk or database.",
+      "Files are uploaded to the conversion server and processed in memory to generate the requested download. The application does not write uploaded files to its own disk or database.",
   },
   {
-    question: "Which image formats are supported?",
+    question: "Which file types are supported?",
     answer:
-      "Currently QuickPDFHD supports JPG, JPEG, PNG and WEBP image formats.",
+      "Depending on the tool: DOC, DOCX, XLS, XLSX, PDF, JPG, JPEG, PNG, and WEBP. Resize Image accepts JPG, PNG, and WEBP.",
   },
   {
-    question: "Can I rearrange images before converting?",
+    question: "How do I contact you about a conversion issue?",
     answer:
-      "Yes. You can drag and drop images to change their order before generating the PDF.",
+      "Use the form on this page. Include the tool name, file type, and what happened so the report is easier to understand.",
   },
   {
-    question: "Is there any upload limit?",
+    question: "Where can I see every tool?",
     answer:
-      "Yes. Currently you can upload up to 20 images with a maximum size of 10 MB per image.",
+      "Open the All Services page for the complete directory.",
   },
 ];
 
@@ -108,7 +108,7 @@ const FAQ = () => {
                   id={answerId}
                   className={`transition-all duration-300 ${
                     isOpen
-                      ? "max-h-40 px-6 pb-6"
+                      ? "max-h-96 px-6 pb-6"
                       : "max-h-0 overflow-hidden px-6"
                   }`}
                 >

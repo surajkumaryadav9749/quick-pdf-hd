@@ -27,24 +27,7 @@ const Navbar = () => {
 
         {/* Desktop Navigation */}
         <ul className="hidden items-center gap-8 md:flex">
-          {NAV_LINKS.slice(0, 1).map((link) => (
-            <li key={link.path}>
-              <NavLink
-                to={link.path}
-                className={({ isActive }) =>
-                  `font-medium transition duration-200 ${
-                    isActive
-                      ? "text-teal-800"
-                      : "text-slate-600 hover:text-teal-800"
-                  }`
-                }
-              >
-                {link.name}
-              </NavLink>
-            </li>
-          ))}
-          <li><NavLink to="/all-services#pdf-tools" className="font-medium text-slate-600 transition hover:text-teal-800">All Services</NavLink></li>
-          {NAV_LINKS.slice(1).map((link) => (
+          {NAV_LINKS.map((link) => (
             <li key={link.path}>
               <NavLink
                 to={link.path}
@@ -116,25 +99,7 @@ const Navbar = () => {
       {isMenuOpen && (
         <div className="border-t border-slate-200 bg-white md:hidden">
           <ul className="mx-auto max-w-7xl px-5 py-4 sm:px-8">
-            {NAV_LINKS.slice(0, 1).map((link) => (
-              <li key={link.path}>
-                <NavLink
-                  to={link.path}
-                  onClick={closeMenu}
-                  className={({ isActive }) =>
-                    `block rounded-lg px-4 py-3 font-medium transition duration-200 ${
-                      isActive
-                        ? "bg-teal-50 text-teal-800"
-                        : "text-slate-600 hover:bg-slate-50 hover:text-teal-800"
-                    }`
-                  }
-                >
-                  {link.name}
-                </NavLink>
-              </li>
-            ))}
-            <li><NavLink to="/all-services#pdf-tools" onClick={closeMenu} className="block rounded-lg px-4 py-3 font-medium text-slate-600 transition hover:bg-slate-50 hover:text-teal-800">All Services</NavLink></li>
-            {NAV_LINKS.slice(1).map((link) => (
+            {NAV_LINKS.map((link) => (
               <li key={link.path}>
                 <NavLink
                   to={link.path}

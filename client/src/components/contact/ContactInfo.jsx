@@ -3,7 +3,7 @@ import Container from "../common/Container";
 
 const contactInfo = [
   { icon: <FiMessageSquare aria-hidden="true" />, title: "Contact form", value: "Send a message", description: "Use the form below for questions, feedback, or technical issues." },
-  { icon: <FiFileText aria-hidden="true" />, title: "Tool help", value: "Image-to-PDF support", description: "Include the tool name and a clear description of the issue in your message." },
+  { icon: <FiFileText aria-hidden="true" />, title: "Tool help", value: "PDF and image tools", description: "Include the tool name, file type, and a clear description of the issue in your message." },
   { icon: <FiGlobe aria-hidden="true" />, title: "Online service", value: "Browser-based tools", description: "QuickPDFHD can be used from a modern browser on supported devices." },
 ];
 

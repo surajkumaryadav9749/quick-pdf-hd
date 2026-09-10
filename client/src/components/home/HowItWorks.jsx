@@ -3,21 +3,21 @@ import { FiUploadCloud, FiLayers, FiDownload } from "react-icons/fi";
 const steps = [
   {
     icon: <FiUploadCloud aria-hidden="true" />,
-    title: "Upload Images",
+    title: "Open the right tool",
     description:
-      "Select or drag and drop your JPG, PNG or WEBP images into the upload box.",
+      "Choose a converter from All Services, such as Word to PDF, Merge PDF, or JPG to PDF.",
   },
   {
     icon: <FiLayers aria-hidden="true" />,
-    title: "Arrange Images",
+    title: "Add your files",
     description:
-      "Organize your uploaded images in the order you want before creating the PDF.",
+      "Upload the supported format shown on that page. Check order, page range, or language options when they appear.",
   },
   {
     icon: <FiDownload aria-hidden="true" />,
-    title: "Download PDF",
+    title: "Download the result",
     description:
-      "Click the Convert button and download your high-quality PDF instantly.",
+      "Create the file on the server, then save the PDF, Word, Excel, image, or ZIP download to your device.",
   },
 ];
 
@@ -38,12 +38,12 @@ const HowItWorks = () => {
             id="how-it-works-heading"
             className="mt-4 text-3xl font-bold text-slate-900 sm:text-4xl"
           >
-            How to Convert Images to PDF Online
+            How QuickPDFHD tools work
           </h2>
 
           <p className="mt-4 text-lg leading-8 text-slate-600">
-            Convert JPG, PNG and WEBP images into a single PDF in three simple
-            steps. No installation, no registration and completely free.
+            Each tool has its own page, file types, and limits. Upload, review the
+            options, then download the generated file.
           </p>
         </div>
 

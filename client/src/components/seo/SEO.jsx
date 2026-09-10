@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 
 const SEO = ({
-  title = "QuickPDFHD - Free Online PDF Tools",
-  description = "QuickPDFHD provides free online PDF tools to convert images to PDF, create PDFs, and manage your documents quickly and easily.",
+  title = "QuickPDFHD – Online PDF, Word, Excel, and Image Tools",
+  description = "Convert Word and Excel to PDF, extract PDF text, split or merge PDFs, create PDFs from images, scan document photos, and resize images in your browser.",
   canonical = "https://quickpdfhd.com/",
   ogImage = "https://quickpdfhd.com/quickPDFHD_logo.png",
   structuredData,

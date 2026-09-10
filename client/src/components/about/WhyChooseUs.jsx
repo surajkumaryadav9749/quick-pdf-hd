@@ -12,7 +12,7 @@ const benefits = [
     icon: <FiZap aria-hidden="true" />,
     title: "Lightning Fast",
     description:
-      "Convert your images into PDF documents within seconds without unnecessary waiting.",
+      "Open a tool page, upload a supported file, and download the result. Processing time depends on file size and the selected tool.",
   },
   {
     icon: <FiLock aria-hidden="true" />,
@@ -28,15 +28,15 @@ const benefits = [
   },
   {
     icon: <FiFileText aria-hidden="true" />,
-    title: "High Quality PDF",
+    title: "Useful PDF output",
     description:
-      "Generate sharp and professional PDF documents while preserving image quality.",
+      "Create PDFs from Word, Excel, or images, or extract PDF text into Word or Excel when you need an editable file.",
   },
   {
     icon: <FiDownload aria-hidden="true" />,
     title: "Instant Download",
     description:
-      "Your PDF is ready immediately after conversion with a simple download.",
+      "Download the generated file when processing finishes. Check the result before you send or print it.",
   },
   {
     icon: <FiClock aria-hidden="true" />,
@@ -63,12 +63,12 @@ const WhyChooseUs = () => {
             id="why-choose-heading"
             className="mt-6 text-4xl font-bold text-slate-900"
           >
-            Built for Speed, Quality & Simplicity
+            Built for everyday document tasks
           </h2>
 
           <p className="mt-6 text-lg leading-8 text-slate-600">
-            QuickPDFHD combines performance, security and simplicity to provide
-            a fast and reliable online Image to PDF conversion experience.
+            QuickPDFHD focuses on clear upload limits, in-memory processing, and
+            dedicated pages for each conversion or PDF task.
           </p>
         </div>
 

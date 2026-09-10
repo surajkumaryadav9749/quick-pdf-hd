@@ -15,28 +15,26 @@ const CTA = () => {
 
       <div className="relative mx-auto max-w-5xl px-6 text-center">
         <p className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-teal-100">
-          Start Converting Today
+          Start converting
         </p>
 
         <h2
           id="about-cta-heading"
           className="mt-8 text-4xl font-extrabold leading-tight text-white md:text-5xl"
         >
-          Ready to Convert Your Images into PDF?
+          Ready to open a QuickPDFHD tool?
         </h2>
 
         <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-teal-100">
-          Use QuickPDFHD for fast, secure and high-quality Image to PDF
-          conversion. No signup, no watermark and completely free.
+          Browse the full directory, or start with Word to PDF if you already have a document to convert.
         </p>
 
-        {/* Buttons */}
         <div className="mt-12 flex flex-col items-center justify-center gap-5 sm:flex-row">
           <Link
-            to="/"
+            to="/all-services"
             className="inline-flex items-center gap-3 rounded-xl bg-white px-8 py-4 text-lg font-semibold text-teal-800 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
           >
-            Convert Images to PDF
+            Browse all tools
             <FiArrowRight aria-hidden="true" size={20} />
           </Link>
 
@@ -49,21 +47,20 @@ const CTA = () => {
           </Link>
         </div>
 
-        {/* Supporting Stats */}
         <dl className="mt-16 grid grid-cols-1 gap-6 sm:grid-cols-3">
           <div>
-            <dt className="text-3xl font-bold text-white">100%</dt>
-            <dd className="mt-2 text-teal-100">Free to Use</dd>
+            <dt className="text-3xl font-bold text-white">Free</dt>
+            <dd className="mt-2 text-teal-100">No account required</dd>
           </div>
 
           <div>
-            <dt className="text-3xl font-bold text-white">Secure</dt>
-            <dd className="mt-2 text-teal-100">Privacy Focused</dd>
+            <dt className="text-3xl font-bold text-white">14 tools</dt>
+            <dd className="mt-2 text-teal-100">PDF, office, and image tasks</dd>
           </div>
 
           <div>
-            <dt className="text-3xl font-bold text-white">Fast</dt>
-            <dd className="mt-2 text-teal-100">Instant PDF Generation</dd>
+            <dt className="text-3xl font-bold text-white">Limits listed</dt>
+            <dd className="mt-2 text-teal-100">On each tool page</dd>
           </div>
         </dl>
       </div>

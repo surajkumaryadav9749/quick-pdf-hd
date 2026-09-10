@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Layout from "../../components/layout/Layout";
 import Hero from "../../components/legal/Hero";
 import LegalSection from "../../components/legal/LegalSection";
@@ -15,7 +16,7 @@ const Privacy = () => {
         <Hero
           badge="Privacy Policy"
           title="Privacy Policy"
-          description="Learn how QuickPDFHD handles your information and protects your privacy while using our online Image to PDF conversion service."
+          description="Learn how QuickPDFHD handles uploaded files, contact-form messages, analytics, and advertising."
         />
 
         <LegalSection title="Introduction">
@@ -54,13 +55,14 @@ const Privacy = () => {
           </ul>
         </LegalSection>
 
-        <LegalSection title="Cookies">
+        <LegalSection title="Cookies and advertising">
           <p>
-            QuickPDFHD may use cookies or similar technologies through Google
-            Analytics and Google AdSense. These services may collect or receive
-            information from your browser and use cookies to measure usage,
-            provide advertising, and limit ad repetition. You can manage cookies
-            through your browser settings.
+            QuickPDFHD currently loads Google Analytics and Google AdSense. These
+            services may use cookies or similar technologies to measure traffic,
+            show ads, and limit how often you see the same ad. Google and other
+            advertisers may collect or receive information from your browser
+            according to their own policies. You can manage cookies in your
+            browser settings.
           </p>
         </LegalSection>
 
@@ -69,7 +71,22 @@ const Privacy = () => {
             Uploaded files are sent to the conversion server only to process your
             request. The application uses memory storage for these requests and
             does not include a feature that saves uploaded files to its own disk
-            or database. Do not upload files you are not authorized to handle.
+            or database. That is not a promise that no copy can exist anywhere:
+            hosting providers, email delivery, analytics, and advertising
+            services can still process other data as described on this page. Do
+            not upload files you are not authorized to handle.
+          </p>
+        </LegalSection>
+
+        <LegalSection title="How long information is kept">
+          <p>
+            Conversion uploads are handled in memory for the request. This policy
+            does not claim a specific deletion timer such as “files are removed
+            after X hours,” because the application does not implement a separate
+            retention schedule for uploads. Contact-form messages are sent by
+            email and may be retained in that inbox or by the email provider.
+            Analytics and advertising providers keep data under their own
+            retention rules.
           </p>
         </LegalSection>
 
@@ -78,7 +95,17 @@ const Privacy = () => {
             QuickPDFHD currently includes Google Analytics and Google AdSense.
             These providers handle data under their own privacy policies. The
             contact form uses an email delivery service configured by the site
-            operator to send your message.
+            operator to send your message. The site is hosted by a third-party
+            hosting provider, which may keep standard server or access logs.
+          </p>
+        </LegalSection>
+
+        <LegalSection title="Your choices">
+          <p>
+            You can stop using the site, adjust browser cookies, or send a
+            question through the Contact page. If you contact us about personal
+            information you submitted on the form, include enough detail to
+            identify the message.
           </p>
         </LegalSection>
 
@@ -98,8 +125,8 @@ const Privacy = () => {
 
         <LegalSection title="Contact Us">
           <p>
-            If you have questions about this Privacy Policy, use the contact form
-            on our Contact page.
+            If you have questions about this Privacy Policy, use the form on the{" "}
+            <Link to="/contact" className="font-semibold text-teal-800 hover:underline">Contact</Link> page.
           </p>
         </LegalSection>
       </main>

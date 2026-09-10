@@ -22,8 +22,8 @@ const features = [
   },
   {
     icon: <FiFileText aria-hidden="true" />,
-    title: "High Quality PDF",
-    description: "Generate sharp and professional PDF documents.",
+    title: "PDF, Word, and Excel tools",
+    description: "Convert office files to PDF, extract PDF text, split pages, or merge related PDFs.",
   },
   {
     icon: <FiDownload aria-hidden="true" />,
@@ -32,13 +32,13 @@ const features = [
   },
   {
     icon: <FiShield aria-hidden="true" />,
-    title: "Secure Processing",
-    description: "Your images remain private and are processed securely.",
+    title: "Straightforward processing",
+    description: "Files are processed in memory on the conversion server to create your download.",
   },
   {
     icon: <FiZap aria-hidden="true" />,
-    title: "Fast Conversion",
-    description: "Convert images to PDF in just a few seconds.",
+    title: "Document and image conversion",
+    description: "Convert images to PDF, or use Word, Excel, split, merge, scan, ZIP, and resize tools.",
   },
   {
     icon: <FiSmartphone aria-hidden="true" />,
@@ -47,8 +47,8 @@ const features = [
   },
   {
     icon: <FiCheckCircle aria-hidden="true" />,
-    title: "100% Free",
-    description: "No registration, no watermark and no hidden charges.",
+    title: "No account required",
+    description: "Use the tools in the browser. Each page lists its file-size and page limits.",
   },
 ];
 
@@ -69,12 +69,11 @@ const Features = () => {
             id="features-heading"
             className="mt-6 text-4xl font-bold text-slate-900"
           >
-            Everything You Need to Convert Images into PDF
+            Tools for PDFs, office files, and images
           </h2>
 
           <p className="mt-6 text-lg leading-8 text-slate-600">
-            QuickPDFHD provides the essential tools required for a fast, secure
-            and hassle-free Image to PDF conversion experience.
+            Each QuickPDFHD page is built around one task, with supported formats and limits written on that page.
           </p>
 
           <div className="mt-10 space-y-6">
@@ -108,21 +107,20 @@ const Features = () => {
             <h3 className="text-3xl font-bold">QuickPDFHD</h3>
 
             <p className="mt-4 text-teal-100">
-              Convert images into high-quality PDFs with a clean, modern and
-              fast online experience.
+              Convert images into PDFs, or use the Word, Excel, split, merge, scan, ZIP, and resize tools from the same site.
             </p>
 
             <ul className="mt-10 space-y-4">
               <li className="rounded-xl bg-white/10 p-4">
-                Unlimited Conversions
+                No account required
               </li>
 
-              <li className="rounded-xl bg-white/10 p-4">Fast Processing</li>
+              <li className="rounded-xl bg-white/10 p-4">Per-tool file limits</li>
 
-              <li className="rounded-xl bg-white/10 p-4">Privacy Protected</li>
+              <li className="rounded-xl bg-white/10 p-4">In-memory file processing</li>
 
               <li className="rounded-xl bg-white/10 p-4">
-                High Quality Output
+                Dedicated tool pages
               </li>
             </ul>
           </div>

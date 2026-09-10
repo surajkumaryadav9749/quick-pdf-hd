@@ -3,7 +3,7 @@ import Layout from "../layout/Layout";
 import SEO from "../seo/SEO";
 import RelatedTools from "../seo/RelatedTools";
 import DocumentToolWorkspace from "../filetools/DocumentToolWorkspace";
-import { serviceCatalog } from "../../config/serviceCatalog";
+import { getRelatedServices } from "../../config/serviceCatalog";
 
 const structuredDataFor = (tool) => ({
   "@context": "https://schema.org",
@@ -35,9 +35,7 @@ const structuredDataFor = (tool) => ({
 });
 
 const DocumentToolPage = ({ tool }) => {
-  const relatedNames = tool.related
-    .map((path) => serviceCatalog.find((service) => service.path.split("#")[0] === path))
-    .filter(Boolean);
+  const relatedNames = getRelatedServices(tool.path, 5);
 
   return (
     <Layout>

@@ -3,34 +3,34 @@ import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 
 const faqs = [
   {
-    question: "Is QuickPDFHD completely free to use?",
+    question: "Is QuickPDFHD free to use?",
     answer:
-      "Yes. QuickPDFHD is completely free. You can convert your JPG, PNG and WEBP images into PDF without creating an account or paying any fees.",
+      "Yes. The tools on this site can be used in the browser without creating an account. Each tool still has file-size and page limits, which are shown on that tool page.",
   },
   {
-    question: "Which image formats are supported?",
+    question: "Which files can I process?",
     answer:
-      "QuickPDFHD currently supports JPG, JPEG, PNG and WEBP image formats for PDF conversion.",
+      "Available tools cover Word (DOC/DOCX), Excel (XLS/XLSX), PDF, JPG, JPEG, PNG, and WEBP, depending on the page you open. Resize Image accepts JPG, PNG, and WEBP.",
   },
   {
-    question: "How are uploaded images handled?",
+    question: "How are uploaded files handled?",
     answer:
-      "Images are uploaded to the conversion server and processed in memory to generate your PDF. The application does not write uploaded files to its own disk or database.",
+      "Files are uploaded to the conversion server and processed in memory to generate your download. The application does not write uploaded files to its own disk or database. Hosting logs, email, analytics, and advertising providers can still receive other information, as described in the Privacy Policy.",
   },
   {
-    question: "Can I upload multiple images?",
+    question: "Do I need to install software?",
     answer:
-      "Yes. You can upload multiple images and combine them into a single PDF document while maintaining their order.",
+      "No extra app or browser extension is required. Open the tool page, upload a supported file, and download the result.",
   },
   {
-    question: "Do I need to install any software?",
+    question: "Can I convert a scanned PDF to Word?",
     answer:
-      "No. You use QuickPDFHD in a browser, and no software or browser extension needs to be installed. Files are uploaded to the conversion server to generate the PDF.",
+      "Yes. PDF to Word includes an OCR option for scanned or image-only pages, with English, Hindi, or English + Hindi. Accuracy depends on scan quality.",
   },
   {
-    question: "How do I convert images to PDF?",
+    question: "Where can I see every tool?",
     answer:
-      "Simply upload your images, review their order, click the Convert button and download your PDF instantly.",
+      "Open All Services for the full directory, or read the PDF Guides for step-by-step examples of common tasks.",
   },
 ];
 
@@ -57,12 +57,11 @@ const FAQSection = () => {
             id="faq-heading"
             className="mt-4 text-3xl font-bold text-slate-900 sm:text-4xl"
           >
-            Image to PDF Converter FAQs
+            Common questions about QuickPDFHD
           </h2>
 
           <p className="mt-4 text-lg leading-8 text-slate-600">
-            Find answers to the most common questions about converting images
-            into PDF files using QuickPDFHD.
+            Short answers about accounts, file types, processing, and where to find each tool.
           </p>
         </div>
 

@@ -10,7 +10,7 @@ import SEO from "../../components/seo/SEO";
 const Contact = () => {
   return (
     <Layout>
-      <SEO title="Contact QuickPDFHD | Help and Feedback" description="Contact QuickPDFHD with questions, feedback, or issues related to its online PDF tools." canonical="https://quickpdfhd.com/contact" />
+        <SEO title="Contact QuickPDFHD | Help and Feedback" description="Contact QuickPDFHD with questions, feedback, or issues related to its online PDF, Word, Excel, and image tools." canonical="https://quickpdfhd.com/contact" />
       <main>
         <Hero />
         <ContactInfo />

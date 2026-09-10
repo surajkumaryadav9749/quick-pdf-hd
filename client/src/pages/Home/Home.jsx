@@ -7,6 +7,7 @@ import ImageToPdfTools from "../../components/home/ImageToPdfTools";
 import FeaturesSection from "../../components/home/FeaturesSection";
 import HowItWorks from "../../components/home/HowItWorks";
 import FAQSection from "../../components/home/FAQSection";
+import HomeCta from "../../components/home/HomeCta";
 
 import SEO from "../../components/seo/SEO";
 
@@ -14,26 +15,34 @@ const Home = () => {
   return (
     <Layout>
       <SEO
-        title="QuickPDFHD - Free Online PDF Tools"
-        description="QuickPDFHD provides free online PDF tools to convert images to PDF, create PDFs, and manage your documents quickly and easily."
+        title="QuickPDFHD – Online PDF, Word, Excel, and Image Tools"
+        description="Convert Word and Excel to PDF, extract PDF text, split or merge PDFs, create PDFs from images, scan document photos, and resize images in your browser."
         canonical="https://quickpdfhd.com/"
-        structuredData={{ "@context": "https://schema.org", "@graph": [{ "@type": "WebSite", name: "QuickPDFHD", url: "https://quickpdfhd.com/" }, { "@type": "WebApplication", name: "QuickPDFHD", url: "https://quickpdfhd.com/", applicationCategory: "UtilitiesApplication", operatingSystem: "Web", description: "Online tools for converting image files and document photos into PDF documents." }] }}
+        structuredData={{
+          "@context": "https://schema.org",
+          "@graph": [
+            { "@type": "WebSite", name: "QuickPDFHD", url: "https://quickpdfhd.com/" },
+            {
+              "@type": "WebApplication",
+              name: "QuickPDFHD",
+              url: "https://quickpdfhd.com/",
+              applicationCategory: "UtilitiesApplication",
+              operatingSystem: "Web",
+              description: "Browser-based tools for converting and organizing PDF, Word, Excel, and image files.",
+            },
+          ],
+        }}
       />
 
       <main>
         <HeroSection />
-
         <ImageToPdfTools />
-
-        <FeaturesSection />
-
         <HowItWorks />
-
+        <FeaturesSection />
         <HowToSection />
-
-        <RelatedTools />
-
         <FAQSection />
+        <RelatedTools />
+        <HomeCta />
       </main>
     </Layout>
   );

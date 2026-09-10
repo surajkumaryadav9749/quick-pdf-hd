@@ -1,20 +1,8 @@
 import { Link } from "react-router-dom";
-
-const relatedTools = [
-  { name: "JPG to PDF", path: "/jpg-to-pdf" },
-  { name: "PDF to JPG", path: "/pdf-to-jpg" },
-  { name: "Merge PDF", path: "/merge-pdf" },
-  { name: "Word to PDF", path: "/word-to-pdf" },
-  { name: "PNG to PDF", path: "/png-to-pdf" },
-  { name: "JPEG to PDF", path: "/jpeg-to-pdf" },
-  { name: "WEBP to PDF", path: "/webp-to-pdf" },
-  { name: "Document Scanner", path: "/document-scanner" },
-  { name: "Resize Image", path: "/resize-image" },
-  { name: "PDF to ZIP", path: "/pdf-to-zip" },
-];
+import { getRelatedServices } from "../../config/serviceCatalog";
 
 const ToolPageContent = ({ tool }) => {
-  const links = relatedTools.filter((relatedTool) => relatedTool.path !== tool.path);
+  const links = getRelatedServices(tool.path, 5);
 
   return (
     <>

@@ -27,42 +27,37 @@ const CTA = () => {
             id="contact-cta-heading"
             className="mt-6 text-4xl font-extrabold leading-tight text-white md:text-5xl"
           >
-            Ready to Convert Your Images into PDF?
+            Ready to use a QuickPDFHD tool?
           </h2>
 
-          {/* Description */}
           <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-teal-100">
-            QuickPDFHD makes Image to PDF conversion simple, secure and
-            lightning fast. Upload your images and generate professional PDFs in
-            seconds.
+            Browse the directory or open a specific converter such as Word to PDF or JPG to PDF.
           </p>
 
-          {/* Button */}
           <div className="mt-10">
             <Link
-              to="/"
+              to="/all-services"
               className="inline-flex items-center gap-3 rounded-xl bg-white px-8 py-4 text-lg font-semibold text-teal-800 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
             >
-              Convert Images to PDF
+              Browse all tools
               <FiArrowRight aria-hidden="true" size={22} />
             </Link>
           </div>
 
-          {/* Stats */}
           <dl className="mt-16 grid gap-8 sm:grid-cols-3">
             <div>
-              <dt className="text-3xl font-bold text-white">Fast</dt>
-              <dd className="mt-2 text-teal-100">Instant PDF Generation</dd>
+              <dt className="text-3xl font-bold text-white">Browser-based</dt>
+              <dd className="mt-2 text-teal-100">No extra app to install</dd>
             </div>
 
             <div>
-              <dt className="text-3xl font-bold text-white">Secure</dt>
-              <dd className="mt-2 text-teal-100">Privacy Protected</dd>
+              <dt className="text-3xl font-bold text-white">In memory</dt>
+              <dd className="mt-2 text-teal-100">Uploads processed for conversion</dd>
             </div>
 
             <div>
-              <dt className="text-3xl font-bold text-white">100%</dt>
-              <dd className="mt-2 text-teal-100">Free to Use</dd>
+              <dt className="text-3xl font-bold text-white">Free</dt>
+              <dd className="mt-2 text-teal-100">No account required</dd>
             </div>
           </dl>
         </div>

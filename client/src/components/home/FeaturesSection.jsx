@@ -6,39 +6,39 @@ import { HiOutlineCurrencyDollar } from "react-icons/hi2";
 const features = [
   {
     icon: <FiZap aria-hidden="true" />,
-    title: "Fast Conversion",
+    title: "Browser-based tools",
     description:
-      "Convert your JPG, PNG and WEBP images into PDF files within seconds.",
+      "Run conversions from a browser on desktop or mobile. You do not need to install a desktop PDF suite.",
   },
   {
     icon: <FiShield aria-hidden="true" />,
-    title: "Clear file handling",
+    title: "In-memory processing",
     description:
-      "Uploaded images are sent to the conversion server and processed in memory to create your PDF.",
+      "Uploaded files are sent to the conversion server and processed in memory to create your download.",
   },
   {
     icon: <FiMonitor aria-hidden="true" />,
-    title: "Works Everywhere",
+    title: "Works in the browser",
     description:
-      "Use QuickPDFHD on Windows, Mac, Android and iPhone directly from your browser.",
+      "Use QuickPDFHD on Windows, Mac, Android, and iPhone from a current web browser.",
   },
   {
     icon: <FiImage aria-hidden="true" />,
-    title: "Multiple Images",
+    title: "Documents and images",
     description:
-      "Upload multiple images and combine them into a single PDF document.",
+      "Handle Word, Excel, PDF, JPG, PNG, JPEG, and WEBP files with dedicated tools for each task.",
   },
   {
     icon: <HiOutlineCurrencyDollar aria-hidden="true" />,
-    title: "100% Free",
+    title: "No account required",
     description:
-      "Convert images to PDF without registration, subscriptions or hidden charges.",
+      "The tools are free to use in the browser. File-size and page limits still apply on each tool page.",
   },
   {
     icon: <BsCloudCheck aria-hidden="true" />,
-    title: "No Installation",
+    title: "No installation",
     description:
-      "No software download or installation is required. Everything works online.",
+      "Nothing extra needs to be installed. Each tool has its own page with upload controls and limits.",
   },
 ];
 
@@ -63,8 +63,8 @@ const FeaturesSection = () => {
           </h2>
 
           <p className="mt-4 text-lg leading-8 text-slate-600">
-            Create ordered image PDFs, clean photographed documents, package PDFs,
-            or resize image batches without installing software.
+            Convert office files, manage PDFs, create documents from photos, and
+            resize images without installing extra software.
           </p>
         </div>
 

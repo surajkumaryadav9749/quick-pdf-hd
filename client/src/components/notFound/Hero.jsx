@@ -41,9 +41,10 @@ const Hero = () => {
             </Link>
           </div>
           <p className="mt-7 text-sm text-slate-600">
-            Popular tools: <Link to="/document-scanner" className="font-semibold text-teal-800 hover:underline">Document Scanner</Link>,{" "}
+            Popular tools: <Link to="/word-to-pdf" className="font-semibold text-teal-800 hover:underline">Word to PDF</Link>,{" "}
+            <Link to="/merge-pdf" className="font-semibold text-teal-800 hover:underline">Merge PDF</Link>,{" "}
             <Link to="/jpg-to-pdf" className="font-semibold text-teal-800 hover:underline">JPG to PDF</Link>, and{" "}
-            <Link to="/resize-image" className="font-semibold text-teal-800 hover:underline">Resize Image</Link>.
+            <Link to="/all-services" className="font-semibold text-teal-800 hover:underline">All Services</Link>.
           </p>
         </div>
       </Container>

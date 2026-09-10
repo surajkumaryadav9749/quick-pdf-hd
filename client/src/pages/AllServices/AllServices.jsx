@@ -38,8 +38,8 @@ const AllServices = () => (
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
               <div className="max-w-3xl">
                 <p className="text-sm font-semibold uppercase tracking-wide text-teal-800">QuickPDFHD services</p>
-                <h2 id={category.replace(" ", "-").toLowerCase()} className="mt-3 text-3xl font-bold text-slate-900 sm:text-4xl">{category}</h2>
-                <p className="mt-3 leading-7 text-slate-600">{category === "PDF Tools" ? "Convert office files, split or merge PDFs, render pages as images, and create PDFs from photos." : "Adjust image dimensions and prepare image files for the size you need."}</p>
+                <h2 id={category.replace(" ", "-").toLowerCase()} className="mt-3 scroll-mt-24 text-3xl font-bold text-slate-900 sm:text-4xl">{category}</h2>
+                <p className="mt-3 leading-7 text-slate-600">{category === "PDF Tools" ? "Convert office files, extract PDF text, split or merge PDFs, render pages as images, scan document photos, and package PDFs into a ZIP file." : "Create PDFs from JPG, JPEG, PNG, or WEBP images, and resize JPG, PNG, and WEBP files."}</p>
               </div>
 
               <div className={toolCardGridClass}>

@@ -1,78 +1,55 @@
-const steps = [
+import { Link } from "react-router-dom";
+
+const cases = [
   {
-    number: "01",
-    title: "Upload Your Images",
-    description:
-      "Select or drag and drop your JPG, JPEG, PNG or WEBP images into QuickPDFHD.",
+    title: "Share a Word or Excel file as PDF",
+    description: "Create a printable PDF from a DOC, DOCX, XLS, or XLSX file when the recipient does not need an editable office document.",
+    to: "/word-to-pdf",
+    label: "Open Word to PDF",
   },
   {
-    number: "02",
-    title: "Arrange Your Images",
-    description:
-      "Arrange your uploaded images in the order you want them to appear in your PDF.",
+    title: "Edit text that is trapped in a PDF",
+    description: "Extract selectable text without OCR, or use OCR on scanned pages, then continue in Word or Excel.",
+    to: "/pdf-to-word",
+    label: "Open PDF to Word",
   },
   {
-    number: "03",
-    title: "Convert Images to PDF",
-    description:
-      "Click the convert button and QuickPDFHD will create your PDF from the selected images.",
+    title: "Reorganize PDF pages",
+    description: "Split out a page range, separate pages, or merge related PDFs into one file.",
+    to: "/merge-pdf",
+    label: "Open Merge PDF",
   },
   {
-    number: "04",
-    title: "Get Your PDF",
-    description:
-      "Once the conversion is complete, your PDF is generated and downloaded automatically to your device.",
+    title: "Turn photos into a document",
+    description: "Combine JPG, PNG, JPEG, or WEBP images, or use Document Scanner for photographed paperwork.",
+    to: "/jpg-to-pdf",
+    label: "Open JPG to PDF",
   },
 ];
 
-const HowToSection = () => {
-  return (
-    <section
-      aria-labelledby="how-to-convert-heading"
-      className="bg-slate-50 py-16 sm:py-20 lg:py-24"
-    >
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto mb-12 max-w-3xl text-center">
-          <p className="text-sm font-semibold uppercase tracking-wide text-teal-800">
-            How It Works
-          </p>
-
-          <h2
-            id="how-to-convert-heading"
-            className="mt-4 text-3xl font-bold text-slate-900 sm:text-4xl"
-          >
-            How to Convert Images to PDF Online
-          </h2>
-
-          <p className="mt-4 text-lg leading-8 text-slate-600">
-            Convert JPG, JPEG, PNG and WEBP images into a PDF in just a few
-            simple steps using QuickPDFHD.
-          </p>
-        </div>
-
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {steps.map((step) => (
-            <article
-              key={step.number}
-              className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
-            >
-              <span className="text-sm font-bold text-teal-800">
-                {step.number}
-              </span>
-
-              <h3 className="mt-4 text-xl font-semibold text-slate-900">
-                {step.title}
-              </h3>
-
-              <p className="mt-3 leading-7 text-slate-600">
-                {step.description}
-              </p>
-            </article>
-          ))}
-        </div>
+const HowToSection = () => (
+  <section aria-labelledby="how-to-convert-heading" className="bg-slate-50 py-16 sm:py-20 lg:py-24">
+    <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto mb-12 max-w-3xl text-center">
+        <p className="text-sm font-semibold uppercase tracking-wide text-teal-800">Useful starting points</p>
+        <h2 id="how-to-convert-heading" className="mt-4 text-3xl font-bold text-slate-900 sm:text-4xl">
+          Common tasks people complete here
+        </h2>
+        <p className="mt-4 text-lg leading-8 text-slate-600">
+          Pick the tool that matches the files you already have. Limits and supported formats are listed on each tool page.
+        </p>
       </div>
-    </section>
-  );
-};
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        {cases.map((item) => (
+          <article key={item.title} className="flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+            <h3 className="text-xl font-semibold text-slate-900">{item.title}</h3>
+            <p className="mt-3 flex-1 leading-7 text-slate-600">{item.description}</p>
+            <Link to={item.to} className="mt-5 font-semibold text-teal-800 hover:underline">{item.label}</Link>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+);
 
 export default HowToSection;

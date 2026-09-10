@@ -4,6 +4,10 @@ export const NAV_LINKS = [
     path: "/",
   },
   {
+    name: "All Services",
+    path: "/all-services",
+  },
+  {
     name: "PDF Guides",
     path: "/pdf-guides",
   },

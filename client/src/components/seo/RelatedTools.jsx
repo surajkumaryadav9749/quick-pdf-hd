@@ -1,43 +1,49 @@
 import { Link } from "react-router-dom";
-import { serviceCatalog } from "../../config/serviceCatalog";
-
-const relatedPaths = {
-  "/document-scanner": ["/jpg-to-pdf", "/png-to-pdf", "/resize-image", "/pdf-to-zip"],
-  "/pdf-to-zip": ["/document-scanner", "/merge-pdf", "/jpg-to-pdf"],
-  "/resize-image": ["/jpg-to-pdf", "/png-to-pdf", "/webp-to-pdf"],
-  "/jpg-to-pdf": ["/pdf-to-jpg", "/merge-pdf", "/word-to-pdf"],
-  "/jpeg-to-pdf": ["/jpg-to-pdf", "/pdf-to-jpg", "/merge-pdf"],
-  "/png-to-pdf": ["/jpg-to-pdf", "/merge-pdf", "/resize-image"],
-  "/webp-to-pdf": ["/jpg-to-pdf", "/png-to-pdf", "/pdf-to-jpg"],
-  "/word-to-pdf": ["/pdf-to-word", "/excel-to-pdf", "/pdf-to-excel"],
-  "/pdf-to-word": ["/word-to-pdf", "/pdf-to-excel", "/split-pdf"],
-  "/excel-to-pdf": ["/pdf-to-excel", "/word-to-pdf", "/pdf-to-word"],
-  "/pdf-to-excel": ["/excel-to-pdf", "/pdf-to-word", "/merge-pdf"],
-  "/split-pdf": ["/merge-pdf", "/pdf-to-jpg", "/pdf-to-word"],
-  "/merge-pdf": ["/split-pdf", "/word-to-pdf", "/pdf-to-jpg"],
-  "/pdf-to-jpg": ["/jpg-to-pdf", "/split-pdf", "/merge-pdf"],
-};
+import ToolCard, { toolCardGridClass } from "../common/ToolCard";
+import { iconForService } from "../common/toolIcons";
+import { getRelatedServices, serviceCatalog } from "../../config/serviceCatalog";
 
 const RelatedTools = ({ currentPath }) => {
-  const paths = relatedPaths[currentPath] || serviceCatalog.map(({ path }) => path.split("#")[0]);
-  const relatedTools = paths.map((path) => serviceCatalog.find((service) => service.path.split("#")[0] === path)).filter(Boolean);
+  const relatedTools = currentPath
+    ? getRelatedServices(currentPath, 5)
+    : serviceCatalog.filter((service) => ["word-to-pdf", "pdf-to-word", "merge-pdf", "split-pdf", "jpg-to-pdf", "document-scanner"].includes(service.id));
 
-  return <section aria-labelledby="related-tools-heading" className="bg-white py-16 sm:py-20">
-    <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-      <div className="mx-auto mb-10 max-w-3xl text-center">
-        <p className="text-sm font-semibold uppercase tracking-wide text-teal-800">Explore QuickPDFHD</p>
-        <h2 id="related-tools-heading" className="mt-3 text-3xl font-bold text-slate-900 sm:text-4xl">Related tools for your next step</h2>
-        <p className="mt-4 text-lg leading-8 text-slate-600">Continue with a tool that fits the files or document task you are working on.</p>
+  if (!relatedTools.length) return null;
+
+  return (
+    <section aria-labelledby="related-tools-heading" className="bg-white py-16 sm:py-20">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto mb-10 max-w-3xl text-center">
+          <p className="text-sm font-semibold uppercase tracking-wide text-teal-800">Explore QuickPDFHD</p>
+          <h2 id="related-tools-heading" className="mt-3 text-3xl font-bold text-slate-900 sm:text-4xl">
+            {currentPath ? "Related tools for your next step" : "More tools and guides"}
+          </h2>
+          <p className="mt-4 text-lg leading-8 text-slate-600">
+            {currentPath
+              ? "Continue with a tool that fits the files or document task you are working on."
+              : "Open a related tool, browse the full directory, or read a short PDF guide."}
+          </p>
+        </div>
+        <div className={toolCardGridClass}>
+          {relatedTools.map((tool) => (
+            <ToolCard
+              key={tool.path}
+              to={tool.path}
+              title={tool.name}
+              description={tool.description}
+              icon={iconForService(tool.icon)}
+            />
+          ))}
+        </div>
+        {!currentPath && (
+          <p className="mt-8 text-center text-slate-600">
+            See the <Link to="/all-services" className="font-semibold text-teal-800 hover:underline">All Services</Link> directory or the{" "}
+            <Link to="/pdf-guides" className="font-semibold text-teal-800 hover:underline">PDF Guides</Link>.
+          </p>
+        )}
       </div>
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {relatedTools.map((tool) => <Link key={tool.path} to={tool.path} className="rounded-2xl border border-slate-200 p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
-          <h3 className="text-xl font-semibold text-slate-900">{tool.name}</h3>
-          <p className="mt-3 leading-7 text-slate-600">{tool.description}</p>
-          <span className="mt-4 inline-block font-medium text-teal-800">Open tool →</span>
-        </Link>)}
-      </div>
-    </div>
-  </section>;
+    </section>
+  );
 };
 
 export default RelatedTools;

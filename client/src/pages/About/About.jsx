@@ -11,7 +11,7 @@ import SEO from "../../components/seo/SEO";
 const About = () => {
   return (
     <Layout>
-      <SEO title="About QuickPDFHD | Online Image to PDF Tools" description="Learn what QuickPDFHD offers: practical browser-based tools for turning image files and document photos into PDF documents." canonical="https://quickpdfhd.com/about" />
+      <SEO title="About QuickPDFHD | Online PDF and Image Tools" description="Learn what QuickPDFHD offers: browser-based tools for PDF, Word, Excel, and image files, including conversion, split, merge, scanning, and resizing." canonical="https://quickpdfhd.com/about" />
       <main>
         <Hero />
         <AboutQuickPDFHD />

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Layout from "../../components/layout/Layout";
 import Hero from "../../components/legal/Hero";
 import LegalSection from "../../components/legal/LegalSection";
@@ -6,12 +7,12 @@ import SEO from "../../components/seo/SEO";
 const Terms = () => {
   return (
     <Layout>
-      <SEO title="Terms and Conditions | QuickPDFHD" description="Read the terms for using QuickPDFHD's online image-to-PDF and document-scanning tools." canonical="https://quickpdfhd.com/terms" />
+      <SEO title="Terms and Conditions | QuickPDFHD" description="Read the terms for using QuickPDFHD's online PDF, Word, Excel, and image tools." canonical="https://quickpdfhd.com/terms" />
       <main>
         <Hero
           badge="Terms & Conditions"
           title="Terms and Conditions"
-          description="Please read these Terms and Conditions carefully before using QuickPDFHD and its online Image to PDF conversion services."
+          description="Please read these Terms and Conditions before using QuickPDFHD and its online PDF and image tools."
         />
 
         <LegalSection title="Acceptance of Terms">
@@ -28,6 +29,7 @@ const Terms = () => {
             <li>Do not upload harmful, illegal or malicious files.</li>
             <li>Do not attempt to misuse or disrupt our services.</li>
             <li>Respect all applicable laws while using QuickPDFHD.</li>
+            <li>Follow the file-type, size, and page limits shown on each tool page. The service is not unlimited.</li>
           </ul>
         </LegalSection>
 
@@ -41,10 +43,12 @@ const Terms = () => {
 
         <LegalSection title="File Processing">
           <p>
-            Uploaded files are processed to generate the requested PDF. The
-            application uses memory storage for conversion requests and does not
-            include a feature that writes uploaded files to its own disk or
-            database. You remain responsible for the files you choose to upload.
+            Uploaded files are processed to generate the requested PDF, Word,
+            Excel, image, or ZIP download. The application uses memory storage
+            for conversion requests and does not include a feature that writes
+            uploaded files to its own disk or database. You remain responsible
+            for the files you choose to upload and for checking the output
+            before you rely on it.
           </p>
         </LegalSection>
 
@@ -83,7 +87,8 @@ const Terms = () => {
         <LegalSection title="Contact">
           <p>
             If you have any questions regarding these Terms and Conditions,
-            please contact us through our Contact page.
+            please use the form on the{" "}
+            <Link to="/contact" className="font-semibold text-teal-800 hover:underline">Contact</Link> page.
           </p>
         </LegalSection>
       </main>

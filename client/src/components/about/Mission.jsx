@@ -5,19 +5,19 @@ const values = [
     icon: <FiTarget aria-hidden="true" />,
     title: "Our Mission",
     description:
-      "Our mission is to make PDF conversion simple, fast and accessible for everyone. We believe creating professional PDFs should never require expensive software or complicated steps.",
+      "Our mission is to keep common PDF and image tasks available in a browser: convert files, organize PDFs, and prepare images without installing extra software.",
   },
   {
     icon: <FiEye aria-hidden="true" />,
     title: "Our Vision",
     description:
-      "We aim to become a trusted platform offering fast, secure and user-friendly PDF tools that help students, professionals and businesses work more efficiently.",
+      "We aim to keep QuickPDFHD useful, clearly documented, and honest about what each tool can and cannot do.",
   },
   {
     icon: <FiHeart aria-hidden="true" />,
     title: "Our Values",
     description:
-      "Privacy, simplicity, performance and reliability are the foundation of QuickPDFHD. Every feature is built with the user experience in mind.",
+      "Clear limits, in-memory file processing, and straightforward pages are the priorities. Features are added only when they help a real conversion or document task.",
   },
 ];
 
@@ -42,10 +42,7 @@ const Mission = () => {
           </h2>
 
           <p className="mt-6 text-lg leading-8 text-slate-600">
-            QuickPDFHD is designed to make document conversion effortless.
-            Whether you're converting homework, business documents or personal
-            files, our goal is to provide a secure and seamless experience for
-            every user.
+            QuickPDFHD is designed for everyday file tasks. Whether you are converting a homework sheet, merging forms, or turning photos into a PDF, each tool page explains the formats and limits that apply.
           </p>
         </div>
 

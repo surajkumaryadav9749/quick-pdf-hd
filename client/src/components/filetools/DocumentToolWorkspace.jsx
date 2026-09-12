@@ -34,6 +34,10 @@ const DocumentToolWorkspace = ({ tool }) => {
   const [progressLabel, setProgressLabel] = useState("");
   const resultRef = useResultFocus(result);
 
+  useEffect(() => () => {
+    if (result?.url) URL.revokeObjectURL(result.url);
+  }, [result]);
+
   useEffect(() => {
     if (tool.extra !== "pdf-to-word" || !files[0]) return undefined;
     let cancelled = false;
@@ -105,16 +109,14 @@ const DocumentToolWorkspace = ({ tool }) => {
         setProgressLabel(pdfInfo?.pageCount
           ? `Recognizing text on ${pdfInfo.pageCount} page${pdfInfo.pageCount === 1 ? "" : "s"}...`
           : "Running OCR on the server...");
-        const { blob, contentType } = await processPdfTool(tool.endpoint, files, fields);
+        const { blob, contentType, filename } = await processPdfTool(tool.endpoint, files, fields);
         setProgressLabel("Creating Word document...");
-        const filename = downloadNameFromType(tool, contentType);
-        setResult({ url: URL.createObjectURL(blob), filename, size: blob.size });
+        setResult({ url: URL.createObjectURL(blob), filename: filename || downloadNameFromType(tool, contentType), size: blob.size });
         toast.success("Your file is ready.");
         return;
       }
-      const { blob, contentType } = await processPdfTool(tool.endpoint, files, fields);
-      const filename = downloadNameFromType(tool, contentType);
-      setResult({ url: URL.createObjectURL(blob), filename, size: blob.size });
+      const { blob, contentType, filename } = await processPdfTool(tool.endpoint, files, fields);
+      setResult({ url: URL.createObjectURL(blob), filename: filename || downloadNameFromType(tool, contentType), size: blob.size });
       toast.success("Your file is ready.");
     } catch (error) {
       toast.error(error.message || "Could not process the file. Please try again.");

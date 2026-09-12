@@ -11,9 +11,10 @@ const sendFile = (res, buffer, contentType, filename) => {
   res.set({
     "Content-Type": contentType,
     "Content-Disposition": `attachment; filename="${filename}"`,
-    "Content-Length": buffer.length,
+    "Content-Length": Buffer.byteLength(buffer),
+    "X-Content-Type-Options": "nosniff",
   });
-  return res.send(buffer);
+  return res.status(200).end(buffer);
 };
 
 const fail = (res, error) => {
@@ -80,6 +81,10 @@ const convertPdfToJpg = async (req, res) => {
     const result = await pdfToJpgArchive(req.files[0].buffer);
     return sendFile(res, result.buffer, result.contentType, result.filename);
   } catch (error) {
+    const message = String(error.message || "");
+    if (/up to \d+ pages/i.test(message)) {
+      return res.status(400).json({ success: false, message });
+    }
     return fail(res, error);
   }
 };

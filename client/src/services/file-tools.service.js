@@ -1,9 +1,5 @@
 import axios from "axios";
-
-const API_BASE = String(import.meta.env.VITE_API_URL || "")
-  .trim()
-  .replace(/\/+$/, "")
-  .replace(/\/api$/i, "");
+import { API_BASE, apiUrl } from "../config/api";
 
 const filenameFromDisposition = (header = "") => {
   const quoted = String(header).match(/filename="([^"]+)"/i);
@@ -12,33 +8,49 @@ const filenameFromDisposition = (header = "") => {
   return plain?.[1]?.trim() || "";
 };
 
+const fallbackForStatus = (status, serverMessage) => {
+  if (serverMessage) return serverMessage;
+  if (status === 413) return "The uploaded file exceeds the size limit.";
+  if (status === 415 || status === 422) return "That file is not a valid PDF for this tool.";
+  if (status === 400) return "The file could not be processed. Check the format and try again.";
+  if (status === 404 || status === 405) return "The conversion service is not available at this address.";
+  if (status === 502 || status === 503 || status === 504) {
+    return "The conversion service is temporarily unavailable. Please try again in a moment.";
+  }
+  if (status >= 500) return "The conversion server could not process this PDF. Please try again.";
+  return "The file could not be processed. Check the format and try again.";
+};
+
 const readErrorMessage = async (error) => {
+  const status = error.response?.status;
   const data = error.response?.data;
+
   if (data instanceof Blob) {
     try {
       const parsed = JSON.parse(await data.text());
-      if (parsed.message) return parsed.message;
+      if (parsed.message) return fallbackForStatus(status, parsed.message);
     } catch {
-      return "The file could not be processed. Check the format and try again.";
+      return fallbackForStatus(status);
     }
   }
-  if (error.response?.data?.message) return error.response.data.message;
-  if (!error.response) {
-    return "Could not reach the conversion server. Check your connection and try again.";
+
+  if (error.response?.data?.message) {
+    return fallbackForStatus(status, error.response.data.message);
   }
-  return error.message || "The file could not be processed. Check the format and try again.";
+
+  if (error.response) {
+    return fallbackForStatus(status, error.message);
+  }
+
+  return "Could not reach the conversion server. Check your connection and try again.";
 };
 
 const postFiles = async (path, fieldName, files, fields = {}) => {
-  if (!API_BASE) {
-    throw new Error("The conversion server URL is not configured.");
-  }
-
   const formData = new FormData();
   files.forEach((file) => formData.append(fieldName, file));
   Object.entries(fields).forEach(([key, value]) => formData.append(key, String(value)));
   try {
-    const response = await axios.post(`${API_BASE}${path}`, formData, {
+    const response = await axios.post(apiUrl(path), formData, {
       responseType: "blob",
     });
     const contentType = response.headers["content-type"] || response.data?.type || "";
@@ -68,13 +80,16 @@ export const resizeImageFiles = async (files, options) => {
 };
 
 export const inspectPdfFile = async (file) => {
-  if (!API_BASE) {
-    throw new Error("The conversion server URL is not configured.");
-  }
   const formData = new FormData();
   formData.append("files", file);
-  const response = await axios.post(`${API_BASE}/api/pdf-tools/pdf-inspect`, formData);
-  return response.data;
+  try {
+    const response = await axios.post(apiUrl("/api/pdf-tools/pdf-inspect"), formData);
+    return response.data;
+  } catch (error) {
+    throw new Error(await readErrorMessage(error), { cause: error });
+  }
 };
 
 export const processPdfTool = (path, files, fields = {}) => postFiles(path, "files", files, fields);
+
+export { API_BASE };

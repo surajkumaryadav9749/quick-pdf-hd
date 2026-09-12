@@ -1,6 +1,5 @@
 import axios from "axios";
-
-const API = `${import.meta.env.VITE_API_URL}/api/scan`;
+import { apiUrl } from "../config/api";
 
 export const scanImagesToPdf = async (files, settings) => {
   const formData = new FormData();
@@ -8,8 +7,7 @@ export const scanImagesToPdf = async (files, settings) => {
   files.forEach((file) => formData.append("images", file));
   Object.entries(settings).forEach(([key, value]) => formData.append(key, String(value)));
 
-  const response = await axios.post(API, formData, {
-    headers: { "Content-Type": "multipart/form-data" },
+  const response = await axios.post(apiUrl("/api/scan"), formData, {
     responseType: "blob",
   });
 

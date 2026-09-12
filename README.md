@@ -149,8 +149,10 @@ Word to PDF, Excel to PDF, PDF to Word, and PDF to Excel run entirely on this No
 
 ## Production notes
 
-- Set `VITE_API_URL` to the public API URL when building the frontend.
-- The client includes Vercel rewrites for all React routes in [`client/vercel.json`](client/vercel.json).
+- The Vercel frontend is served from `https://quickpdfhd.com`. API calls use same-origin paths such as `/api/pdf-tools/pdf-to-jpg`.
+- [`client/vercel.json`](client/vercel.json) rewrites `/api/:path*` to the Express backend at `https://quickpdfhd-api.onrender.com/api/:path*`. Redeploy the **client** on Vercel after changing that file.
+- Do not set `VITE_API_URL` to `localhost` in the Vercel build environment. Production ignores localhost and uses `/api` on the same domain.
+- Local development: `VITE_API_URL=http://localhost:5000` or omit it and use the Vite `/api` proxy in [`client/vite.config.js`](client/vite.config.js).
 - Add your deployed frontend origin to `allowedOrigins` in [`server/src/app.js`](server/src/app.js) before connecting a new frontend domain.
 - Configure the SMTP variables in the server environment for contact-form delivery.
 

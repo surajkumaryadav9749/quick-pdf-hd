@@ -8,6 +8,7 @@ import {
 } from "react-icons/fi";
 
 import Container from "../common/Container";
+import { apiUrl } from "../../config/api";
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -50,7 +51,7 @@ const ContactForm = () => {
 
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/contact`,
+        `${apiUrl("/api/contact")}`,
         {
           method: "POST",
           headers: {

@@ -4,11 +4,14 @@ const path = require("path");
 const { pathToFileURL } = require("url");
 const { spawn } = require("child_process");
 const sharp = require("sharp");
-const { createZip } = require("./zip.service");
+const { createZipFromFiles } = require("./zip.service");
+const { logMemory } = require("../utils/memory-log");
 
 const MAX_PAGES = 40;
 const SCALE = 2;
-const JPEG_QUALITY = 90;
+const JPG_SCALE = 1.5;
+const JPG_MAX_EDGE = 1600;
+const JPEG_QUALITY = 82;
 const PDFJS_ROOT = path.dirname(require.resolve("pdfjs-dist/package.json"));
 const canvasBinding = require(require.resolve("@napi-rs/canvas", { paths: [PDFJS_ROOT] }));
 const { createCanvas } = canvasBinding;
@@ -64,10 +67,18 @@ const loadPdfjs = async () => {
 };
 
 const toPdfBytes = (buffer) => {
-  if (buffer instanceof Uint8Array && !(buffer instanceof Buffer)) {
-    return buffer.slice();
+  if (Buffer.isBuffer(buffer)) {
+    return new Uint8Array(buffer.buffer, buffer.byteOffset, buffer.byteLength);
   }
+  if (buffer instanceof Uint8Array) return buffer;
   return Uint8Array.from(buffer);
+};
+
+const scaleForJpgPage = (page) => {
+  const base = page.getViewport({ scale: 1 });
+  const longest = Math.max(base.width, base.height);
+  if (!longest) return JPG_SCALE;
+  return Math.min(JPG_SCALE, JPG_MAX_EDGE / longest);
 };
 
 const openPdf = async (buffer) => {
@@ -312,97 +323,101 @@ const renderPdfPages = async (buffer, { maxPages = MAX_PAGES, scale = SCALE } = 
   }
 };
 
-const renderPdfToJpegs = async (buffer) => {
-  const document = await openPdf(buffer);
-  try {
-    const pageCount = document.numPages;
-    if (pageCount < 1) throw new Error("The PDF does not contain any pages.");
-    if (pageCount > MAX_PAGES) {
-      throw new Error(`This conversion accepts PDFs with up to ${MAX_PAGES} pages.`);
-    }
-
-    const images = [];
-    for (let pageNumber = 1; pageNumber <= pageCount; pageNumber += 1) {
-      const page = await document.getPage(pageNumber);
-      let rendered;
-      try {
-        rendered = await renderPageToCanvas(page, SCALE);
-        images.push({
-          name: `page-${String(pageNumber).padStart(3, "0")}.jpg`,
-          buffer: encodeJpeg(rendered.canvas),
-        });
-      } catch {
-        throw new Error(`Page ${pageNumber} could not be converted to JPG. The PDF may use unsupported content.`);
-      } finally {
-        if (rendered) rendered.canvasFactory.destroy(rendered);
-        if (typeof page.cleanup === "function") page.cleanup();
-      }
-    }
-    return images;
-  } finally {
-    await closePdfDocument(document);
-  }
-};
-
-const assembleJpgResult = (images) => {
-  if (images.length === 1) return { buffer: images[0].buffer, filename: images[0].name, contentType: "image/jpeg" };
-  return {
-    buffer: createZip(images),
-    filename: "QuickPDFHD-pdf-pages.zip",
-    contentType: "application/zip",
-  };
-};
-
-const renderJpgInChild = (pdfPath, outDir) => new Promise((resolve, reject) => {
-  const child = spawn(process.execPath, [path.join(__dirname, "jpg-render-child.js"), pdfPath, outDir], {
-    windowsHide: true,
-    stdio: ["ignore", "ignore", "pipe"],
-    env: { ...process.env, QUICKPDFHD_JPG_CHILD: "1" },
-  });
-  let stderr = "";
-  let settled = false;
-  const finish = (error) => {
-    if (settled) return;
-    settled = true;
-    clearTimeout(timer);
-    if (error) reject(error);
-    else resolve();
-  };
-  child.stderr.on("data", (chunk) => {
-    stderr += chunk.toString();
-  });
-  const timer = setTimeout(() => {
-    child.kill("SIGKILL");
-    finish(new Error("PDF to JPG conversion timed out. Try a smaller file or fewer pages."));
-  }, 120000);
-  child.on("error", (error) => finish(error));
-  child.on("exit", (code) => {
-    if (code === 0) {
-      finish();
-      return;
-    }
-    finish(new Error(stderr.trim() || "The PDF pages could not be converted to JPG."));
-  });
-});
-
-const pdfToJpgArchive = async (buffer) => {
+const convertPdfToJpgOnDisk = async (buffer) => {
   if (!buffer?.length) throw new Error("The PDF file is empty.");
 
-  if (process.env.QUICKPDFHD_JPG_CHILD === "1") {
-    return assembleJpgResult(await renderPdfToJpegs(buffer));
-  }
-
+  logMemory("after-upload-received", { pdfBytes: buffer.length });
   const workDir = fs.mkdtempSync(path.join(os.tmpdir(), "qpdf-jpg-"));
-  const pdfPath = path.join(workDir, "source.pdf");
-  fs.writeFileSync(pdfPath, buffer);
-  try {
-    await renderJpgInChild(pdfPath, workDir);
-    const files = fs.readdirSync(workDir).filter((name) => /^page-\d+\.jpg$/i.test(name)).sort();
-    if (!files.length) throw new Error("The PDF pages could not be converted to JPG.");
-    const images = files.map((name) => ({ name, buffer: fs.readFileSync(path.join(workDir, name)) }));
-    return assembleJpgResult(images);
-  } finally {
+  let cleaned = false;
+  const cleanup = () => {
+    if (cleaned) return;
+    cleaned = true;
     fs.rmSync(workDir, { recursive: true, force: true });
+  };
+
+  try {
+    const document = await openPdf(buffer);
+    logMemory("after-pdf-loaded", { pages: document.numPages });
+    try {
+      const pageCount = document.numPages;
+      if (pageCount < 1) throw new Error("The PDF does not contain any pages.");
+      if (pageCount > MAX_PAGES) {
+        throw new Error(`This conversion accepts PDFs with up to ${MAX_PAGES} pages.`);
+      }
+
+      const jpegPaths = [];
+      for (let pageNumber = 1; pageNumber <= pageCount; pageNumber += 1) {
+        const page = await document.getPage(pageNumber);
+        let rendered;
+        try {
+          const scale = scaleForJpgPage(page);
+          logMemory("before-rendering-page", { pageNumber, scale: +scale.toFixed(3) });
+          rendered = await renderPageToCanvas(page, scale);
+          logMemory("after-rendering-page", { pageNumber, width: rendered.canvas.width, height: rendered.canvas.height });
+          const jpeg = encodeJpeg(rendered.canvas);
+          const name = `page-${String(pageNumber).padStart(3, "0")}.jpg`;
+          const jpegPath = path.join(workDir, name);
+          fs.writeFileSync(jpegPath, jpeg);
+          jpegPaths.push({ name, path: jpegPath });
+          logMemory("after-jpg-generation", { pageNumber, jpegBytes: jpeg.length });
+        } catch (error) {
+          const message = String(error && error.message ? error.message : error);
+          if (/canvas|napi|encode/i.test(message)) {
+            throw new Error("The image renderer could not convert this page. Try a smaller PDF or fewer pages.");
+          }
+          throw new Error(`Page ${pageNumber} could not be converted to JPG. The PDF may use unsupported content.`);
+        } finally {
+          if (rendered) rendered.canvasFactory.destroy(rendered);
+          if (typeof page.cleanup === "function") page.cleanup();
+        }
+      }
+
+      if (jpegPaths.length === 1) {
+        logMemory("before-response", { pages: 1, mode: "jpeg" });
+        return {
+          path: jpegPaths[0].path,
+          filename: jpegPaths[0].name,
+          contentType: "image/jpeg",
+          cleanup,
+        };
+      }
+
+      const zipPath = path.join(workDir, "pages.zip");
+      createZipFromFiles(jpegPaths, zipPath);
+      jpegPaths.forEach((entry) => {
+        try {
+          fs.unlinkSync(entry.path);
+        } catch {
+          // Temp JPEGs are also removed when the work directory is deleted.
+        }
+      });
+      logMemory("after-zip-creation", { pages: jpegPaths.length });
+      logMemory("before-response", { pages: jpegPaths.length, mode: "zip" });
+      return {
+        path: zipPath,
+        filename: "QuickPDFHD-pdf-pages.zip",
+        contentType: "application/zip",
+        cleanup,
+      };
+    } finally {
+      await closePdfDocument(document);
+    }
+  } catch (error) {
+    cleanup();
+    throw error;
+  }
+};
+
+const pdfToJpgArchive = async (buffer) => {
+  const result = await convertPdfToJpgOnDisk(buffer);
+  try {
+    return {
+      buffer: fs.readFileSync(result.path),
+      filename: result.filename,
+      contentType: result.contentType,
+    };
+  } finally {
+    result.cleanup();
   }
 };
 
@@ -450,9 +465,9 @@ const extractTextLines = async (buffer) => {
 
 module.exports = {
   pdfToJpgArchive,
+  convertPdfToJpgOnDisk,
   extractTextLines,
   renderPdfPages,
-  renderPdfToJpegs,
   openPdf,
   rasterizePdfPagesForOcr,
   renderPdfPage,

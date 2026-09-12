@@ -1,3 +1,5 @@
+const fs = require("fs");
+
 const crc32 = (buffer) => {
   let crc = 0xffffffff;
 
@@ -57,4 +59,43 @@ const createZip = (entries) => {
   return Buffer.concat([...localParts, centralDirectory, endRecord]);
 };
 
-module.exports = { createZip };
+const createZipFromFiles = (entries, destPath) => {
+  const fd = fs.openSync(destPath, "w");
+  let offset = 0;
+  const centralParts = [];
+
+  try {
+    entries.forEach(({ name, path: filePath }) => {
+      const buffer = fs.readFileSync(filePath);
+      const fileName = Buffer.from(String(name).replace(/[\\/]+/g, "_").replace(/[^a-zA-Z0-9._ -]/g, "_").slice(0, 180));
+      const checksum = crc32(buffer);
+      const localHeader = Buffer.concat([
+        uint32(0x04034b50), uint16(20), uint16(0), uint16(0), uint16(0), uint16(0),
+        uint32(checksum), uint32(buffer.length), uint32(buffer.length),
+        uint16(fileName.length), uint16(0), fileName,
+      ]);
+      fs.writeSync(fd, localHeader);
+      fs.writeSync(fd, buffer);
+      centralParts.push(Buffer.concat([
+        uint32(0x02014b50), uint16(20), uint16(20), uint16(0), uint16(0), uint16(0), uint16(0),
+        uint32(checksum), uint32(buffer.length), uint32(buffer.length),
+        uint16(fileName.length), uint16(0), uint16(0), uint16(0), uint16(0), uint32(0), uint32(offset), fileName,
+      ]));
+      offset += localHeader.length + buffer.length;
+    });
+
+    const centralDirectory = Buffer.concat(centralParts);
+    const endRecord = Buffer.concat([
+      uint32(0x06054b50), uint16(0), uint16(0), uint16(entries.length), uint16(entries.length),
+      uint32(centralDirectory.length), uint32(offset), uint16(0),
+    ]);
+    fs.writeSync(fd, centralDirectory);
+    fs.writeSync(fd, endRecord);
+  } finally {
+    fs.closeSync(fd);
+  }
+
+  return destPath;
+};
+
+module.exports = { createZip, createZipFromFiles };

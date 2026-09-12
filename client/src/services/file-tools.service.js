@@ -64,6 +64,28 @@ const postFiles = async (path, fieldName, files, fields = {}) => {
       filename: filenameFromDisposition(response.headers["content-disposition"]),
     };
   } catch (error) {
+    const status = error.response?.status;
+    const data = error.response?.data;
+    let serverMessage = "";
+    if (data instanceof Blob) {
+      try {
+        const parsed = JSON.parse(await data.clone().text());
+        if (parsed.message) serverMessage = String(parsed.message);
+      } catch {
+        serverMessage = "";
+      }
+    } else if (data?.message) {
+      serverMessage = String(data.message);
+    }
+    if (status) {
+      console.warn("[QuickPDFHD] conversion request failed", {
+        path,
+        status,
+        message: serverMessage || error.message || "no message",
+      });
+    } else {
+      console.warn("[QuickPDFHD] conversion request failed", { path, status: null, reason: "network" });
+    }
     if (error.message && !error.response && error.name === "Error") throw error;
     throw new Error(await readErrorMessage(error), { cause: error });
   }

@@ -39,17 +39,31 @@ const postPdf = async (port, buffer, filename = "file.pdf", extraHeaders = {}) =
 };
 
 (async () => {
+  const mem = () => Math.round(process.memoryUsage().rss / 1048576);
+  const startRss = mem();
+
   const onePage = await makePdf(["Single page JPEG test"]);
   const one = await pdfToJpgArchive(onePage);
   assert(one.contentType === "image/jpeg", "single page should return image/jpeg");
   assert(one.filename === "page-001.jpg", "single page filename should be page-001.jpg");
   assert(one.buffer[0] === 0xff && one.buffer[1] === 0xd8, "single page JPEG magic missing");
+  console.log("1-page service rssMb", mem(), "delta", mem() - startRss);
 
   const threePage = await makePdf(["Page A", "Page B", "Page C"]);
   const zip = await pdfToJpgArchive(threePage);
   assert(zip.contentType === "application/zip", "multi-page should return a ZIP");
   assert(zip.filename === "QuickPDFHD-pdf-pages.zip", "multi-page ZIP name mismatch");
   assert(zip.buffer[0] === 0x50 && zip.buffer[1] === 0x4b, "ZIP magic missing");
+
+  const fivePage = await makePdf(["P1", "P2", "P3", "P4", "P5"]);
+  const five = await pdfToJpgArchive(fivePage);
+  assert(five.contentType === "application/zip", "5-page should return a ZIP");
+  console.log("5-page service rssMb", mem());
+
+  const tenPage = await makePdf(Array.from({ length: 10 }, (_, index) => `Page ${index + 1}`));
+  const ten = await pdfToJpgArchive(tenPage);
+  assert(ten.contentType === "application/zip", "10-page should return a ZIP");
+  console.log("10-page service rssMb", mem());
 
   const imagePdf = await makeImagePdf();
   const imageJpg = await pdfToJpgArchive(imagePdf);
@@ -84,6 +98,19 @@ const postPdf = async (port, buffer, filename = "file.pdf", extraHeaders = {}) =
     assert(String(ok.headers.get("content-disposition")).includes("page-001.jpg"), "HTTP single-page disposition");
     const jpegBytes = Buffer.from(await ok.arrayBuffer());
     assert(jpegBytes[0] === 0xff && jpegBytes[1] === 0xd8, "HTTP JPEG magic missing");
+    console.log("HTTP 1-page", ok.status, jpegBytes.length, "rssMb", mem());
+
+    const fiveHttp = await postPdf(port, fivePage, "five.pdf");
+    assert(fiveHttp.status === 200, `HTTP 5-page expected 200, got ${fiveHttp.status}`);
+    assert(String(fiveHttp.headers.get("content-type")).includes("application/zip"), "HTTP 5-page content-type");
+    await fiveHttp.arrayBuffer();
+    console.log("HTTP 5-page", fiveHttp.status, "rssMb", mem());
+
+    const tenHttp = await postPdf(port, tenPage, "ten.pdf");
+    assert(tenHttp.status === 200, `HTTP 10-page expected 200, got ${tenHttp.status}`);
+    assert(String(tenHttp.headers.get("content-type")).includes("application/zip"), "HTTP 10-page content-type");
+    await tenHttp.arrayBuffer();
+    console.log("HTTP 10-page", tenHttp.status, "rssMb", mem());
 
     const multi = await postPdf(port, threePage, "three.pdf");
     assert(multi.status === 200, `HTTP multi-page expected 200, got ${multi.status}`);

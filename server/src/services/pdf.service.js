@@ -3,39 +3,44 @@ const sharp = require("sharp");
 
 const A4_WIDTH = 595.28;
 const A4_HEIGHT = 841.89;
+const QUALITY_BY_TARGET = { 100: 35, 200: 45, 500: 60, 1024: 75 };
+
+const processDocumentImage = async (buffer, options = {}) => {
+  const {
+    autoCrop = false,
+    enhance = "color",
+    rotation = 0,
+    targetKb = 0,
+  } = options;
+  const quality = QUALITY_BY_TARGET[targetKb] || 82;
+
+  let processor = sharp(buffer).rotate(rotation);
+
+  if (autoCrop) {
+    processor = processor.trim({ background: "#ffffff", threshold: 12 });
+  }
+
+  if (enhance === "grayscale") {
+    processor = processor.grayscale().normalise();
+  }
+
+  if (enhance === "bw") {
+    processor = processor.grayscale().normalise().threshold(180);
+  }
+
+  return processor.jpeg({ quality, mozjpeg: true }).toBuffer();
+};
 
 const generatePdf = async (files, options = {}) => {
   const pdfDoc = await PDFDocument.create();
   const {
-    autoCrop = false,
-    enhance = "color",
     pageNumbers = false,
-    rotation = 0,
-    targetKb = 0,
   } = options;
-
-  const qualityByTarget = { 100: 35, 200: 45, 500: 60, 1024: 75 };
-  const quality = qualityByTarget[targetKb] || 82;
 
   for (const [index, file] of files.entries()) {
     console.log("Processing:", file.originalname);
 
-    let processor = sharp(file.buffer).rotate(rotation);
-
-    if (autoCrop) {
-      processor = processor.trim({ background: "#ffffff", threshold: 12 });
-    }
-
-    if (enhance === "grayscale") {
-      processor = processor.grayscale().normalise();
-    }
-
-    if (enhance === "bw") {
-      processor = processor.grayscale().normalise().threshold(180);
-    }
-
-    // JPEG keeps scanned PDFs small while preserving useful document detail.
-    const imageBuffer = await processor.jpeg({ quality, mozjpeg: true }).toBuffer();
+    const imageBuffer = await processDocumentImage(file.buffer, options);
 
     // Get image metadata
     const metadata = await sharp(imageBuffer).metadata();
@@ -94,4 +99,5 @@ const generatePdf = async (files, options = {}) => {
 
 module.exports = {
   generatePdf,
+  processDocumentImage,
 };

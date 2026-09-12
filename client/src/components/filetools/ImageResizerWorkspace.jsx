@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { FiCheckCircle, FiFolderPlus, FiLock, FiUnlock, FiUploadCloud, FiX } from "react-icons/fi";
 import { resizeImageFiles } from "../../services/file-tools.service";
+import { resizedFallbackName, saveImageFiles } from "../../utils/save-image-files";
 import useResultFocus from "../common/useResultFocus";
 
 const presets = [[1920, 1080], [1280, 720], [1200, 630], [1080, 1080], [1080, 1350], [1080, 1920], [800, 600], [640, 480]];
@@ -71,7 +72,9 @@ const ImageResizerWorkspace = () => {
   }, [images]);
 
   useEffect(() => () => {
-    if (result?.url) URL.revokeObjectURL(result.url);
+    result?.files?.forEach((file) => {
+      if (file.url) URL.revokeObjectURL(file.url);
+    });
   }, [result]);
 
   useEffect(() => () => {
@@ -152,7 +155,7 @@ const ImageResizerWorkspace = () => {
     }
     try {
       setIsResizing(true);
-      const blob = await resizeImageFiles(images.map(({ file }) => file), {
+      const files = await resizeImageFiles(images.map(({ file }) => file), {
         mode,
         width,
         height,
@@ -164,8 +167,19 @@ const ImageResizerWorkspace = () => {
         dpiPreset,
         dpi: dpiPreset === "custom" ? customDpi : dpiPreset,
       });
-      setResult({ url: URL.createObjectURL(blob), size: blob.size, preview: { ...previewSize } });
-      toast.success("Your resized images ZIP is ready.");
+      if (!files.length || files.some((file) => file.contentType?.includes("zip") || /\.zip$/i.test(file.filename))) {
+        throw new Error("The resized images could not be prepared as individual files.");
+      }
+      setResult({
+        files: files.map((file) => ({
+          ...file,
+          url: URL.createObjectURL(file.blob),
+          fallbackName: resizedFallbackName(file.filename),
+        })),
+        preview: { ...previewSize },
+        totalSize: files.reduce((sum, file) => sum + file.blob.size, 0),
+      });
+      toast.success(files.length === 1 ? "Your resized image is ready." : "Your resized images are ready.");
     } catch (error) {
       toast.error(error.message || "Could not resize the images. Please try again.");
     } finally {
@@ -195,6 +209,17 @@ const ImageResizerWorkspace = () => {
     setCustomDpi(300);
   };
 
+  const downloadResult = async () => {
+    if (!result?.files?.length) return;
+    try {
+      const saved = await saveImageFiles(result.files, { subfolderName: "Resized" });
+      if (saved.mode === "folder") toast.success("Saved the resized images to the selected folder.");
+    } catch (error) {
+      if (error.code === "CANCELLED") return;
+      toast.error(error.message || "Could not save the resized images.");
+    }
+  };
+
   const previewBox = first ? Math.min(320, Math.max(previewSize.width, previewSize.height, 1)) : 0;
   const previewScale = first ? previewBox / Math.max(previewSize.width, previewSize.height, 1) : 1;
 
@@ -206,11 +231,13 @@ const ImageResizerWorkspace = () => {
             <FiCheckCircle className="mx-auto text-5xl text-emerald-600" aria-hidden="true" />
             <h2 className="mt-4 text-2xl font-bold text-slate-900">Your resized images are ready</h2>
             <p className="mt-3 text-slate-600">
-              {images.length} image{images.length > 1 ? "s" : ""} resized
-              {first ? ` · first image ${result.preview.width} × ${result.preview.height} px` : ""} · {formatBytes(result.size)}
+              {result.files.length} image{result.files.length > 1 ? "s" : ""} resized
+              {first ? ` · first image ${result.preview.width} × ${result.preview.height} px` : ""} · {formatBytes(result.totalSize)}
             </p>
             <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
-              <a href={result.url} download="QuickPDFHD-resized-images.zip" className="rounded-xl bg-teal-600 px-6 py-3 font-semibold text-white hover:bg-teal-700">Download ZIP</a>
+              <button type="button" onClick={downloadResult} className="rounded-xl bg-teal-600 px-6 py-3 font-semibold text-white hover:bg-teal-700">
+                {result.files.length === 1 ? "Download" : "Download All"}
+              </button>
               <button type="button" onClick={reset} className="rounded-xl border border-slate-300 px-6 py-3 font-semibold text-slate-700 hover:bg-slate-50">Resize more images</button>
             </div>
           </div>
@@ -366,13 +393,13 @@ const ImageResizerWorkspace = () => {
 
                 <p className="mt-5 text-sm text-slate-500">
                   {mode === "percentage"
-                    ? `All selected images will be scaled to ${percentage}% and packaged in one ZIP file.`
+                    ? `All selected images will be scaled to ${percentage}%. One image downloads as a file; several images are saved individually.`
                     : locked
-                      ? `Images will be resized from the ${anchor} you last changed, without cropping, and packaged in one ZIP file.`
-                      : `All selected images will be stretched to ${width} × ${height} px and packaged in one ZIP file.`}
+                      ? `Images will be resized from the ${anchor} you last changed, without cropping. One image downloads as a file; several images are saved individually.`
+                      : `All selected images will be stretched to ${width} × ${height} px. One image downloads as a file; several images are saved individually.`}
                 </p>
                 <button type="button" onClick={resize} disabled={isResizing} className="mt-5 w-full rounded-xl bg-teal-600 px-5 py-3.5 font-semibold text-white hover:bg-teal-700 disabled:cursor-not-allowed disabled:bg-slate-400">
-                  {isResizing ? "Resizing images..." : `Resize ${images.length} image${images.length > 1 ? "s" : ""} & create ZIP`}
+                  {isResizing ? "Resizing images..." : `Resize ${images.length} image${images.length > 1 ? "s" : ""}`}
                 </button>
                 <button type="button" onClick={reset} className="mt-3 w-full rounded-xl border border-slate-300 px-5 py-3 font-semibold text-slate-700 hover:bg-slate-50">Start over</button>
               </div>

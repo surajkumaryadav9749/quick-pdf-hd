@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
-import { FiAlertTriangle, FiCheckCircle, FiFileText, FiUploadCloud, FiX } from "react-icons/fi";
-import { scanImagesToPdf } from "../../services/scanner.service";
+import { FiAlertTriangle, FiCheckCircle, FiFileText, FiImage, FiUploadCloud, FiX } from "react-icons/fi";
+import { scanImagesToPdf, scanImagesToFiles } from "../../services/scanner.service";
+import { saveImageFiles } from "../../utils/save-image-files";
 import useResultFocus from "../common/useResultFocus";
 
 const targets = [
@@ -69,12 +70,16 @@ const ScannerWorkspace = () => {
     targetKb: 500,
   });
   const [isCreating, setIsCreating] = useState(false);
+  const [isExportingImage, setIsExportingImage] = useState(false);
   const [selectedPage, setSelectedPage] = useState(null);
   const [result, setResult] = useState(null);
   const resultRef = useResultFocus(result);
 
   useEffect(() => () => {
     if (result?.url) URL.revokeObjectURL(result.url);
+    result?.files?.forEach((file) => {
+      if (file.url) URL.revokeObjectURL(file.url);
+    });
   }, [result]);
 
   const addFiles = async (fileList) => {
@@ -109,12 +114,45 @@ const ScannerWorkspace = () => {
       const toastId = toast.loading("Cleaning pages and creating your PDF...");
       const pdfBlob = await scanImagesToPdf(pages.map((page) => page.file), settings);
       const url = URL.createObjectURL(pdfBlob);
-      setResult({ url, size: pdfBlob.size });
+      setResult({ type: "pdf", url, size: pdfBlob.size });
       toast.success("Your scanned PDF is ready.", { id: toastId });
     } catch (error) {
       toast.error(error?.response?.data?.message || "Could not create the PDF. Please try again.");
     } finally {
       setIsCreating(false);
+    }
+  };
+
+  const exportScannedImages = async () => {
+    if (!pages.length) return toast.error("Add at least one document image first.");
+    try {
+      setIsExportingImage(true);
+      const toastId = toast.loading("Cleaning pages and preparing scanned images...");
+      const files = await scanImagesToFiles(pages.map((page) => page.file), settings);
+      setResult({
+        type: "images",
+        files: files.map((file) => ({
+          ...file,
+          url: URL.createObjectURL(file.blob),
+        })),
+        size: files.reduce((sum, file) => sum + file.blob.size, 0),
+      });
+      toast.success(files.length === 1 ? "Your scanned image is ready." : "Your scanned images are ready.", { id: toastId });
+    } catch (error) {
+      toast.error(error.message || error?.response?.data?.message || "Could not create the scanned image. Please try again.");
+    } finally {
+      setIsExportingImage(false);
+    }
+  };
+
+  const saveScannedImages = async () => {
+    if (!result?.files?.length) return;
+    try {
+      const saved = await saveImageFiles(result.files, { subfolderName: "Scanned" });
+      if (saved.mode === "folder") toast.success("Saved the scanned images to the selected folder.");
+    } catch (error) {
+      if (error.code === "CANCELLED") return;
+      toast.error(error.message || "Could not save the scanned images.");
     }
   };
 
@@ -126,6 +164,27 @@ const ScannerWorkspace = () => {
     setSelectedPage(null);
     setResult(null);
   };
+
+  if (result?.type === "images") return (
+    <section ref={resultRef} tabIndex="-1" aria-live="polite" className="scroll-mt-24 bg-slate-50 pb-16 outline-none sm:pb-20">
+      <div className="mx-auto max-w-3xl px-4 sm:px-6">
+        <div className="rounded-3xl border border-emerald-200 bg-white p-8 text-center shadow-sm">
+          <FiCheckCircle className="mx-auto text-5xl text-emerald-600" />
+          <h2 className="mt-4 text-2xl font-bold text-slate-900">{result.files.length === 1 ? "Your scanned image is ready" : "Your scanned images are ready"}</h2>
+          <p className="mt-3 text-slate-600">{result.files.length} scanned image{result.files.length > 1 ? "s" : ""} · {formatBytes(result.size)}</p>
+          {result.files[0]?.url && (
+            <img src={result.files[0].url} alt="Final scanned document" className="mx-auto mt-6 max-h-80 w-full max-w-md object-contain" />
+          )}
+          <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
+            <button type="button" onClick={saveScannedImages} className="rounded-xl bg-teal-600 px-6 py-3 font-semibold text-white hover:bg-teal-700">
+              {result.files.length === 1 ? "Download Image" : "Download Images"}
+            </button>
+            <button type="button" onClick={reset} className="rounded-xl border border-slate-300 px-6 py-3 font-semibold text-slate-700 hover:bg-slate-50">Scan more pages</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 
   if (result) return (
     <section ref={resultRef} tabIndex="-1" aria-live="polite" className="scroll-mt-24 bg-slate-50 pb-16 outline-none sm:pb-20">
@@ -189,7 +248,8 @@ const ScannerWorkspace = () => {
               <div><span className="text-sm font-semibold text-slate-800">Rotate all pages</span><div className="mt-2 flex gap-2">{[0, 90, 180, 270].map((rotation) => <button key={rotation} type="button" onClick={() => setSettings((current) => ({ ...current, rotation }))} className={`rounded-lg px-3 py-2 text-sm font-medium ${settings.rotation === rotation ? "bg-teal-600 text-white" : "bg-slate-100 text-slate-700 hover:bg-slate-200"}`}>{rotation === 0 ? "Original" : `${rotation}°`}</button>)}</div></div>
               <label className="flex cursor-pointer items-start gap-3"><input type="checkbox" checked={settings.pageNumbers} onChange={(event) => setSettings((current) => ({ ...current, pageNumbers: event.target.checked }))} className="mt-1 h-4 w-4 accent-teal-600" /><span><strong className="text-slate-900">Add page numbers</strong><small className="mt-1 block leading-5 text-slate-600">Places a page number at the bottom of each PDF page.</small></span></label>
             </div>
-            <button type="button" disabled={!pages.length || isCreating} onClick={createPdf} className="mt-8 flex w-full items-center justify-center gap-2 rounded-xl bg-teal-600 px-5 py-3.5 font-semibold text-white shadow-sm transition hover:bg-teal-700 disabled:cursor-not-allowed disabled:bg-slate-400"><FiFileText />{isCreating ? "Creating PDF..." : "Create scanned PDF"}</button>
+            <button type="button" disabled={!pages.length || isCreating || isExportingImage} onClick={createPdf} className="mt-8 flex w-full items-center justify-center gap-2 rounded-xl bg-teal-600 px-5 py-3.5 font-semibold text-white shadow-sm transition hover:bg-teal-700 disabled:cursor-not-allowed disabled:bg-slate-400"><FiFileText />{isCreating ? "Creating PDF..." : "Create scanned PDF"}</button>
+            <button type="button" disabled={!pages.length || isCreating || isExportingImage} onClick={exportScannedImages} className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl border border-teal-600 px-5 py-3.5 font-semibold text-teal-800 transition hover:bg-teal-50 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400"><FiImage />{isExportingImage ? "Preparing image..." : pages.length > 1 ? "Download Images" : "Download Image"}</button>
             <p className="mt-4 flex gap-2 text-xs leading-5 text-slate-500"><FiCheckCircle className="mt-0.5 shrink-0 text-emerald-600" />Files are sent to the conversion server and processed in memory to create your PDF.</p>
           </aside>
         </div>

@@ -8,6 +8,8 @@
     "start": "node src/server.js",
     "test:tools": "node scripts/check-pdf-tools.js",
     "test:pdf-to-jpg": "node scripts/check-pdf-to-jpg.js",
+    "test:resize": "node scripts/check-resize.js",
+    "test:scan-images": "node scripts/check-scan-images.js",
     "test:ocr": "node scripts/audit-ocr.js"
   },
   "keywords": [],

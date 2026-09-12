@@ -1,5 +1,6 @@
 import axios from "axios";
 import { API_BASE, apiUrl } from "../config/api";
+import { parseImageFileResponse } from "../utils/parse-image-response";
 
 const filenameFromDisposition = (header = "") => {
   const quoted = String(header).match(/filename="([^"]+)"/i);
@@ -97,8 +98,17 @@ export const createPdfZip = async (files) => {
 };
 
 export const resizeImageFiles = async (files, options) => {
-  const { blob } = await postFiles("/api/resize-image", "images", files, options);
-  return blob;
+  const formData = new FormData();
+  files.forEach((file) => formData.append("images", file));
+  Object.entries(options).forEach(([key, value]) => formData.append(key, String(value)));
+  try {
+    const response = await axios.post(apiUrl("/api/resize-image"), formData, {
+      responseType: "blob",
+    });
+    return parseImageFileResponse(response, "resized.jpg");
+  } catch (error) {
+    throw new Error(await readErrorMessage(error), { cause: error });
+  }
 };
 
 export const inspectPdfFile = async (file) => {

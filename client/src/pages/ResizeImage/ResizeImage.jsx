@@ -6,7 +6,7 @@ import RelatedTools from "../../components/seo/RelatedTools";
 import RelatedGuides from "../../components/seo/RelatedGuides";
 
 const faqs = [
-  { question: "Can I resize multiple images at once?", answer: "Yes. Upload up to 20 JPG, PNG, or WEBP images and resize them together. The output is packaged in one ZIP download." },
+  { question: "Can I resize multiple images at once?", answer: "Yes. Upload up to 20 JPG, PNG, or WEBP images and resize them together. One image downloads as a file; several images are saved individually to a folder you choose, or downloaded one by one." },
   { question: "How can I resize an image without stretching it?", answer: "Keep aspect ratio locked and change width or height. The other side updates automatically, and the full image stays visible with no crop and no added white bars." },
   { question: "Can I resize JPG, PNG, and WEBP images?", answer: "Yes. The tool accepts JPG/JPEG, PNG, and WEBP images and can output JPG, PNG, or WEBP." },
   { question: "Can I resize images to the same dimensions?", answer: "Unlock aspect ratio to stretch every image to the exact width and height you enter. Keep the lock on to resize proportionally without cropping." },
@@ -22,7 +22,7 @@ const ResizeImage = () => (
   <Layout>
     <SEO
       title="Resize Multiple Images Online – Bulk Image Resizer | QuickPDFHD"
-      description="Resize up to 20 JPG, PNG, or WEBP images at once. Set pixels or percentage, keep aspect ratio, choose output settings, and download a ZIP."
+      description="Resize up to 20 JPG, PNG, or WEBP images at once. Set pixels or percentage, keep aspect ratio, choose output settings, and download the resized images."
       canonical="https://quickpdfhd.com/resize-image"
       structuredData={{
         "@context": "https://schema.org",
@@ -62,7 +62,7 @@ const ResizeImage = () => (
           </nav>
           <h1 className="mt-4 text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl">Resize Multiple Images Online</h1>
           <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-slate-600">
-            Resize up to 20 JPG, PNG, or WEBP images at once. Choose exact dimensions or a percentage, keep proportions, and download the resized files in one ZIP.
+            Resize up to 20 JPG, PNG, or WEBP images at once. Choose exact dimensions or a percentage, keep proportions, and download each resized image.
           </p>
         </div>
       </section>
@@ -85,8 +85,8 @@ const ResizeImage = () => (
               <p className="mt-3 leading-7 text-slate-600">Set pixels or a percentage, choose JPG, PNG, or WEBP output, and adjust quality where supported.</p>
             </article>
             <article className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
-              <h3 className="text-xl font-semibold text-slate-900">Download one ZIP file</h3>
-              <p className="mt-3 leading-7 text-slate-600">Your resized image batch is packaged into a ZIP file for a simple single download.</p>
+              <h3 className="text-xl font-semibold text-slate-900">Save images individually</h3>
+              <p className="mt-3 leading-7 text-slate-600">A single resize downloads one image file. A batch is saved as separate files in a folder you choose, not as a ZIP.</p>
             </article>
           </div>
         </div>

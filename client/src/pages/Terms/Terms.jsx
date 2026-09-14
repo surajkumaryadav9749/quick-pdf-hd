@@ -45,7 +45,7 @@ const Terms = () => {
           <p>
             Uploaded files are processed to generate the requested PDF, Word,
             Excel, image, or ZIP download. Incoming files are received in memory
-            and are not stored in an application database. PDF to JPG and OCR may
+            and are not stored in an application database. OCR may
             use temporary server files for that request, then remove them. You
             remain responsible for the files you choose to upload and for checking
             the output before you rely on it.

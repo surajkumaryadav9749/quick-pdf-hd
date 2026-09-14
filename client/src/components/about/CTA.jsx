@@ -54,7 +54,7 @@ const CTA = () => {
           </div>
 
           <div>
-            <dt className="text-3xl font-bold text-white">14 tools</dt>
+            <dt className="text-3xl font-bold text-white">12 tools</dt>
             <dd className="mt-2 text-teal-100">PDF, office, and image tasks</dd>
           </div>
 

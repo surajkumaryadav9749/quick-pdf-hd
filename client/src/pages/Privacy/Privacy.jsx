@@ -36,7 +36,7 @@ const Privacy = () => {
             The conversion tools receive the files you choose to upload, such as
             images, PDFs, Word documents, and Excel spreadsheets. Incoming
             uploads are received in memory. The site does not keep a user file
-            library or database of those files. PDF to JPG and OCR jobs may write
+            library or database of those files. OCR jobs may write
             temporary working files on the server while a request runs; those
             working files are removed when the job finishes.
           </p>
@@ -72,8 +72,8 @@ const Privacy = () => {
           <p>
             Uploaded files are sent to the conversion server only to process your
             request. Incoming files are received in memory, and there is no
-            feature that stores them in an application database. PDF to JPG and
-            OCR may create temporary files on the server for that request, then
+            feature that stores them in an application database. OCR may
+            create temporary files on the server for that request, then
             delete those working files. Hosting providers, email delivery,
             analytics, and advertising services can still process other data as
             described on this page. Do not upload files you are not authorized to
@@ -84,7 +84,7 @@ const Privacy = () => {
         <LegalSection title="How long information is kept">
           <p>
             Conversion uploads are handled for the duration of the request.
-            Temporary working files used for PDF to JPG or OCR are removed when
+            Temporary working files used for OCR are removed when
             that job finishes. This policy does not claim a separate retention
             timer such as “files are removed after X hours.” Contact-form messages
             are sent by email and may be retained in that inbox or by the email

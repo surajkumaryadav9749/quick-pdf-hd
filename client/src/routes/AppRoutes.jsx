@@ -22,7 +22,6 @@ const ExcelToPdf = lazy(() => import("../pages/PdfTools/ExcelToPdf"));
 const PdfToExcel = lazy(() => import("../pages/PdfTools/PdfToExcel"));
 const SplitPdf = lazy(() => import("../pages/PdfTools/SplitPdf"));
 const MergePdf = lazy(() => import("../pages/PdfTools/MergePdf"));
-const PdfToJpg = lazy(() => import("../pages/PdfTools/PdfToJpg"));
 const PdfGuides = lazy(() => import("../pages/PdfGuides/PdfGuides").then((module) => ({ default: module.PdfGuides })));
 const PdfGuide = lazy(() => import("../pages/PdfGuides/PdfGuides").then((module) => ({ default: module.PdfGuide })));
 
@@ -49,7 +48,6 @@ const AppRoutes = () => {
           <Route path="/pdf-to-excel" element={<PdfToExcel />} />
           <Route path="/split-pdf" element={<SplitPdf />} />
           <Route path="/merge-pdf" element={<MergePdf />} />
-          <Route path="/pdf-to-jpg" element={<PdfToJpg />} />
           <Route path="/document-scanner" element={<DocumentScanner />} />
           <Route path="/pdf-to-zip" element={<PdfToZip />} />
           <Route path="/resize-image" element={<ResizeImage />} />

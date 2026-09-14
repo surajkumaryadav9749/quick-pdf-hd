@@ -12,7 +12,7 @@ export const homeFaqs = [
   {
     question: "How are uploaded files handled?",
     answer:
-      "Files are uploaded for the current request. There is no user file library. Most tools process files in memory; PDF to JPG and OCR may use temporary server files that are removed when the request finishes. Hosting logs, email, and analytics can still receive other information, as described in the Privacy Policy.",
+      "Files are uploaded for the current request. There is no user file library. Most tools process files in memory; OCR may use temporary server files that are removed when the request finishes. Hosting logs, email, and analytics can still receive other information, as described in the Privacy Policy.",
   },
   {
     question: "Do I need to install software?",

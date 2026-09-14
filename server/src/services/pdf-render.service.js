@@ -4,15 +4,9 @@ const path = require("path");
 const { pathToFileURL } = require("url");
 const { spawn } = require("child_process");
 const sharp = require("sharp");
-const { createZipFromFiles } = require("./zip.service");
-const { logMemory } = require("../utils/memory-log");
-const { archiveNameFrom, numberedFromOriginal } = require("../utils/download-filename");
 
 const MAX_PAGES = 40;
 const SCALE = 2;
-const JPG_SCALE = 1.5;
-const JPG_MAX_EDGE = 1600;
-const JPEG_QUALITY = 82;
 const PDFJS_ROOT = path.dirname(require.resolve("pdfjs-dist/package.json"));
 const canvasBinding = require(require.resolve("@napi-rs/canvas", { paths: [PDFJS_ROOT] }));
 const { createCanvas } = canvasBinding;
@@ -73,13 +67,6 @@ const toPdfBytes = (buffer) => {
   }
   if (buffer instanceof Uint8Array) return buffer;
   return Uint8Array.from(buffer);
-};
-
-const scaleForJpgPage = (page) => {
-  const base = page.getViewport({ scale: 1 });
-  const longest = Math.max(base.width, base.height);
-  if (!longest) return JPG_SCALE;
-  return Math.min(JPG_SCALE, JPG_MAX_EDGE / longest);
 };
 
 const openPdf = async (buffer) => {
@@ -170,13 +157,6 @@ const renderPageToCanvas = async (page, scale) => {
     background: "#ffffff",
   }).promise;
   return { canvas, context, canvasFactory };
-};
-
-const encodeJpeg = (canvas) => {
-  if (typeof canvas.encodeSync === "function") {
-    return canvas.encodeSync("jpeg", JPEG_QUALITY);
-  }
-  return canvas.toBuffer("image/jpeg", JPEG_QUALITY);
 };
 
 const renderPdfPage = async (buffer, pageNumber, scale = 2) => {
@@ -324,106 +304,6 @@ const renderPdfPages = async (buffer, { maxPages = MAX_PAGES, scale = SCALE } = 
   }
 };
 
-const convertPdfToJpgOnDisk = async (buffer, { originalName } = {}) => {
-  if (!buffer?.length) throw new Error("The PDF file is empty.");
-  const sourceName = originalName || "file.pdf";
-
-  logMemory("after-upload-received", { pdfBytes: buffer.length });
-  const workDir = fs.mkdtempSync(path.join(os.tmpdir(), "qpdf-jpg-"));
-  let cleaned = false;
-  const cleanup = () => {
-    if (cleaned) return;
-    cleaned = true;
-    fs.rmSync(workDir, { recursive: true, force: true });
-  };
-
-  try {
-    const document = await openPdf(buffer);
-    logMemory("after-pdf-loaded", { pages: document.numPages });
-    try {
-      const pageCount = document.numPages;
-      if (pageCount < 1) throw new Error("The PDF does not contain any pages.");
-      if (pageCount > MAX_PAGES) {
-        throw new Error(`This conversion accepts PDFs with up to ${MAX_PAGES} pages.`);
-      }
-
-      const jpegPaths = [];
-      const usedNames = new Set();
-      for (let pageNumber = 1; pageNumber <= pageCount; pageNumber += 1) {
-        const page = await document.getPage(pageNumber);
-        let rendered;
-        try {
-          const scale = scaleForJpgPage(page);
-          logMemory("before-rendering-page", { pageNumber, scale: +scale.toFixed(3) });
-          rendered = await renderPageToCanvas(page, scale);
-          logMemory("after-rendering-page", { pageNumber, width: rendered.canvas.width, height: rendered.canvas.height });
-          const jpeg = encodeJpeg(rendered.canvas);
-          const name = numberedFromOriginal(sourceName, ".jpg", pageNumber, pageCount, usedNames);
-          const jpegPath = path.join(workDir, name);
-          fs.writeFileSync(jpegPath, jpeg);
-          jpegPaths.push({ name, path: jpegPath });
-          logMemory("after-jpg-generation", { pageNumber, jpegBytes: jpeg.length });
-        } catch (error) {
-          const message = String(error && error.message ? error.message : error);
-          if (/canvas|napi|encode/i.test(message)) {
-            throw new Error("The image renderer could not convert this page. Try a smaller PDF or fewer pages.");
-          }
-          throw new Error(`Page ${pageNumber} could not be converted to JPG. The PDF may use unsupported content.`);
-        } finally {
-          if (rendered) rendered.canvasFactory.destroy(rendered);
-          if (typeof page.cleanup === "function") page.cleanup();
-        }
-      }
-
-      if (jpegPaths.length === 1) {
-        logMemory("before-response", { pages: 1, mode: "jpeg" });
-        return {
-          path: jpegPaths[0].path,
-          filename: jpegPaths[0].name,
-          contentType: "image/jpeg",
-          cleanup,
-        };
-      }
-
-      const zipPath = path.join(workDir, "pages.zip");
-      createZipFromFiles(jpegPaths, zipPath);
-      jpegPaths.forEach((entry) => {
-        try {
-          fs.unlinkSync(entry.path);
-        } catch {
-          // Temp JPEGs are also removed when the work directory is deleted.
-        }
-      });
-      logMemory("after-zip-creation", { pages: jpegPaths.length });
-      logMemory("before-response", { pages: jpegPaths.length, mode: "zip" });
-      return {
-        path: zipPath,
-        filename: archiveNameFrom(sourceName),
-        contentType: "application/zip",
-        cleanup,
-      };
-    } finally {
-      await closePdfDocument(document);
-    }
-  } catch (error) {
-    cleanup();
-    throw error;
-  }
-};
-
-const pdfToJpgArchive = async (buffer, options = {}) => {
-  const result = await convertPdfToJpgOnDisk(buffer, options);
-  try {
-    return {
-      buffer: fs.readFileSync(result.path),
-      filename: result.filename,
-      contentType: result.contentType,
-    };
-  } finally {
-    result.cleanup();
-  }
-};
-
 const extractTextLines = async (buffer) => {
   const document = await openPdf(buffer);
   try {
@@ -467,8 +347,6 @@ const extractTextLines = async (buffer) => {
 };
 
 module.exports = {
-  pdfToJpgArchive,
-  convertPdfToJpgOnDisk,
   extractTextLines,
   renderPdfPages,
   openPdf,

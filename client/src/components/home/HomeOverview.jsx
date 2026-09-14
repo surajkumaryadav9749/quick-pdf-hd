@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 const pdfTools = [
   { to: "/merge-pdf", name: "Merge PDF", text: "Combine 2–20 PDFs in list order, up to 200 pages together." },
   { to: "/split-pdf", name: "Split PDF", text: "Extract a range, export pages, or chunk a file up to 200 pages." },
-  { to: "/pdf-to-jpg", name: "PDF to JPG", text: "Render each page as a JPEG (ZIP when there is more than one page)." },
   { to: "/pdf-to-zip", name: "PDF to ZIP", text: "Package up to 20 unchanged PDFs in one archive." },
 ];
 
@@ -15,7 +14,7 @@ const conversionTools = [
 ];
 
 const imageTools = [
-  { to: "/jpg-to-pdf", name: "JPG to PDF", text: "Up to 20 photos on A4 pages, in the order you set." },
+  { to: "/jpg-to-pdf", name: "JPG to PDF", text: "Up to 20 JPG or JPEG photos on A4 pages, in the order you set." },
   { to: "/png-to-pdf", name: "PNG to PDF", text: "Screenshots and graphics; transparency sits on white." },
   { to: "/webp-to-pdf", name: "WEBP to PDF", text: "Still web images when a PDF is easier to print or attach." },
   { to: "/resize-image", name: "Resize Image", text: "Pixels, percentage, format, quality, and DPI metadata for up to 20 files." },
@@ -30,19 +29,19 @@ const HomeOverview = () => (
           QuickPDFHD is a small set of browser tools for everyday PDF and image jobs: convert Word or Excel files, pull text or tables out of a PDF, split or merge pages, turn photos into an A4 document, scan photographed paperwork, package PDFs into a ZIP file, and resize images.
         </p>
         <p>
-          Each tool has its own page with an upload area near the top and the limits that actually apply. Files are uploaded for the request. Most conversions stay in memory; PDF to JPG and OCR may use temporary server files that are removed afterward. That is not encryption or anonymity. Details are in the{" "}
+          Each tool has its own page with an upload area near the top and the limits that actually apply. Files are uploaded for the request. Most conversions stay in memory; OCR may use temporary server files that are removed afterward. That is not encryption or anonymity. Details are in the{" "}
           <Link to="/privacy-policy" className="font-semibold text-teal-800 hover:underline">Privacy Policy</Link>.
         </p>
       </div>
 
       <h2 className="mt-14 text-3xl font-bold text-slate-900">What you can do here</h2>
       <p className="mt-4 max-w-3xl leading-8 text-slate-600">
-        You can change format (Word ↔ PDF, Excel ↔ PDF, PDF → JPG, images → PDF), reorganize PDFs (split, merge, ZIP), prepare photos of paper (Document Scanner), or change image pixel size. There is no account, and there is also no unlimited file size: every page lists megabyte and page caps.
+        You can change format (Word ↔ PDF, Excel ↔ PDF, images → PDF), reorganize PDFs (split, merge, ZIP), prepare photos of paper (Document Scanner), or change image pixel size. There is no account, and there is also no unlimited file size: every page lists megabyte and page caps.
       </p>
 
       <h2 className="mt-14 text-3xl font-bold text-slate-900">PDF tools</h2>
       <p className="mt-4 max-w-3xl leading-8 text-slate-600">
-        Use these when you already have PDF files and need a different arrangement or a picture of a page. Merge copies pages; it does not redesign them. Split copies a subset. ZIP groups files without combining pages.
+        Use these when you already have PDF files and need a different arrangement. Merge copies pages; it does not redesign them. Split copies a subset. ZIP groups files without combining pages.
       </p>
       <ul className="mt-6 grid gap-4 sm:grid-cols-2">
         {pdfTools.map((item) => (
@@ -68,7 +67,7 @@ const HomeOverview = () => (
 
       <h2 className="mt-14 text-3xl font-bold text-slate-900">Image tools</h2>
       <p className="mt-4 max-w-3xl leading-8 text-slate-600">
-        Image-to-PDF tools accept up to 20 files (10 MB each) and place each still image on an A4 page. JPEG to PDF exists for the same codec with the .jpeg filename. Resize Image is for pixels and format, not for building a PDF.
+        Image-to-PDF tools accept up to 20 files (10 MB each) and place each still image on an A4 page. JPG to PDF accepts both .jpg and .jpeg. Resize Image is for pixels and format, not for building a PDF.
       </p>
       <ul className="mt-6 grid gap-4 sm:grid-cols-2">
         {imageTools.map((item) => (

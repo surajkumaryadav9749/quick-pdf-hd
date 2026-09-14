@@ -1,14 +1,10 @@
-const fs = require("fs");
 const { isPdfBuffer, isZipBuffer, isOleBuffer, extensionOf } = require("../utils/file-signatures");
 const { createZip } = require("../services/zip.service");
 const pdfPages = require("../services/pdf-pages.service.js");
-const { convertPdfToJpgOnDisk } = require("../services/pdf-render.service");
 const { wordToPdf } = require("../services/word-pdf.service");
 const { excelToPdf } = require("../services/excel-pdf.service");
 const { pdfToWord, pdfToExcel, inspectPdfText } = require("../services/pdf-office.service");
 const { pdfToWordOcr, OCR_MAX_PAGES, resolveOcrLanguage } = require("../services/ocr.service");
-const { logMemory } = require("../utils/memory-log");
-const { acquireJpgSlot, releaseJpgSlot } = require("../utils/jpg-job-lock");
 const { withExtension, archiveNameFrom, numberedFromOriginal, contentDisposition } = require("../utils/download-filename");
 
 const sendFile = (res, buffer, contentType, filename) => {
@@ -33,31 +29,6 @@ const fail = (res, error) => {
       ? "The file could not be processed. Check the format and try again."
       : error.message,
   });
-};
-
-const sendFileFromPath = (res, filePath, contentType, filename, cleanup) => {
-  const size = fs.statSync(filePath).size;
-  res.set({
-    "Content-Type": contentType,
-    "Content-Disposition": contentDisposition(filename),
-    "Content-Length": size,
-    "X-Content-Type-Options": "nosniff",
-  });
-  const stream = fs.createReadStream(filePath);
-  let finished = false;
-  const done = () => {
-    if (finished) return;
-    finished = true;
-    cleanup();
-  };
-  stream.on("error", (error) => {
-    done();
-    if (!res.headersSent) fail(res, error);
-    else res.destroy(error);
-  });
-  res.on("close", done);
-  res.on("finish", done);
-  return stream.pipe(res);
 };
 
 const requirePdfFiles = (files, minimum = 1) => {
@@ -113,37 +84,6 @@ const splitPdf = async (req, res) => {
     return sendFile(res, buffer, "application/pdf", withExtension(originalName, ".pdf"));
   } catch (error) {
     return fail(res, error);
-  }
-};
-
-const convertPdfToJpg = async (req, res) => {
-  logMemory("request-start");
-  let occupied = false;
-  try {
-    requirePdfFiles(req.files, 1);
-    logMemory("after-upload-received", { pdfBytes: req.files[0].size || req.files[0].buffer?.length || 0 });
-    acquireJpgSlot();
-    occupied = true;
-    const result = await convertPdfToJpgOnDisk(req.files[0].buffer, { originalName: req.files[0].originalname });
-    try {
-      logMemory("before-response");
-      return sendFileFromPath(res, result.path, result.contentType, result.filename, result.cleanup);
-    } catch (error) {
-      result.cleanup();
-      throw error;
-    }
-  } catch (error) {
-    const message = String(error.message || "");
-    if (!error.status) {
-      if (/up to \d+ pages|Only valid PDF|No files|empty files|empty\./i.test(message)) {
-        error.status = 400;
-      } else {
-        error.status = 500;
-      }
-    }
-    return fail(res, error);
-  } finally {
-    if (occupied) releaseJpgSlot();
   }
 };
 
@@ -213,7 +153,6 @@ const convertPdfToExcel = async (req, res) => {
 module.exports = {
   mergePdfs,
   splitPdf,
-  convertPdfToJpg,
   convertWordToPdf,
   convertExcelToPdf,
   convertPdfToWord,

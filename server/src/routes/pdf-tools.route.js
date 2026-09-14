@@ -7,7 +7,6 @@ const router = express.Router();
 
 router.post("/merge", pdfToolsUpload.array("files", 20), handleUploadError, controller.mergePdfs);
 router.post("/split", pdfToolsUpload.array("files", 1), handleUploadError, controller.splitPdf);
-router.post("/pdf-to-jpg", pdfToolsUpload.array("files", 1), handleUploadError, controller.convertPdfToJpg);
 router.post("/word-to-pdf", wordUpload.array("files", 1), handleUploadError, controller.convertWordToPdf);
 router.post("/excel-to-pdf", excelUpload.array("files", 1), handleUploadError, controller.convertExcelToPdf);
 router.post("/pdf-to-word", pdfToolsUpload.array("files", 1), handleUploadError, controller.convertPdfToWord);

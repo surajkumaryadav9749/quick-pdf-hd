@@ -7,15 +7,15 @@ import { findService, serviceCatalog, serviceCategories } from "../../config/ser
 import { pdfGuides } from "../../config/pdfGuides";
 
 const categoryCopy = {
-  "PDF Tools": "Use this group when the file is already a PDF or an office document that should become one. Conversion, split, merge, page images, scanning, and ZIP packaging all live here. Pick the tool by the outcome you need, not by repeating the same upload on every card.",
-  "Image Tools": "Use this group when you start with pictures. Image-to-PDF builds an A4 document from stills. Resize Image changes pixel size and format without creating a PDF. JPEG to PDF is the same codec as JPG, written for .jpeg filenames.",
+  "PDF Tools": "Use this group when the file is already a PDF or an office document that should become one. Conversion, split, merge, scanning, and ZIP packaging all live here. Pick the tool by the outcome you need, not by repeating the same upload on every card.",
+  "Image Tools": "Use this group when you start with pictures. Image-to-PDF builds an A4 document from stills. JPG to PDF accepts both .jpg and .jpeg. Resize Image changes pixel size and format without creating a PDF.",
 };
 
 const chooserGroups = [
   {
     title: "PDF Conversion Tools",
     intro: "Change a file from one document format to another.",
-    ids: ["word-to-pdf", "pdf-to-word", "excel-to-pdf", "pdf-to-excel", "pdf-to-jpg"],
+    ids: ["word-to-pdf", "pdf-to-word", "excel-to-pdf", "pdf-to-excel"],
   },
   {
     title: "PDF Organization Tools",
@@ -24,8 +24,8 @@ const chooserGroups = [
   },
   {
     title: "PDF & Image Tools",
-    intro: "Turn photos into documents, turn PDF pages into images, or resize pictures.",
-    ids: ["jpg-to-pdf", "jpeg-to-pdf", "png-to-pdf", "webp-to-pdf", "pdf-to-jpg", "resize-image"],
+    intro: "Turn photos into documents or resize pictures.",
+    ids: ["jpg-to-pdf", "png-to-pdf", "webp-to-pdf", "resize-image"],
   },
   {
     title: "Document Tools",
@@ -41,27 +41,26 @@ const chooserTasks = [
   { id: "pdf-to-excel", when: "The PDF already has selectable table text that you want in an XLSX file. Scans will not extract this way." },
   { id: "split-pdf", when: "You only need some pages, or each page should become its own PDF." },
   { id: "merge-pdf", when: "Several PDFs should travel as one document in a set order." },
-  { id: "pdf-to-jpg", when: "A website or chat app wants a picture of a page instead of a PDF." },
-  { id: "jpg-to-pdf", when: "You have photos or photographed pages that should become one ordered document." },
+  { id: "jpg-to-pdf", when: "You have JPG or JPEG photos that should become one ordered document." },
   { id: "pdf-to-zip", when: "You want several PDFs in one download without combining their pages." },
 ];
 
 const faqs = [
-  { question: "What tools are available on QuickPDFHD?", answer: "The site includes Word and Excel conversion, PDF to Word (with optional OCR), PDF to Excel, split, merge, PDF to JPG, JPG/JPEG/PNG/WEBP to PDF, Document Scanner, PDF to ZIP, and Resize Image." },
+  { question: "What tools are available on QuickPDFHD?", answer: "The site includes Word and Excel conversion, PDF to Word (with optional OCR), PDF to Excel, split, merge, JPG/JPEG/PNG/WEBP to PDF, Document Scanner, PDF to ZIP, and Resize Image." },
   { question: "Do I need an account?", answer: "No. Open a tool page, upload a supported file, and download the result. Each page lists its own size and page limits." },
   { question: "How do the tools work?", answer: "You upload a file, choose any options shown on that page, the server processes the request in memory, and you download the generated PDF, Word, Excel, image, or ZIP file." },
   { question: "Which file types are supported?", answer: "Depending on the tool: DOC, DOCX, XLS, XLSX, PDF, JPG, JPEG, PNG, and WEBP. Resize Image accepts JPG, PNG, and WEBP." },
   { question: "When should I use OCR on PDF to Word?", answer: "Use OCR when you cannot select text in the PDF because the pages are scans or images. Use NO OCR when text is already selectable." },
-  { question: "Are uploaded files saved in a user library?", answer: "No. There is no upload library. Most conversions stay in memory; PDF to JPG and OCR may use temporary server files that are removed after the request. Hosting logs, email, and analytics can still handle other information, as described in the Privacy Policy." },
+  { question: "Are uploaded files saved in a user library?", answer: "No. There is no upload library. Most conversions stay in memory; OCR may use temporary server files that are removed after the request. Hosting logs, email, and analytics can still handle other information, as described in the Privacy Policy." },
   { question: "Where can I find step-by-step help?", answer: "Open PDF Guides for Word, Excel, split, merge, OCR, image, scanner, and ZIP walkthroughs." },
-  { question: "Are the tools unlimited?", answer: "No. Each page lists its own limits, such as 15 MB for Word or Excel, 25 MB for most PDF tools, 20 images for image-to-PDF, and page caps for OCR, split, merge, and PDF to JPG." },
+  { question: "Are the tools unlimited?", answer: "No. Each page lists its own limits, such as 15 MB for Word or Excel, 25 MB for most PDF tools, 20 images for image-to-PDF, and page caps for OCR, split, and merge." },
 ];
 
 const AllServices = () => (
   <Layout>
     <SEO
       title="All PDF & Image Tools Online | QuickPDFHD"
-      description="Browse every QuickPDFHD tool: Word and Excel conversion, PDF to Word with OCR, split and merge, PDF to JPG, image-to-PDF, scanning, ZIP packaging, and image resizing."
+      description="Browse every QuickPDFHD tool: Word and Excel conversion, PDF to Word with OCR, split and merge, image-to-PDF, scanning, ZIP packaging, and image resizing."
       canonical="https://quickpdfhd.com/all-services"
       structuredData={{
         "@context": "https://schema.org",
@@ -197,14 +196,14 @@ const AllServices = () => (
             <ul className="mt-4 list-disc space-y-2 pl-5 leading-7 text-slate-600">
               <li>Word: DOC, DOCX (Word to PDF).</li>
               <li>Excel: XLS, XLSX (Excel to PDF).</li>
-              <li>PDF: split, merge, PDF to Word, PDF to Excel, PDF to JPG, PDF to ZIP.</li>
+              <li>PDF: split, merge, PDF to Word, PDF to Excel, PDF to ZIP.</li>
               <li>Images: JPG, JPEG, PNG, WEBP for image-to-PDF and Document Scanner. Resize Image accepts JPG, PNG, and WEBP.</li>
             </ul>
           </article>
           <article className="rounded-2xl border border-slate-200 bg-white p-7">
             <h2 className="text-2xl font-bold text-slate-900">File privacy and handling</h2>
             <p className="mt-4 leading-7 text-slate-600">
-              Uploads are processed for the current request. There is no user file library. PDF to JPG and OCR may use temporary server files that are removed afterward. That is not a claim of encryption, timed deletion, or that no other service can see related data. Hosting logs, the contact-form email path, and Google Analytics are described in the{" "}
+              Uploads are processed for the current request. There is no user file library. OCR may use temporary server files that are removed afterward. That is not a claim of encryption, timed deletion, or that no other service can see related data. Hosting logs, the contact-form email path, and Google Analytics are described in the{" "}
               <Link to="/privacy-policy" className="font-semibold text-teal-800 hover:underline">Privacy Policy</Link>.
             </p>
           </article>

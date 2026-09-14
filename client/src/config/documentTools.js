@@ -1,7 +1,7 @@
 const site = "https://quickpdfhd.com";
 
 const privacyNote =
-  "Files are uploaded for the current request. The app does not keep a library of uploads in its own database. Most tools process the file in memory; PDF to JPG and OCR may write temporary working files on the server and remove them when the request finishes. See the Privacy Policy.";
+  "Files are uploaded for the current request. The app does not keep a library of uploads in its own database. Most tools process the file in memory; OCR may write temporary working files on the server and remove them when the request finishes. See the Privacy Policy.";
 
 export const documentTools = {
   "word-to-pdf": {
@@ -76,7 +76,7 @@ export const documentTools = {
       { question: "Do I need Microsoft Word installed?", answer: "No. Conversion happens through the web tool." },
       { question: "What is the file size limit?", answer: "Each Word file can be up to 15 MB." },
       { question: "Are password-protected Word files supported?", answer: "Unlock the document first. Protected files are not converted." },
-      { question: "Are files stored after conversion?", answer: "There is no user file library. Uploads are processed for the request. PDF to JPG and OCR may use temporary server files that are removed afterward. Details are in the Privacy Policy." },
+      { question: "Are files stored after conversion?", answer: "There is no user file library. Uploads are processed for the request. OCR may use temporary server files that are removed afterward. Details are in the Privacy Policy." },
     ],
   },
   "pdf-to-word": {
@@ -367,7 +367,7 @@ export const documentTools = {
       "Encrypted PDFs cannot be split until the password is removed.",
     ],
     privacy: privacyNote,
-    related: ["/merge-pdf", "/pdf-to-jpg", "/pdf-to-word"],
+    related: ["/merge-pdf", "/pdf-to-word", "/pdf-to-zip"],
     faqs: [
       { question: "How do I split a PDF into separate pages?", answer: "Upload the PDF, choose Separate pages, and download the ZIP. Each selected page becomes its own PDF." },
       { question: "Can I extract specific pages?", answer: "Yes. Choose Extract range and enter pages such as 1-4, 9." },
@@ -439,7 +439,7 @@ export const documentTools = {
       "If a file is a scan of many receipts, split out the pages you actually need, then merge.",
     ],
     privacy: privacyNote,
-    related: ["/split-pdf", "/word-to-pdf", "/pdf-to-jpg"],
+    related: ["/split-pdf", "/word-to-pdf", "/pdf-to-zip"],
     faqs: [
       { question: "How do I merge PDF files?", answer: "Upload two or more PDFs, arrange them in order, and choose Merge PDFs. Download the combined document." },
       { question: "Can I combine more than two PDFs?", answer: "Yes. You can merge up to 20 PDF files in one operation." },
@@ -449,77 +449,6 @@ export const documentTools = {
       { question: "Does merging reduce quality?", answer: "The merge copies pages. It does not recompress them as images." },
       { question: "Does merging keep bookmarks?", answer: "Bookmarks and interactive forms from the source files are not rebuilt as a new outline in the merged PDF." },
       { question: "Can I merge PDFs on mobile?", answer: "Yes. Select files from your phone or tablet and download the result." },
-    ],
-  },
-  "pdf-to-jpg": {
-    id: "pdf-to-jpg",
-    name: "PDF to JPG",
-    path: "/pdf-to-jpg",
-    canonical: `${site}/pdf-to-jpg`,
-    title: "PDF to JPG Converter Online – Save PDF Pages as Images | QuickPDFHD",
-    description:
-      "Convert PDF pages to JPG online. Each page is rendered as an image. Download a JPG for a single page or a ZIP of images for multi-page PDFs.",
-    heading: "Convert PDF Pages to JPG Images",
-    intro:
-      "PDF to JPG renders each page of a PDF into a JPEG image. That is useful when a website, chat app, or presentation needs a picture of a page rather than a PDF file. A one-page PDF downloads as a JPG. Longer files download as a ZIP of images.",
-    badge: "PDF to JPG converter",
-    endpoint: "/api/pdf-tools/pdf-to-jpg",
-    accept: ".pdf,application/pdf",
-    extensions: [".pdf"],
-    mimeTypes: ["application/pdf"],
-    multiple: false,
-    maxFiles: 1,
-    maxSize: 25 * 1024 * 1024,
-    maxSizeLabel: "25 MB",
-    formatsLabel: "PDF (.pdf)",
-    uploadTitle: "Upload a PDF to convert",
-    uploadHint: "Drop a PDF here or choose a file · up to 40 pages · 25 MB maximum",
-    actionLabel: "Convert PDF to JPG",
-    processingLabel: "Rendering PDF pages...",
-    successTitle: "Your JPG images are ready",
-    downloadLabel: "Download images",
-    downloadName: "file.zip",
-    howTitle: "How to convert a PDF to JPG",
-    howIntro: "Each page is drawn as an image on the server, then saved as a JPEG.",
-    steps: [
-      { title: "Upload the PDF", description: "Choose a PDF up to 40 pages and 25 MB." },
-      { title: "Render the pages", description: "Select Convert PDF to JPG. Every page is turned into an image." },
-      { title: "Download the images", description: "A single page returns a JPG. Multiple pages return a ZIP of JPG files." },
-    ],
-    features: [
-      { title: "True page rendering", description: "Pages are rasterized, not renamed. You get actual image files of the PDF pages." },
-      { title: "One image per page", description: "Each page is saved using the original PDF name, with a number added when there are multiple pages." },
-      { title: "Ready for sharing", description: "JPG is a practical format for previews, slides, and posts that do not accept PDFs." },
-    ],
-    explanationTitle: "Why convert PDF pages to images",
-    explanation: [
-      "A PDF is a document. A JPG is a picture of a page. Converting is helpful when the destination cannot display PDFs, or when you only need a snapshot of one page.",
-      "Rendering flattens the page: text becomes pixels. You will not be able to copy text from the JPG the way you can from the PDF.",
-      "Image quality is set for readable pages at a moderate file size. Extremely small print may need the original PDF for archival use.",
-    ],
-    usesTitle: "Useful PDF to JPG situations",
-    uses: [
-      "Creating a preview image of a certificate or flyer",
-      "Dropping a page into a slide deck that prefers images",
-      "Sharing a page in apps that reject PDF attachments",
-      "Making simple thumbnails of a short document",
-    ],
-    tipsTitle: "Quality notes",
-    tips: [
-      "For the reverse task, use JPG to PDF to combine images back into a document.",
-      "Very large or dense pages produce larger JPG files.",
-      "Password-protected PDFs need to be unlocked first.",
-    ],
-    privacy: privacyNote,
-    related: ["/jpg-to-pdf", "/split-pdf", "/merge-pdf"],
-    faqs: [
-      { question: "How do I convert PDF to JPG?", answer: "Upload a PDF and choose Convert PDF to JPG. Download the JPG or ZIP of images when rendering finishes." },
-      { question: "Does every page become an image?", answer: "Yes. Each page is rendered to its own JPG file." },
-      { question: "What if my PDF has one page?", answer: "You receive a single .jpg file instead of a ZIP." },
-      { question: "Is this the same as renaming the file?", answer: "No. Pages are drawn as images. The download is a JPEG (or a ZIP of JPEGs)." },
-      { question: "Can I convert PDF to an image for social posts?", answer: "Yes. JPG pages are often easier to upload than a PDF, though you should check any size limits on the destination." },
-      { question: "Will text stay selectable?", answer: "No. JPG is a picture of the page, so the text is not selectable." },
-      { question: "What is the page limit?", answer: "Up to 40 pages and 25 MB per PDF." },
     ],
   },
 };

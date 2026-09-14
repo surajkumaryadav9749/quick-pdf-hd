@@ -13,7 +13,6 @@ QuickPDFHD is a full-stack web application for everyday PDF and image tasks. It 
 - Convert Word DOC/DOCX files to PDF, extract selectable PDF text to DOCX, or run OCR on scanned PDFs.
 - Convert Excel XLS/XLSX worksheets to PDF, and extract table-like PDF text to XLSX.
 - Split a PDF by page range, separate pages, or equal chunks; merge multiple PDFs in order.
-- Render PDF pages to JPG images.
 - Download generated PDFs, ZIP archives, and resized images directly from the browser.
 - Contact form that sends submissions through SMTP.
 - Responsive pages for Home, About, Contact, Privacy Policy, Terms, individual tools, All Services, and a 404 page.
@@ -40,7 +39,6 @@ QuickPDFHD is a full-stack web application for everyday PDF and image tasks. It 
 | PDF to Excel | PDF with selectable text | XLSX | 1 file, 25 MB, 40 pages |
 | Split PDF | PDF | PDF or ZIP of PDFs | 1 file, 25 MB, 200 pages |
 | Merge PDF | PDF files | Single PDF | 2–20 files, 25 MB each, 200 pages total |
-| PDF to JPG | PDF | JPG or ZIP of JPGs | 1 file, 25 MB, 40 pages |
 | JPG / JPEG / PNG / WEBP to PDF | Images | Single A4 PDF | Up to 20 images, 10 MB each |
 | Document Scanner | JPG, PNG, WEBP document photos | Scanned A4 PDF | Up to 20 pages, 10 MB each |
 | PDF to ZIP | PDF files | ZIP archive | Up to 20 PDFs, 25 MB each |
@@ -135,7 +133,6 @@ Open the Vite URL shown in the terminal, normally `http://localhost:5173`. The A
 | `POST` | `/api/pdf-to-zip` | Package `pdfs` uploads into a ZIP |
 | `POST` | `/api/pdf-tools/merge` | Merge `files` PDF uploads into one PDF |
 | `POST` | `/api/pdf-tools/split` | Split or extract pages from a PDF (`mode`, `range`, `chunkSize`) |
-| `POST` | `/api/pdf-tools/pdf-to-jpg` | Render a PDF into JPG images |
 | `POST` | `/api/pdf-tools/word-to-pdf` | Convert a DOC/DOCX upload to PDF |
 | `POST` | `/api/pdf-tools/excel-to-pdf` | Convert an XLS/XLSX upload to PDF |
 | `POST` | `/api/pdf-tools/pdf-to-word` | Extract PDF text or OCR a scan into a DOCX (`ocr`, `language`) |
@@ -149,7 +146,7 @@ Word to PDF, Excel to PDF, PDF to Word, and PDF to Excel run entirely on this No
 
 ## Production notes
 
-- The Vercel frontend is served from `https://quickpdfhd.com`. API calls use same-origin paths such as `/api/pdf-tools/pdf-to-jpg`.
+- The Vercel frontend is served from `https://quickpdfhd.com`. API calls use same-origin paths such as `/api/pdf-tools/merge`.
 - [`client/vercel.json`](client/vercel.json) rewrites `/api/:path*` to the Express backend at `https://quickpdfhd-api.onrender.com/api/:path*`. Redeploy the **client** on Vercel after changing that file.
 - Do not set `VITE_API_URL` to `localhost` in the Vercel build environment. Production ignores localhost and uses `/api` on the same domain.
 - Local development: `VITE_API_URL=http://localhost:5000` or omit it and use the Vite `/api` proxy in [`client/vite.config.js`](client/vite.config.js).

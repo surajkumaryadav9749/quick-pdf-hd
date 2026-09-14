@@ -7,7 +7,7 @@ const sections = [
   {
     id: "services",
     title: "Popular tools",
-    intro: "Convert Word and Excel files, extract text or tables, split or merge PDFs, and render pages as JPG images.",
+    intro: "Convert Word and Excel files, extract text or tables, and split or merge PDFs.",
     group: "document",
   },
   {

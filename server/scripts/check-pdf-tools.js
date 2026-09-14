@@ -2,7 +2,7 @@ const { PDFDocument, StandardFonts } = require("pdf-lib");
 const { Document, Packer, Paragraph, TextRun } = require("docx");
 const XLSX = require("xlsx");
 const { mergePdfs, extractPages, splitIntoSinglePages } = require("../src/services/pdf-pages.service");
-const { pdfToJpgArchive, extractTextLines } = require("../src/services/pdf-render.service");
+const { extractTextLines } = require("../src/services/pdf-render.service");
 const { wordToPdf } = require("../src/services/word-pdf.service");
 const { excelToPdf } = require("../src/services/excel-pdf.service");
 const { pdfToWord, pdfToExcel } = require("../src/services/pdf-office.service");
@@ -34,10 +34,6 @@ const makePdf = async (text) => {
 
   const pages = await splitIntoSinglePages(merged, "");
   assert(pages.length === 2, "split should emit two PDFs");
-
-  const jpg = await pdfToJpgArchive(first);
-  assert(jpg.contentType === "image/jpeg", "single page should return jpeg");
-  assert(jpg.buffer[0] === 0xff && jpg.buffer[1] === 0xd8, "jpeg magic missing");
 
   const lines = await extractTextLines(first);
   assert(lines[0].lines.join(" ").includes("First page"), "pdf text extraction failed");

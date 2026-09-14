@@ -6,7 +6,7 @@ export const educationalGuides = [
     seoTitle: "Reduce PDF File Size Without Losing Readability | QuickPDFHD",
     description: "Practical ways to keep a PDF readable when it is too large to email or upload, using the tools QuickPDFHD actually provides.",
     tool: "/document-scanner",
-    tools: ["/document-scanner", "/resize-image", "/jpg-to-pdf", "/pdf-to-jpg"],
+    tools: ["/document-scanner", "/resize-image", "/jpg-to-pdf"],
     toolName: "Document Scanner",
     intro: "A PDF feels “too big” when email, a job portal, or a class upload rejects it. Size usually comes from photographs of pages, not from a few pages of selectable text. QuickPDFHD does not include a dedicated “compress PDF” button. You can still make a lighter file by changing how the pages were created.",
     sections: [
@@ -34,7 +34,7 @@ export const educationalGuides = [
       {
         heading: "If you only need pictures of pages",
         paragraphs: [
-          "PDF to JPG draws each page as a JPEG. That does not always shrink the original PDF, but it gives you images you can resize or send separately. A one-page PDF downloads as a JPG; longer files download as a ZIP of images.",
+          "PDF pages can be converted to images using dedicated PDF software. That does not always shrink the original PDF, but it gives you pictures you can resize or send separately.",
           "This path discards selectable text. Use it when the destination wants pictures, not when someone must copy wording later.",
         ],
       },
@@ -65,7 +65,7 @@ export const educationalGuides = [
     seoTitle: "PDF Quality vs File Size Explained | QuickPDFHD",
     description: "Why photo PDFs get large, how JPEG quality and pixel size interact, and which QuickPDFHD settings actually change the tradeoff.",
     tool: "/document-scanner",
-    tools: ["/document-scanner", "/resize-image", "/pdf-to-jpg"],
+    tools: ["/document-scanner", "/resize-image", "/jpg-to-pdf"],
     toolName: "Document Scanner",
     intro: "“Compression” is often used as if it were one slider. In practice, a PDF’s size is a mix of how many pages you have, whether those pages are text or pictures, how many pixels each picture has, and how aggressively JPEG encoding throws detail away.",
     sections: [
@@ -106,7 +106,7 @@ export const educationalGuides = [
     ],
     tips: [
       "Color photos of white paper waste size on background tint.",
-      "PDF to JPG lets you inspect a page as an image if you are unsure how dense it is.",
+      "Open a page in a PDF viewer at 100% zoom if you are unsure how dense the photographs are.",
     ],
     relatedGuides: ["reduce-pdf-file-size-without-losing-readability", "image-dpi-versus-pixel-dimensions", "scanned-pdf-versus-searchable-pdf"],
   },
@@ -168,7 +168,7 @@ export const educationalGuides = [
     seoTitle: "Split a PDF or Extract Pages | QuickPDFHD",
     description: "The difference between extracting a range, exporting each page, and chunking a long PDF—and when each result (one PDF vs a ZIP) makes sense.",
     tool: "/split-pdf",
-    tools: ["/split-pdf", "/merge-pdf", "/pdf-to-jpg"],
+    tools: ["/split-pdf", "/merge-pdf", "/pdf-to-zip"],
     toolName: "Split PDF",
     intro: "People say “split” when they mean three different jobs: keep pages 3–7 as one file, save every page as its own PDF, or break a handbook into 10-page pieces. QuickPDFHD offers those as extract range, separate pages, and chunks. Choosing the wrong mode is the usual source of “why did I get a ZIP?” confusion.",
     sections: [
@@ -206,10 +206,10 @@ export const educationalGuides = [
       "Download the PDF or ZIP and confirm the pages before sending.",
     ],
     tips: [
-      "To turn only some pages into images, extract them first, then use PDF to JPG.",
+      "To turn only some pages into images, extract them first, then convert those pages with dedicated PDF software.",
       "To reassemble extracts, use Merge PDF.",
     ],
-    relatedGuides: ["how-to-split-a-pdf", "merge-pdf-files-in-the-correct-order", "how-to-convert-pdf-to-jpg"],
+    relatedGuides: ["how-to-split-a-pdf", "merge-pdf-files-in-the-correct-order", "how-to-package-multiple-pdfs-into-a-zip"],
   },
   {
     kind: "article",
@@ -218,7 +218,7 @@ export const educationalGuides = [
     seoTitle: "Scanned PDF vs Searchable PDF | QuickPDFHD",
     description: "How to tell a picture-of-a-page from a PDF with real text, and which QuickPDFHD tools work on each kind of file.",
     tool: "/pdf-to-word",
-    tools: ["/pdf-to-word", "/pdf-to-excel", "/document-scanner", "/pdf-to-jpg"],
+    tools: ["/pdf-to-word", "/pdf-to-excel", "/document-scanner"],
     toolName: "PDF to Word",
     intro: "A PDF can look like text on screen and still be a photograph. Search, copy, PDF to Excel, and NO OCR Word conversion all depend on whether the file stores text objects. A scan stores pixels. Confusing the two is the most common reason a conversion “does nothing.”",
     sections: [
@@ -241,7 +241,7 @@ export const educationalGuides = [
         list: [
           "PDF to Word NO OCR and PDF to Excel need selectable text.",
           "PDF to Word OCR is for scans, up to 15 pages, English and/or Hindi.",
-          "PDF to JPG works on both kinds: it draws the page either way.",
+          "Desktop PDF software can export a page as an image for either kind of file.",
           "Split and merge copy pages and do not convert a scan into searchable text.",
         ],
       },

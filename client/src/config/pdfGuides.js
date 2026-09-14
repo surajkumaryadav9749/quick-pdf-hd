@@ -10,7 +10,7 @@ export const pdfGuides = [
     intro: "A PDF is easier to upload or share than a run of separate photos. Start with clear JPG or JPEG files, then make the page order match the order someone should read them.",
     steps: ["Choose JPG or JPEG photos that are upright and readable.", "Open JPG to PDF, add up to 20 files, and use the previews to check the sequence.", "Drag previews into reading order, create the PDF, and download it."],
     tips: ["Use even lighting for document photos.", "Retake blurry pages before conversion.", "Use Document Scanner when you need trimming, scan modes, or page numbers."],
-    relatedGuides: ["how-to-convert-png-to-pdf", "how-to-scan-document-photos-to-pdf", "how-to-convert-pdf-to-jpg"],
+    relatedGuides: ["how-to-convert-png-to-pdf", "how-to-scan-document-photos-to-pdf", "how-to-resize-multiple-images"],
   },
   {
     slug: "how-to-convert-png-to-pdf",
@@ -174,7 +174,7 @@ export const pdfGuides = [
       { question: "What is the OCR page limit?", answer: "OCR accepts up to 15 pages and 25 MB." },
       { question: "Does OCR run if I leave NO OCR selected?", answer: "No. Tesseract runs only when you choose OCR." },
     ],
-    relatedGuides: ["how-to-convert-pdf-to-word", "how-to-scan-document-photos-to-pdf", "how-to-convert-pdf-to-jpg"],
+    relatedGuides: ["how-to-convert-pdf-to-word", "how-to-scan-document-photos-to-pdf", "how-to-convert-pdf-to-excel"],
   },
   {
     slug: "how-to-convert-excel-to-pdf",
@@ -235,7 +235,7 @@ export const pdfGuides = [
     ],
     tips: [
       "Native PDFs exported from Excel convert more cleanly than printed-and-scanned sheets.",
-      "If you only need a picture of a table, use PDF to JPG instead.",
+      "If you only need a picture of a table, PDF pages can be converted to images using dedicated PDF software.",
     ],
     problems: [
       "If the tool finds no table-like text, use a digital PDF or recreate the table by hand.",
@@ -286,7 +286,7 @@ export const pdfGuides = [
       { question: "Are pages turned into images?", answer: "No. Existing PDF pages are copied." },
       { question: "Can I split a large PDF?", answer: "Yes, within 25 MB and 200 pages. Chunk mode creates several smaller PDFs." },
     ],
-    relatedGuides: ["how-to-merge-pdf-files", "how-to-package-multiple-pdfs-into-a-zip", "how-to-convert-pdf-to-jpg"],
+    relatedGuides: ["how-to-merge-pdf-files", "how-to-package-multiple-pdfs-into-a-zip", "how-to-merge-or-split-pdfs"],
   },
   {
     slug: "how-to-merge-pdf-files",
@@ -327,43 +327,6 @@ export const pdfGuides = [
     relatedGuides: ["how-to-split-a-pdf", "how-to-package-multiple-pdfs-into-a-zip", "how-to-convert-word-to-pdf"],
   },
   {
-    slug: "how-to-convert-pdf-to-jpg",
-    title: "How to convert PDF pages to JPG",
-    seoTitle: "How to Convert PDF to JPG | QuickPDFHD",
-    description: "Render each PDF page as a JPEG image. A one-page file downloads as a JPG; longer files download as a ZIP of images.",
-    tool: "/pdf-to-jpg",
-    toolName: "PDF to JPG",
-    intro: "A PDF is a document. A JPG is a picture of a page. Convert when a website, chat app, or slide deck wants an image instead of a PDF.",
-    why: "Each page is drawn as an image on the server. Text becomes pixels, so you will not be able to copy wording from the JPG the way you can from the PDF.",
-    formats: "Input: one PDF up to 40 pages and 25 MB. Output: a .jpg for a single page, or a ZIP of .jpg files named in page order.",
-    steps: [
-      "Upload the PDF on PDF to JPG.",
-      "Start conversion so every page is rasterized.",
-      "Download the JPG or ZIP and open the images to check readability.",
-    ],
-    limitations: [
-      "Text is not selectable in the JPG.",
-      "Extremely small print may be harder to read than in the original PDF.",
-      "Encrypted PDFs need to be unlocked first.",
-    ],
-    tips: [
-      "For the reverse task, use JPG to PDF.",
-      "If you only need some pages as images, split the PDF first.",
-    ],
-    problems: [
-      "If the download is a ZIP, the PDF had more than one page.",
-      "If rendering fails, the file may be damaged, encrypted, or over the page limit.",
-    ],
-    faqs: [
-      { question: "Does every page become an image?", answer: "Yes. Each page is rendered to its own JPG file." },
-      { question: "Is this the same as renaming .pdf to .jpg?", answer: "No. Pages are drawn as images. The download is a real JPEG file (or a ZIP of JPEGs)." },
-      { question: "What if my PDF has one page?", answer: "You receive a single .jpg instead of a ZIP." },
-      { question: "Will text stay selectable?", answer: "No. JPG is a picture of the page." },
-      { question: "What is the page limit?", answer: "Up to 40 pages and 25 MB per PDF." },
-    ],
-    relatedGuides: ["how-to-convert-jpg-to-pdf", "how-to-split-a-pdf", "how-to-convert-scanned-pdf-to-word"],
-  },
-  {
     slug: "how-to-merge-or-split-pdfs",
     title: "When to merge, split, or ZIP PDF files",
     seoTitle: "Merge vs Split vs ZIP for PDFs | QuickPDFHD",
@@ -401,11 +364,9 @@ export const findGuide = (slug) => pdfGuides.find((guide) => guide.slug === slug
 
 export const getGuidesForTool = (toolPath) => {
   const path = String(toolPath || "").split("#")[0];
-  const resolved = path === "/jpeg-to-pdf" ? "/jpg-to-pdf" : path;
   return pdfGuides.filter((guide) => {
-    if (guide.tool === resolved) return true;
+    if (guide.tool === path) return true;
     if (Array.isArray(guide.tools) && guide.tools.includes(path)) return true;
-    if (path === "/jpeg-to-pdf" && Array.isArray(guide.tools) && guide.tools.includes("/jpg-to-pdf")) return true;
     return false;
   });
 };

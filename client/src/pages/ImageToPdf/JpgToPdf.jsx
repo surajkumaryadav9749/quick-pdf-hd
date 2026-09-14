@@ -15,8 +15,8 @@ const JpgToPdf = () => {
   return (
     <Layout>
       <SEO
-        title="JPG to PDF Converter Online – Combine JPG Images | QuickPDFHD"
-        description="Convert JPG images to PDF online. Upload one or more JPG files, arrange the page order, and download a single PDF document. No account required."
+        title="JPG to PDF Converter Online – Combine JPG or JPEG Images | QuickPDFHD"
+        description="Convert JPG and JPEG images to PDF online. Upload .jpg or .jpeg files, arrange the page order, and download a single PDF. No account required."
         canonical="https://quickpdfhd.com/jpg-to-pdf"
         robots="index,follow"
         structuredData={{
@@ -42,7 +42,7 @@ const JpgToPdf = () => {
             </p>
 
             <h1 className="mt-4 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl lg:text-6xl">
-              Convert Multiple JPG Images to PDF
+              Convert JPG and JPEG Images to PDF
             </h1>
 
             <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-slate-600">

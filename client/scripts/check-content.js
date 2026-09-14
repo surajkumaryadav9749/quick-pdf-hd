@@ -17,7 +17,6 @@ const staticRoutes = [
   "/terms",
   "/all-services",
   "/jpg-to-pdf",
-  "/jpeg-to-pdf",
   "/png-to-pdf",
   "/webp-to-pdf",
   "/document-scanner",
@@ -29,7 +28,6 @@ const staticRoutes = [
   "/pdf-to-excel",
   "/split-pdf",
   "/merge-pdf",
-  "/pdf-to-jpg",
   "/pdf-guides",
 ];
 

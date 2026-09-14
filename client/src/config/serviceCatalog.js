@@ -47,7 +47,7 @@ export const serviceCatalog = [
     group: "document",
     icon: "split",
     description: "Extract pages or split a PDF into smaller files.",
-    related: ["/merge-pdf", "/pdf-to-word", "/pdf-to-jpg", "/pdf-to-zip"],
+    related: ["/merge-pdf", "/pdf-to-word", "/pdf-to-excel", "/pdf-to-zip"],
   },
   {
     id: "merge-pdf",
@@ -57,17 +57,7 @@ export const serviceCatalog = [
     group: "document",
     icon: "merge",
     description: "Combine multiple PDF files into one document.",
-    related: ["/split-pdf", "/pdf-to-word", "/pdf-to-jpg", "/pdf-to-zip"],
-  },
-  {
-    id: "pdf-to-jpg",
-    name: "PDF to JPG",
-    path: "/pdf-to-jpg#upload",
-    category: "PDF Tools",
-    group: "document",
-    icon: "pdfjpg",
-    description: "Render PDF pages as JPG images.",
-    related: ["/jpg-to-pdf", "/split-pdf", "/merge-pdf", "/png-to-pdf"],
+    related: ["/split-pdf", "/pdf-to-word", "/word-to-pdf", "/pdf-to-zip"],
   },
   {
     id: "document-scanner",
@@ -96,18 +86,8 @@ export const serviceCatalog = [
     category: "Image Tools",
     group: "image",
     icon: "jpg",
-    description: "Turn JPG photos into one ordered PDF document.",
-    related: ["/png-to-pdf", "/jpeg-to-pdf", "/webp-to-pdf", "/pdf-to-jpg", "/document-scanner"],
-  },
-  {
-    id: "jpeg-to-pdf",
-    name: "JPEG to PDF",
-    path: "/jpeg-to-pdf#upload",
-    category: "Image Tools",
-    group: "image",
-    icon: "jpeg",
-    description: "Convert JPEG image files into a PDF document.",
-    related: ["/jpg-to-pdf", "/png-to-pdf", "/webp-to-pdf", "/pdf-to-jpg", "/document-scanner"],
+    description: "Turn JPG or JPEG photos into one ordered PDF document.",
+    related: ["/png-to-pdf", "/webp-to-pdf", "/document-scanner", "/resize-image"],
   },
   {
     id: "png-to-pdf",
@@ -117,7 +97,7 @@ export const serviceCatalog = [
     group: "image",
     icon: "png",
     description: "Put PNG screenshots and graphics into a PDF.",
-    related: ["/jpg-to-pdf", "/jpeg-to-pdf", "/webp-to-pdf", "/resize-image", "/document-scanner"],
+    related: ["/jpg-to-pdf", "/webp-to-pdf", "/resize-image", "/document-scanner"],
   },
   {
     id: "webp-to-pdf",
@@ -127,7 +107,7 @@ export const serviceCatalog = [
     group: "image",
     icon: "webp",
     description: "Create a PDF document from WEBP images.",
-    related: ["/jpg-to-pdf", "/png-to-pdf", "/jpeg-to-pdf", "/pdf-to-jpg", "/resize-image"],
+    related: ["/jpg-to-pdf", "/png-to-pdf", "/resize-image", "/document-scanner"],
   },
   {
     id: "resize-image",
@@ -137,7 +117,7 @@ export const serviceCatalog = [
     group: "image",
     icon: "resize",
     description: "Resize JPG, PNG, and WebP images by pixels, percentage, and DPI.",
-    related: ["/jpg-to-pdf", "/png-to-pdf", "/webp-to-pdf", "/jpeg-to-pdf"],
+    related: ["/jpg-to-pdf", "/png-to-pdf", "/webp-to-pdf", "/document-scanner"],
   },
 ];
 

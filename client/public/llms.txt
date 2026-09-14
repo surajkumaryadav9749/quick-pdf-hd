@@ -12,9 +12,7 @@ QuickPDFHD is a free, browser-based set of PDF and image tools. Users can conver
 - [PDF to Excel](https://quickpdfhd.com/pdf-to-excel): Extract PDF tables to XLSX.
 - [Split PDF](https://quickpdfhd.com/split-pdf): Extract pages or split a PDF into smaller files.
 - [Merge PDF](https://quickpdfhd.com/merge-pdf): Combine multiple PDF files.
-- [PDF to JPG](https://quickpdfhd.com/pdf-to-jpg): Render PDF pages as JPG images.
-- [JPG to PDF](https://quickpdfhd.com/jpg-to-pdf): Convert JPG images to PDF.
-- [JPEG to PDF](https://quickpdfhd.com/jpeg-to-pdf): Convert JPEG images to PDF.
+- [JPG to PDF](https://quickpdfhd.com/jpg-to-pdf): Convert JPG and JPEG images to PDF.
 - [PNG to PDF](https://quickpdfhd.com/png-to-pdf): Convert PNG images to PDF.
 - [WEBP to PDF](https://quickpdfhd.com/webp-to-pdf): Convert WEBP images to PDF.
 - [Document Scanner](https://quickpdfhd.com/document-scanner): Clean document photos and create a PDF.
@@ -36,7 +34,6 @@ QuickPDFHD is a free, browser-based set of PDF and image tools. Users can conver
 - [How to convert PDF to Excel](https://quickpdfhd.com/pdf-guides/how-to-convert-pdf-to-excel)
 - [How to split a PDF](https://quickpdfhd.com/pdf-guides/how-to-split-a-pdf)
 - [How to merge PDF files](https://quickpdfhd.com/pdf-guides/how-to-merge-pdf-files)
-- [How to convert PDF pages to JPG](https://quickpdfhd.com/pdf-guides/how-to-convert-pdf-to-jpg)
 - [How to merge or split PDFs](https://quickpdfhd.com/pdf-guides/how-to-merge-or-split-pdfs)
 
 ## Additional information

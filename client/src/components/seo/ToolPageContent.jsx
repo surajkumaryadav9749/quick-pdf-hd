@@ -75,7 +75,7 @@ const ToolPageContent = ({ tool }) => {
           <article className="rounded-2xl border border-slate-200 bg-white p-7 shadow-sm">
             <h2 className="text-2xl font-bold text-slate-900">File handling and limits</h2>
             <p className="mt-4 leading-7 text-slate-600">
-      "Files are uploaded for the current request. The app does not keep a library of uploads. Most conversions stay in memory; PDF to JPG and OCR may use temporary server files that are removed when the request finishes. Use the tool only for files you are allowed to process. See the Privacy Policy.",
+      "Files are uploaded for the current request. The app does not keep a library of uploads. Most conversions stay in memory; OCR may use temporary server files that are removed when the request finishes. Use the tool only for files you are allowed to process. See the Privacy Policy.",
             </p>
             <ul className="mt-5 list-disc space-y-2 pl-5 leading-7 text-slate-600">
               <li>Accepted format: {tool.formats}.</li>

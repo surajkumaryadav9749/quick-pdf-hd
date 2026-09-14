@@ -1,5 +1,8 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    { "source": "/jpeg-to-pdf", "destination": "/jpg-to-pdf", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/api/:path*", "destination": "https://quickpdfhd-api.onrender.com/api/:path*" },
     { "source": "/", "destination": "/index.html" },
@@ -8,7 +11,6 @@
     { "source": "/privacy-policy", "destination": "/index.html" },
     { "source": "/terms", "destination": "/index.html" },
     { "source": "/jpg-to-pdf", "destination": "/index.html" },
-    { "source": "/jpeg-to-pdf", "destination": "/index.html" },
     { "source": "/png-to-pdf", "destination": "/index.html" },
     { "source": "/webp-to-pdf", "destination": "/index.html" },
     { "source": "/document-scanner", "destination": "/index.html" },
@@ -21,7 +23,6 @@
     { "source": "/pdf-to-excel", "destination": "/index.html" },
     { "source": "/split-pdf", "destination": "/index.html" },
     { "source": "/merge-pdf", "destination": "/index.html" },
-    { "source": "/pdf-to-jpg", "destination": "/index.html" },
     { "source": "/pdf-guides", "destination": "/index.html" },
     { "source": "/pdf-guides/(.*)", "destination": "/index.html" }
   ]

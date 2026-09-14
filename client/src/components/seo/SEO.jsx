@@ -3,7 +3,7 @@ import { useEffect } from "react";
 const SEO = ({
   title = "QuickPDFHD – Online PDF, Word, Excel, and Image Tools",
   description = "Convert Word and Excel to PDF, extract PDF text, split or merge PDFs, create PDFs from images, scan document photos, and resize images in your browser.",
-  canonical = "https://quickpdfhd.com/",
+  canonical,
   ogImage = "https://quickpdfhd.com/quickPDFHD_logo.png",
   structuredData,
   robots = "index,follow",
@@ -33,7 +33,7 @@ const SEO = ({
 
     // Open Graph
     setMetaTag("property", "og:type", "website");
-    setMetaTag("property", "og:url", canonical);
+    if (canonical) setMetaTag("property", "og:url", canonical);
     setMetaTag("property", "og:title", title);
     setMetaTag("property", "og:description", description);
     setMetaTag("property", "og:image", ogImage);
@@ -45,16 +45,17 @@ const SEO = ({
     setMetaTag("name", "twitter:description", description);
     setMetaTag("name", "twitter:image", ogImage);
 
-    // Canonical
     let canonicalLink = document.head.querySelector('link[rel="canonical"]');
-
-    if (!canonicalLink) {
-      canonicalLink = document.createElement("link");
-      canonicalLink.setAttribute("rel", "canonical");
-      document.head.appendChild(canonicalLink);
+    if (canonical) {
+      if (!canonicalLink) {
+        canonicalLink = document.createElement("link");
+        canonicalLink.setAttribute("rel", "canonical");
+        document.head.appendChild(canonicalLink);
+      }
+      canonicalLink.setAttribute("href", canonical);
+    } else {
+      canonicalLink?.remove();
     }
-
-    canonicalLink.setAttribute("href", canonical);
 
     const schemaId = "quickpdfhd-structured-data";
     const existingSchema = document.getElementById(schemaId);

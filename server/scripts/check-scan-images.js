@@ -40,7 +40,7 @@ const assert = (condition, message) => {
     const response = await fetch(`http://127.0.0.1:${port}/api/scan/images`, { method: "POST", body: form });
     assert(response.status === 200, `scan image expected 200, got ${response.status}`);
     assert(String(response.headers.get("content-type")).includes("image/jpeg"), "scan image should return jpeg");
-    assert(String(response.headers.get("content-disposition") || "").includes("scanned-result.jpg"), "scan image filename");
+    assert(String(response.headers.get("content-disposition") || "").includes("page.jpg"), "scan image filename");
     const bytes = Buffer.from(await response.arrayBuffer());
     assert(bytes[0] === 0xff && bytes[1] === 0xd8, "HTTP scanned JPEG magic missing");
     assert(bytes.length !== source.length, "scanned output should not be an unchanged original copy");
@@ -57,9 +57,17 @@ const assert = (condition, message) => {
     pngForm.append("targetKb", "500");
     const pngScan = await fetch(`http://127.0.0.1:${port}/api/scan/images`, { method: "POST", body: pngForm });
     assert(pngScan.status === 200, `png scan expected 200, got ${pngScan.status}`);
-    assert(String(pngScan.headers.get("content-type")).includes("image/jpeg"), "png scan still returns processed jpeg");
+    assert(String(pngScan.headers.get("content-disposition") || "").includes("page.jpg"), "png scan should keep the original base name");
     const pngBytes = Buffer.from(await pngScan.arrayBuffer());
     assert(pngBytes[0] === 0xff && pngBytes[1] === 0xd8, "png scan should download jpeg processed result");
+
+    const convertForm = new FormData();
+    convertForm.append("images", new Blob([source], { type: "image/jpeg" }), "Aadhar_Card.jpg");
+    const converted = await fetch(`http://127.0.0.1:${port}/api/convert`, { method: "POST", body: convertForm });
+    assert(converted.status === 200, `convert expected 200, got ${converted.status}`);
+    assert(String(converted.headers.get("content-type")).includes("application/pdf"), "jpg to pdf should return pdf");
+    assert(String(converted.headers.get("content-disposition") || "").includes("Aadhar_Card.pdf"), "jpg to pdf should keep the original base name");
+    await converted.arrayBuffer();
 
     const pdfForm = new FormData();
     pdfForm.append("images", new Blob([source], { type: "image/jpeg" }), "page.jpg");
@@ -70,7 +78,7 @@ const assert = (condition, message) => {
     pdfForm.append("targetKb", "500");
     const pdf = await fetch(`http://127.0.0.1:${port}/api/scan`, { method: "POST", body: pdfForm });
     assert(pdf.status === 200, `scan pdf expected 200, got ${pdf.status}`);
-    assert(String(pdf.headers.get("content-type")).includes("application/pdf"), "PDF scan path should still return PDF");
+    assert(String(pdf.headers.get("content-disposition") || "").includes("page.pdf"), "scan PDF should keep the original base name");
     await pdf.arrayBuffer();
   } finally {
     await new Promise((resolve, reject) => server.close((error) => (error ? reject(error) : resolve())));

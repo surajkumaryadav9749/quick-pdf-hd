@@ -1,7 +1,7 @@
 const site = "https://quickpdfhd.com";
 
 const privacyNote =
-  "Files are uploaded to QuickPDFHD's conversion server and processed in memory to create your download. The application does not write uploaded files to its own disk or database. Use the tool only for files you are allowed to process.";
+  "Files are uploaded for the current request. The app does not keep a library of uploads in its own database. Most tools process the file in memory; PDF to JPG and OCR may write temporary working files on the server and remove them when the request finishes. See the Privacy Policy.";
 
 export const documentTools = {
   "word-to-pdf": {
@@ -35,7 +35,7 @@ export const documentTools = {
     processingLabel: "Converting Word document...",
     successTitle: "Your PDF is ready",
     downloadLabel: "Download PDF",
-    downloadName: "QuickPDFHD-word.pdf",
+    downloadName: "file.pdf",
     howTitle: "How to convert a Word document to PDF",
     howIntro: "The converter reads the uploaded Word file on the server and builds a PDF from its content. It is meant for letters, notes, reports, and other text-based documents.",
     steps: [
@@ -70,14 +70,13 @@ export const documentTools = {
     privacy: privacyNote,
     related: ["/pdf-to-word", "/excel-to-pdf", "/pdf-to-excel"],
     faqs: [
-      { question: "How do I convert Word to PDF?", answer: "Upload a .doc or .docx file, choose Convert Word to PDF, then download the generated PDF." },
+      { question: "Will headings and tables look like they did in Word?", answer: "Headings, paragraphs, lists, tables, and common images are included. Advanced Word layout, custom fonts, and design themes may look simpler in the PDF." },
       { question: "Can I convert DOCX to PDF?", answer: "Yes. DOCX files are the primary Word format this converter is built for." },
-      { question: "Can I convert DOC files as well?", answer: "Yes. Legacy .doc files are accepted. The PDF is built from the extracted document text." },
-      { question: "Will formatting be preserved?", answer: "Headings, paragraphs, lists, tables, and common images are included. Advanced Word layout, custom fonts, and design themes may look simpler in the PDF." },
-      { question: "Can I convert Word documents online?", answer: "Yes. The tool runs in your browser and sends the file to QuickPDFHD's server only to create the PDF." },
-      { question: "Is there a file size limit?", answer: "Each Word file can be up to 15 MB." },
+      { question: "Can I convert older .doc files?", answer: "Yes. Legacy .doc files are accepted. The PDF is built from the extracted document text." },
       { question: "Do I need Microsoft Word installed?", answer: "No. Conversion happens through the web tool." },
-      { question: "Are files stored after conversion?", answer: "Uploaded files are processed in memory to create your PDF. The application does not write them to its own disk or database." },
+      { question: "What is the file size limit?", answer: "Each Word file can be up to 15 MB." },
+      { question: "Are password-protected Word files supported?", answer: "Unlock the document first. Protected files are not converted." },
+      { question: "Are files stored after conversion?", answer: "There is no user file library. Uploads are processed for the request. PDF to JPG and OCR may use temporary server files that are removed afterward. Details are in the Privacy Policy." },
     ],
   },
   "pdf-to-word": {
@@ -107,7 +106,7 @@ export const documentTools = {
     processingLabel: "Extracting text into Word...",
     successTitle: "Your Word file is ready",
     downloadLabel: "Download DOCX",
-    downloadName: "QuickPDFHD-document.docx",
+    downloadName: "file.docx",
     extra: "pdf-to-word",
     howTitle: "How to convert a PDF to Word",
     howIntro: "NO OCR reads text already stored in the PDF. OCR renders each page as an image and recognizes the characters.",
@@ -192,7 +191,7 @@ export const documentTools = {
     processingLabel: "Building PDF from spreadsheet...",
     successTitle: "Your spreadsheet PDF is ready",
     downloadLabel: "Download PDF",
-    downloadName: "QuickPDFHD-excel.pdf",
+    downloadName: "file.pdf",
     howTitle: "How to convert Excel to PDF",
     howIntro: "The converter reads worksheet cells and draws them as a table on PDF pages. Charts, macros, and pivot caches are not rendered as Excel objects.",
     steps: [
@@ -263,7 +262,7 @@ export const documentTools = {
     processingLabel: "Extracting tables into Excel...",
     successTitle: "Your Excel file is ready",
     downloadLabel: "Download XLSX",
-    downloadName: "QuickPDFHD-tables.xlsx",
+    downloadName: "file.xlsx",
     howTitle: "How to convert a PDF to Excel",
     howIntro: "The converter groups text by its position on each page, then writes those groups into spreadsheet rows.",
     steps: [
@@ -334,7 +333,7 @@ export const documentTools = {
     processingLabel: "Splitting PDF...",
     successTitle: "Your split PDF is ready",
     downloadLabel: "Download file",
-    downloadName: "QuickPDFHD-extracted-pages.pdf",
+    downloadName: "file.pdf",
     extra: "split",
     howTitle: "How to split a PDF",
     howIntro: "Choose the outcome you need, then run the split. Page numbers start at 1.",
@@ -406,7 +405,7 @@ export const documentTools = {
     processingLabel: "Merging PDFs...",
     successTitle: "Your merged PDF is ready",
     downloadLabel: "Download merged PDF",
-    downloadName: "QuickPDFHD-merged.pdf",
+    downloadName: "file.pdf",
     extra: "merge",
     howTitle: "How to merge PDF files",
     howIntro: "The merge copies pages from each file in list order. Rearrange files before you run it.",
@@ -448,6 +447,7 @@ export const documentTools = {
       { question: "Are pages converted to images?", answer: "No. Existing PDF pages are copied into the new file." },
       { question: "Is there a size limit?", answer: "Each PDF can be up to 25 MB, with a combined limit of 200 pages." },
       { question: "Does merging reduce quality?", answer: "The merge copies pages. It does not recompress them as images." },
+      { question: "Does merging keep bookmarks?", answer: "Bookmarks and interactive forms from the source files are not rebuilt as a new outline in the merged PDF." },
       { question: "Can I merge PDFs on mobile?", answer: "Yes. Select files from your phone or tablet and download the result." },
     ],
   },
@@ -478,7 +478,7 @@ export const documentTools = {
     processingLabel: "Rendering PDF pages...",
     successTitle: "Your JPG images are ready",
     downloadLabel: "Download images",
-    downloadName: "QuickPDFHD-pdf-pages.zip",
+    downloadName: "file.zip",
     howTitle: "How to convert a PDF to JPG",
     howIntro: "Each page is drawn as an image on the server, then saved as a JPEG.",
     steps: [
@@ -488,7 +488,7 @@ export const documentTools = {
     ],
     features: [
       { title: "True page rendering", description: "Pages are rasterized, not renamed. You get actual image files of the PDF pages." },
-      { title: "One image per page", description: "Page order is kept in the filenames, such as page-001.jpg." },
+      { title: "One image per page", description: "Each page is saved using the original PDF name, with a number added when there are multiple pages." },
       { title: "Ready for sharing", description: "JPG is a practical format for previews, slides, and posts that do not accept PDFs." },
     ],
     explanationTitle: "Why convert PDF pages to images",

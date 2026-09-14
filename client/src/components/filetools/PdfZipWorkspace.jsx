@@ -2,20 +2,18 @@ import { useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { FiCheckCircle, FiFileText, FiFolderPlus, FiTrash2, FiUploadCloud, FiX } from "react-icons/fi";
 import { createPdfZip } from "../../services/file-tools.service";
+import { withExtension } from "../../utils/download-filename";
 import useResultFocus from "../common/useResultFocus";
 
 const MAX_FILES = 20;
 const MAX_SIZE = 25 * 1024 * 1024;
 const formatBytes = (bytes) => `${(bytes / 1024 / 1024).toFixed(bytes >= 10 * 1024 * 1024 ? 1 : 2)} MB`;
-const safeZipName = (name) => {
-  const cleanName = name.replace(/[\\/:*?"<>|]+/g, "-").replace(/^\.+/, "").trim().slice(0, 100) || "quickpdfhd-pdfs";
-  return cleanName.toLowerCase().endsWith(".zip") ? cleanName : `${cleanName}.zip`;
-};
+const safeZipName = (name, fallback = "files.zip") => withExtension(name || fallback, ".zip");
 
 const PdfZipWorkspace = () => {
   const inputRef = useRef(null);
   const [files, setFiles] = useState([]);
-  const [zipName, setZipName] = useState("quickpdfhd-pdfs.zip");
+  const [zipName, setZipName] = useState("");
   const [isCreating, setIsCreating] = useState(false);
   const [result, setResult] = useState(null);
   const resultRef = useResultFocus(result);
@@ -25,7 +23,11 @@ const PdfZipWorkspace = () => {
     const valid = selected.filter((file) => file.type === "application/pdf" && file.name.toLowerCase().endsWith(".pdf") && file.size > 0 && file.size <= MAX_SIZE);
     if (!valid.length) return toast.error("Choose PDF files up to 25 MB each.");
     if (files.length + valid.length > MAX_FILES) return toast.error(`You can add up to ${MAX_FILES} PDF files.`);
-    setFiles((current) => [...current, ...valid]);
+    setFiles((current) => {
+      const next = [...current, ...valid];
+      if (!current.length && valid[0]) setZipName(safeZipName(valid[0].name));
+      return next;
+    });
     setResult(null);
     if (valid.length !== selected.length) toast.error("Some files were skipped because they were not valid PDFs or exceeded 25 MB.");
   };
@@ -34,10 +36,9 @@ const PdfZipWorkspace = () => {
     if (!files.length) return toast.error("Select at least one PDF file.");
     try {
       setIsCreating(true);
-      const blob = await createPdfZip(files);
-      const filename = safeZipName(zipName);
+      const { blob, filename } = await createPdfZip(files, zipName || files[0].name);
       const url = URL.createObjectURL(blob);
-      setResult({ url, filename, size: blob.size });
+      setResult({ url, filename: filename || safeZipName(zipName || files[0].name), size: blob.size });
       toast.success("Your ZIP file is ready.");
     } catch {
       toast.error("Could not create the ZIP. Please try again.");
@@ -46,7 +47,7 @@ const PdfZipWorkspace = () => {
 
   const reset = () => {
     if (result?.url) URL.revokeObjectURL(result.url);
-    setFiles([]); setResult(null); setZipName("quickpdfhd-pdfs.zip");
+    setFiles([]); setResult(null); setZipName("");
   };
 
   if (result) return <section ref={resultRef} tabIndex="-1" aria-live="polite" className="scroll-mt-24 bg-slate-50 pb-16 outline-none"><div className="mx-auto max-w-3xl px-4 sm:px-6"><div className="rounded-3xl border border-emerald-200 bg-white p-8 text-center shadow-sm"><FiCheckCircle className="mx-auto text-5xl text-emerald-600" /><h2 className="mt-4 text-2xl font-bold text-slate-900">Your ZIP file is ready</h2><p className="mt-3 text-slate-600">{files.length} PDF{files.length > 1 ? "s" : ""} included · {result.filename} · {formatBytes(result.size)}</p><div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row"><a href={result.url} download={result.filename} className="rounded-xl bg-teal-600 px-6 py-3 font-semibold text-white hover:bg-teal-700">Download ZIP</a><button type="button" onClick={reset} className="rounded-xl border border-slate-300 px-6 py-3 font-semibold text-slate-700 hover:bg-slate-50">Start over</button></div></div></div></section>;

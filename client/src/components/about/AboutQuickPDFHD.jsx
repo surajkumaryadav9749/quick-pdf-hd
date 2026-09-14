@@ -47,11 +47,8 @@ const AboutQuickPDFHD = () => {
             Who We Are
           </h2>
 
-          <p className="mt-6 text-lg leading-8 text-slate-600">
-            QuickPDFHD is a practical set of online PDF and image tools. You can
-            convert Word and Excel files, extract PDF text, split or merge PDFs,
-            create PDFs from photos, scan document pages, package PDFs into a ZIP
-            file, and resize images from a browser.
+          <p className="mx-auto mt-6 text-lg leading-8 text-slate-600">
+            QuickPDFHD is not a desktop PDF suite and not a cloud drive. It is a set of specific conversion and organization tools you open in a browser, each with documented formats and limits. The pages explain what is preserved, what is simplified, and when another approach (Word’s own export, a flatbed scanner, or keeping files in a ZIP) is a better fit.
           </p>
         </div>
 

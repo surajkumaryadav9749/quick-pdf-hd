@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { FiCheckCircle, FiFolderPlus, FiLock, FiUnlock, FiUploadCloud, FiX } from "react-icons/fi";
 import { resizeImageFiles } from "../../services/file-tools.service";
-import { resizedFallbackName, saveImageFiles } from "../../utils/save-image-files";
+import { saveImageFiles } from "../../utils/save-image-files";
 import useResultFocus from "../common/useResultFocus";
 
 const presets = [[1920, 1080], [1280, 720], [1200, 630], [1080, 1080], [1080, 1350], [1080, 1920], [800, 600], [640, 480]];
@@ -174,7 +174,6 @@ const ImageResizerWorkspace = () => {
         files: files.map((file) => ({
           ...file,
           url: URL.createObjectURL(file.blob),
-          fallbackName: resizedFallbackName(file.filename),
         })),
         preview: { ...previewSize },
         totalSize: files.reduce((sum, file) => sum + file.blob.size, 0),

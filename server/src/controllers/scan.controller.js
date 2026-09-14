@@ -1,4 +1,5 @@
 const pdfService = require("../services/pdf.service");
+const { withExtension, keepOrReplaceExt, uniqueFilename, jpegExtFromOriginal, contentDisposition } = require("../utils/download-filename");
 
 const scanOptions = (body = {}) => ({
   autoCrop: body.autoCrop === "true",
@@ -15,10 +16,11 @@ const scanImagesToPdf = async (req, res) => {
     }
 
     const pdfBuffer = await pdfService.generatePdf(req.files, scanOptions(req.body));
+    const filename = withExtension(req.files[0].originalname, ".pdf");
 
     res.set({
       "Content-Type": "application/pdf",
-      "Content-Disposition": 'attachment; filename="QuickPDFHD-scanned-document.pdf"',
+      "Content-Disposition": contentDisposition(filename),
       "Content-Length": pdfBuffer.length,
     });
 
@@ -36,13 +38,14 @@ const scanImagesToFiles = async (req, res) => {
     }
 
     const options = scanOptions(req.body);
+    const usedNames = new Set();
     const outputs = [];
     for (let index = 0; index < req.files.length; index += 1) {
       const file = req.files[index];
       const buffer = await pdfService.processDocumentImage(file.buffer, options);
-      const suffix = req.files.length === 1 ? "" : `-${String(index + 1).padStart(3, "0")}`;
+      const jpegExt = jpegExtFromOriginal(file.originalname).slice(1);
       outputs.push({
-        name: `scanned-result${suffix}.jpg`,
+        name: uniqueFilename(keepOrReplaceExt(file.originalname, jpegExt), usedNames),
         buffer,
         contentType: "image/jpeg",
       });
@@ -52,7 +55,7 @@ const scanImagesToFiles = async (req, res) => {
       const [file] = outputs;
       res.set({
         "Content-Type": file.contentType,
-        "Content-Disposition": `attachment; filename="${file.name}"`,
+        "Content-Disposition": contentDisposition(file.name),
         "Content-Length": file.buffer.length,
         "X-Content-Type-Options": "nosniff",
       });

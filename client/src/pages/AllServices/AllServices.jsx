@@ -7,8 +7,8 @@ import { findService, serviceCatalog, serviceCategories } from "../../config/ser
 import { pdfGuides } from "../../config/pdfGuides";
 
 const categoryCopy = {
-  "PDF Tools": "Convert office files, extract PDF text, split or merge PDFs, render pages as images, scan document photos, and package PDFs into a ZIP file.",
-  "Image Tools": "Create PDFs from JPG, JPEG, PNG, or WEBP images, and resize JPG, PNG, and WEBP files.",
+  "PDF Tools": "Use this group when the file is already a PDF or an office document that should become one. Conversion, split, merge, page images, scanning, and ZIP packaging all live here. Pick the tool by the outcome you need, not by repeating the same upload on every card.",
+  "Image Tools": "Use this group when you start with pictures. Image-to-PDF builds an A4 document from stills. Resize Image changes pixel size and format without creating a PDF. JPEG to PDF is the same codec as JPG, written for .jpeg filenames.",
 };
 
 const chooserGroups = [
@@ -52,7 +52,7 @@ const faqs = [
   { question: "How do the tools work?", answer: "You upload a file, choose any options shown on that page, the server processes the request in memory, and you download the generated PDF, Word, Excel, image, or ZIP file." },
   { question: "Which file types are supported?", answer: "Depending on the tool: DOC, DOCX, XLS, XLSX, PDF, JPG, JPEG, PNG, and WEBP. Resize Image accepts JPG, PNG, and WEBP." },
   { question: "When should I use OCR on PDF to Word?", answer: "Use OCR when you cannot select text in the PDF because the pages are scans or images. Use NO OCR when text is already selectable." },
-  { question: "Are uploaded files saved in a user library?", answer: "The conversion tools use memory storage and do not write uploaded files to the application’s own disk or database. Hosting logs, email, and analytics can still handle other information, as described in the Privacy Policy." },
+  { question: "Are uploaded files saved in a user library?", answer: "No. There is no upload library. Most conversions stay in memory; PDF to JPG and OCR may use temporary server files that are removed after the request. Hosting logs, email, and analytics can still handle other information, as described in the Privacy Policy." },
   { question: "Where can I find step-by-step help?", answer: "Open PDF Guides for Word, Excel, split, merge, OCR, image, scanner, and ZIP walkthroughs." },
   { question: "Are the tools unlimited?", answer: "No. Each page lists its own limits, such as 15 MB for Word or Excel, 25 MB for most PDF tools, 20 images for image-to-PDF, and page caps for OCR, split, merge, and PDF to JPG." },
 ];
@@ -204,7 +204,7 @@ const AllServices = () => (
           <article className="rounded-2xl border border-slate-200 bg-white p-7">
             <h2 className="text-2xl font-bold text-slate-900">File privacy and handling</h2>
             <p className="mt-4 leading-7 text-slate-600">
-              Uploads are processed in server memory to create your download. The application does not write uploaded files to its own disk or database. That is not a claim of encryption grade, timed deletion, or that no other service can see related data. Hosting logs, the contact-form email path, and Google Analytics are described in the{" "}
+              Uploads are processed for the current request. There is no user file library. PDF to JPG and OCR may use temporary server files that are removed afterward. That is not a claim of encryption, timed deletion, or that no other service can see related data. Hosting logs, the contact-form email path, and Google Analytics are described in the{" "}
               <Link to="/privacy-policy" className="font-semibold text-teal-800 hover:underline">Privacy Policy</Link>.
             </p>
           </article>
@@ -224,7 +224,7 @@ const AllServices = () => (
         <div className="mx-auto max-w-4xl px-4 sm:px-6">
           <h2 className="text-3xl font-bold text-slate-900">Related PDF guides</h2>
           <ul className="mt-6 grid gap-3 sm:grid-cols-2">
-            {pdfGuides.slice(0, 10).map((guide) => (
+            {pdfGuides.filter((guide) => guide.kind === "article").map((guide) => (
               <li key={guide.slug}>
                 <Link to={`/pdf-guides/${guide.slug}`} className="font-semibold text-teal-800 hover:underline">{guide.title}</Link>
               </li>

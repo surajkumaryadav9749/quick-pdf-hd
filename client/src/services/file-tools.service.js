@@ -3,6 +3,14 @@ import { API_BASE, apiUrl } from "../config/api";
 import { parseImageFileResponse } from "../utils/parse-image-response";
 
 const filenameFromDisposition = (header = "") => {
+  const utf = String(header).match(/filename\*=UTF-8''([^;]+)/i);
+  if (utf?.[1]) {
+    try {
+      return decodeURIComponent(utf[1]);
+    } catch {
+      return utf[1];
+    }
+  }
   const quoted = String(header).match(/filename="([^"]+)"/i);
   if (quoted?.[1]) return quoted[1];
   const plain = String(header).match(/filename=([^;]+)/i);
@@ -92,9 +100,9 @@ const postFiles = async (path, fieldName, files, fields = {}) => {
   }
 };
 
-export const createPdfZip = async (files) => {
-  const { blob } = await postFiles("/api/pdf-to-zip", "pdfs", files);
-  return blob;
+export const createPdfZip = async (files, zipName) => {
+  const { blob, filename } = await postFiles("/api/pdf-to-zip", "pdfs", files, zipName ? { zipName } : {});
+  return { blob, filename };
 };
 
 export const resizeImageFiles = async (files, options) => {

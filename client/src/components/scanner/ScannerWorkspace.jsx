@@ -112,9 +112,9 @@ const ScannerWorkspace = () => {
     try {
       setIsCreating(true);
       const toastId = toast.loading("Cleaning pages and creating your PDF...");
-      const pdfBlob = await scanImagesToPdf(pages.map((page) => page.file), settings);
+      const { blob: pdfBlob, filename } = await scanImagesToPdf(pages.map((page) => page.file), settings);
       const url = URL.createObjectURL(pdfBlob);
-      setResult({ type: "pdf", url, size: pdfBlob.size });
+      setResult({ type: "pdf", url, size: pdfBlob.size, filename: filename || pages[0]?.file?.name?.replace(/\.[^.]+$/, ".pdf") });
       toast.success("Your scanned PDF is ready.", { id: toastId });
     } catch (error) {
       toast.error(error?.response?.data?.message || "Could not create the PDF. Please try again.");
@@ -194,7 +194,7 @@ const ScannerWorkspace = () => {
           <h2 className="mt-4 text-2xl font-bold text-slate-900">Your scanned PDF is ready</h2>
           <p className="mt-3 text-slate-600">{pages.length} page{pages.length > 1 ? "s" : ""} scanned · {formatBytes(result.size)}</p>
           <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
-            <a href={result.url} download="QuickPDFHD-scanned-document.pdf" className="rounded-xl bg-teal-600 px-6 py-3 font-semibold text-white hover:bg-teal-700">Download PDF</a>
+            <a href={result.url} download={result.filename || "file.pdf"} className="rounded-xl bg-teal-600 px-6 py-3 font-semibold text-white hover:bg-teal-700">Download PDF</a>
             <button type="button" onClick={reset} className="rounded-xl border border-slate-300 px-6 py-3 font-semibold text-slate-700 hover:bg-slate-50">Scan more pages</button>
           </div>
         </div>
@@ -250,7 +250,7 @@ const ScannerWorkspace = () => {
             </div>
             <button type="button" disabled={!pages.length || isCreating || isExportingImage} onClick={createPdf} className="mt-8 flex w-full items-center justify-center gap-2 rounded-xl bg-teal-600 px-5 py-3.5 font-semibold text-white shadow-sm transition hover:bg-teal-700 disabled:cursor-not-allowed disabled:bg-slate-400"><FiFileText />{isCreating ? "Creating PDF..." : "Create scanned PDF"}</button>
             <button type="button" disabled={!pages.length || isCreating || isExportingImage} onClick={exportScannedImages} className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl border border-teal-600 px-5 py-3.5 font-semibold text-teal-800 transition hover:bg-teal-50 disabled:cursor-not-allowed disabled:border-slate-300 disabled:text-slate-400"><FiImage />{isExportingImage ? "Preparing image..." : pages.length > 1 ? "Download Images" : "Download Image"}</button>
-            <p className="mt-4 flex gap-2 text-xs leading-5 text-slate-500"><FiCheckCircle className="mt-0.5 shrink-0 text-emerald-600" />Files are sent to the conversion server and processed in memory to create your PDF.</p>
+            <p className="mt-4 flex gap-2 text-xs leading-5 text-slate-500"><FiCheckCircle className="mt-0.5 shrink-0 text-emerald-600" />Photos are uploaded for this request. There is no saved scan library.</p>
           </aside>
         </div>
       </div>

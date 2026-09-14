@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import { getRelatedServices } from "../../config/serviceCatalog";
 import { getGuidesForTool } from "../../config/pdfGuides";
+import { toolExplainers } from "../../config/toolExplainers";
 import RelatedGuides from "./RelatedGuides";
+import ToolArticleBody from "./ToolArticleBody";
 
 const ToolPageContent = ({ tool }) => {
   const links = getRelatedServices(tool.path, 5);
@@ -30,6 +32,8 @@ const ToolPageContent = ({ tool }) => {
           </ol>
         </div>
       </section>
+
+      <ToolArticleBody explainer={toolExplainers[tool.id]} />
 
       <section aria-labelledby={`${tool.id}-tips`} className="bg-slate-50 py-16 sm:py-20">
         <div className="mx-auto grid max-w-5xl gap-6 px-4 sm:grid-cols-2 sm:px-6 lg:px-8">
@@ -71,7 +75,7 @@ const ToolPageContent = ({ tool }) => {
           <article className="rounded-2xl border border-slate-200 bg-white p-7 shadow-sm">
             <h2 className="text-2xl font-bold text-slate-900">File handling and limits</h2>
             <p className="mt-4 leading-7 text-slate-600">
-              Files are uploaded to QuickPDFHD&apos;s conversion server and held in memory while the PDF is generated. The application does not write uploaded files to its own disk or database. Use the tool only for files you are allowed to process.
+      "Files are uploaded for the current request. The app does not keep a library of uploads. Most conversions stay in memory; PDF to JPG and OCR may use temporary server files that are removed when the request finishes. Use the tool only for files you are allowed to process. See the Privacy Policy.",
             </p>
             <ul className="mt-5 list-disc space-y-2 pl-5 leading-7 text-slate-600">
               <li>Accepted format: {tool.formats}.</li>

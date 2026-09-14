@@ -8,6 +8,7 @@ import HeroSection from "../../components/home/HeroSection";
 import ImageToPdfTools from "../../components/home/ImageToPdfTools";
 import FeaturesSection from "../../components/home/FeaturesSection";
 import HowItWorks from "../../components/home/HowItWorks";
+import HomeOverview from "../../components/home/HomeOverview";
 import HomeCta from "../../components/home/HomeCta";
 
 import SEO from "../../components/seo/SEO";
@@ -46,6 +47,7 @@ const Home = () => {
       <main>
         <HeroSection />
         <ImageToPdfTools />
+        <HomeOverview />
         <FeaturesSection />
         <HowItWorks />
         <HowToSection />

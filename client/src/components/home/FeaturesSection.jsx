@@ -14,7 +14,7 @@ const features = [
     icon: <FiShield aria-hidden="true" />,
     title: "In-memory processing",
     description:
-      "Uploaded files are sent to the conversion server and processed in memory to create your download.",
+      "Uploads are received for the current request. There is no saved file library on the site.",
   },
   {
     icon: <FiMonitor aria-hidden="true" />,

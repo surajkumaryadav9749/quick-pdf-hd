@@ -16,7 +16,7 @@ const ConvertButton = () => {
         <h2 className="text-2xl font-bold text-slate-900">Your PDF is ready</h2>
         <p className="mt-2 text-slate-600">{result.imageCount} image{result.imageCount > 1 ? "s" : ""} converted · {(result.size / 1024 / 1024).toFixed(2)} MB</p>
         <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
-          <a href={result.url} download="QuickPDFHD.pdf" className="rounded-xl bg-teal-600 px-6 py-3 font-semibold text-white hover:bg-teal-700">Download PDF</a>
+          <a href={result.url} download={result.filename || "file.pdf"} className="rounded-xl bg-teal-600 px-6 py-3 font-semibold text-white hover:bg-teal-700">Download PDF</a>
           <button type="button" onClick={resetResult} className="rounded-xl border border-slate-300 bg-white px-6 py-3 font-semibold text-slate-700 hover:bg-slate-50">Convert more images</button>
         </div>
       </section>

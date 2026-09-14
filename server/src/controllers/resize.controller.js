@@ -1,4 +1,5 @@
 const { parseResizeOptions, resizeImageBuffer } = require("../services/resize.service");
+const { keepOrReplaceExt, uniqueFilename, contentDisposition } = require("../utils/download-filename");
 
 const contentTypeFor = (format) => {
   if (format === "jpeg") return "image/jpeg";
@@ -6,20 +7,9 @@ const contentTypeFor = (format) => {
   return "image/webp";
 };
 
-const outputName = (originalName, format, index, usedNames) => {
+const outputName = (originalName, format, usedNames) => {
   const extension = format === "jpeg" ? "jpg" : format;
-  const baseName = (String(originalName || "").replace(/\.[^.]+$/, "") || `resized-image-${index + 1}`)
-    .replace(/[\\/]+/g, "_")
-    .replace(/[^a-zA-Z0-9._ -]/g, "_")
-    .slice(0, 150) || `resized-image-${index + 1}`;
-  let name = `${baseName}.${extension}`;
-  let suffix = 1;
-  while (usedNames.has(name.toLowerCase())) {
-    name = `${baseName}-${suffix}.${extension}`;
-    suffix += 1;
-  }
-  usedNames.add(name.toLowerCase());
-  return name;
+  return uniqueFilename(keepOrReplaceExt(originalName, extension, `image`), usedNames);
 };
 
 const resizeImages = async (req, res) => {
@@ -34,7 +24,7 @@ const resizeImages = async (req, res) => {
       const file = req.files[index];
       const buffer = await resizeImageBuffer(file.buffer, options);
       outputs.push({
-        name: outputName(file.originalname, options.format, index, usedNames),
+        name: outputName(file.originalname, options.format, usedNames),
         buffer,
         contentType,
       });
@@ -44,7 +34,7 @@ const resizeImages = async (req, res) => {
       const [file] = outputs;
       res.set({
         "Content-Type": file.contentType,
-        "Content-Disposition": `attachment; filename="${file.name}"`,
+        "Content-Disposition": contentDisposition(file.name),
         "Content-Length": file.buffer.length,
         "X-Content-Type-Options": "nosniff",
       });

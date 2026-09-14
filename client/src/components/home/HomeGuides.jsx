@@ -2,14 +2,14 @@ import { Link } from "react-router-dom";
 import { pdfGuides } from "../../config/pdfGuides";
 
 const featured = [
-  "how-to-convert-word-to-pdf",
-  "how-to-convert-pdf-to-word",
-  "how-to-convert-scanned-pdf-to-word",
-  "how-to-convert-excel-to-pdf",
-  "how-to-convert-pdf-to-excel",
-  "how-to-split-a-pdf",
-  "how-to-merge-pdf-files",
-  "how-to-convert-pdf-to-jpg",
+  "reduce-pdf-file-size-without-losing-readability",
+  "pdf-compression-quality-versus-file-size",
+  "merge-pdf-files-in-the-correct-order",
+  "split-pdf-and-extract-selected-pages",
+  "scanned-pdf-versus-searchable-pdf",
+  "how-ocr-converts-scanned-pdfs",
+  "pdf-page-size-a4-letter-and-common-formats",
+  "image-dpi-versus-pixel-dimensions",
 ];
 
 const HomeGuides = () => {
@@ -20,8 +20,8 @@ const HomeGuides = () => {
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto mb-10 max-w-3xl text-center">
           <p className="text-sm font-semibold uppercase tracking-wide text-teal-800">PDF Guides</p>
-          <h2 id="home-guides-heading" className="mt-3 text-3xl font-bold text-slate-900 sm:text-4xl">How to complete common PDF tasks</h2>
-          <p className="mt-4 text-lg leading-8 text-slate-600">Short articles that match the tools on this site, including Word conversion, OCR for scans, split, and merge.</p>
+          <h2 id="home-guides-heading" className="mt-3 text-3xl font-bold text-slate-900 sm:text-4xl">Helpful guides</h2>
+          <p className="mt-4 text-lg leading-8 text-slate-600">Articles on file size, OCR, page size, and DPI, written around the tools that actually exist on this site.</p>
         </div>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {guides.map((guide) => (

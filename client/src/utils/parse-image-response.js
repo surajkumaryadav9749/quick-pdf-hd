@@ -1,4 +1,12 @@
 const filenameFromDisposition = (header = "") => {
+  const utf = String(header).match(/filename\*=UTF-8''([^;]+)/i);
+  if (utf?.[1]) {
+    try {
+      return decodeURIComponent(utf[1]);
+    } catch {
+      return utf[1];
+    }
+  }
   const quoted = String(header).match(/filename="([^"]+)"/i);
   if (quoted?.[1]) return quoted[1];
   const plain = String(header).match(/filename=([^;]+)/i);

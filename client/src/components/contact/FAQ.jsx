@@ -17,7 +17,7 @@ const faqs = [
   {
     question: "How are uploaded files handled?",
     answer:
-      "Files are uploaded to the conversion server and processed in memory to generate the requested download. The application does not write uploaded files to its own disk or database.",
+      "Files are uploaded for the current request. There is no user file library. PDF to JPG and OCR may use temporary server files that are removed when the request finishes.",
   },
   {
     question: "Which file types are supported?",

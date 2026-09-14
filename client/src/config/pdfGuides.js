@@ -1,3 +1,5 @@
+import { educationalGuides } from "./educationalGuides.js";
+
 export const pdfGuides = [
   {
     slug: "how-to-convert-jpg-to-pdf",
@@ -49,8 +51,8 @@ export const pdfGuides = [
     description: "Use pixels or percentage settings to prepare a batch of image files for upload or sharing.",
     tool: "/resize-image",
     toolName: "Resize Image",
-    intro: "Resizing changes image dimensions; it is not the same as cropping. QuickPDFHD can resize up to 20 JPG, PNG, or WEBP images and returns the batch in a ZIP archive.",
-    steps: ["Add up to 20 images, each under 10 MB and no more than 8000 px in either dimension.", "Use Pixels with aspect-ratio lock on so width and height stay proportional, or Percentage to scale each file by the same amount.", "Unlock aspect ratio only when you want exact width and height and are willing to stretch the image, then download the ZIP."],
+    intro: "Resizing changes image dimensions; it is not the same as cropping. QuickPDFHD can resize up to 20 JPG, PNG, or WEBP images. One file downloads directly; a batch is saved as separate images, not as a ZIP.",
+    steps: ["Add up to 20 images, each under 10 MB and no more than 8000 px in either dimension.", "Use Pixels with aspect-ratio lock on so width and height stay proportional, or Percentage to scale each file by the same amount.", "Unlock aspect ratio only when you want exact width and height and are willing to stretch the image, then download each resized file."],
     tips: ["Keep the lock on to avoid crop, stretch, and extra white bars.", "JPG and WEBP have a quality control; PNG does not.", "DPI metadata is separate from pixel width and height."],
     relatedGuides: ["how-to-convert-jpg-to-pdf", "how-to-convert-png-to-pdf"],
   },
@@ -363,15 +365,34 @@ export const pdfGuides = [
   },
   {
     slug: "how-to-merge-or-split-pdfs",
-    title: "How to merge or split PDF files",
-    description: "Combine related PDFs into one document, or extract the pages you actually need.",
+    title: "When to merge, split, or ZIP PDF files",
+    seoTitle: "Merge vs Split vs ZIP for PDFs | QuickPDFHD",
+    description: "Choose merge when pages should become one document, split when you need a subset, and ZIP when files must stay separate.",
     tool: "/merge-pdf",
+    tools: ["/merge-pdf", "/split-pdf", "/pdf-to-zip"],
     toolName: "Merge PDF",
-    intro: "Merging copies pages from several PDFs into one file. Splitting copies selected pages out of a larger PDF. Neither tool flattens pages into photos, so existing text on those pages stays as PDF content.",
-    steps: ["For a packet, add two or more PDFs to Merge PDF, set the file order, and download one document.", "For an extract, open Split PDF, choose a page range such as 1-4, 9, or split into single pages or chunks.", "Open the download and confirm page order before you send it."],
-    tips: ["Unlock encrypted PDFs first.", "Page numbers follow the file order, which may differ from printed numbers.", "If you only need a ZIP of unchanged PDFs, use PDF to ZIP instead of merging."],
-    relatedGuides: ["how-to-merge-pdf-files", "how-to-split-a-pdf"],
+    intro: "Merge, split, and ZIP all move PDF pages or files around. They solve different delivery problems. This page is the decision guide; the dedicated merge and split articles cover the controls in more detail.",
+    why: "Use merge when a human should open one file and read cover to end. Use split when a source contains extra pages. Use ZIP when each PDF must remain a separate attachment after download.",
+    formats: "Merge: 2–20 PDFs, 25 MB each, 200 pages combined. Split: one PDF, 25 MB, 200 pages. ZIP: up to 20 PDFs, 25 MB each. None of these modes turn pages into photographs.",
+    steps: [
+      "If the other person must scroll one document, merge in list order after you remove stray pages.",
+      "If you only need some pages, extract a range or separate pages on Split PDF (range returns one PDF; separate/chunks return a ZIP of PDFs).",
+      "If accounting or a portal wants many files, package them with PDF to ZIP instead of merging.",
+    ],
+    limitations: [
+      "Merge does not create a table of contents.",
+      "Split page numbers follow the file, not always the printed footer.",
+      "ZIP does not shrink PDF content; it only groups files.",
+    ],
+    tips: ["Unlock encrypted PDFs first.", "Rebuild photo pages on A4 first if a portal requires a single paper size.", "Keep original files until you confirm the download."],
+    faqs: [
+      { question: "Will merge and ZIP produce the same download?", answer: "No. Merge yields one PDF. ZIP yields an archive of separate PDFs." },
+      { question: "Why did Split PDF give me a ZIP?", answer: "Separate-pages and chunk modes always return a ZIP of PDFs. Extract range returns one PDF." },
+      { question: "Can I merge after splitting?", answer: "Yes. Extract the pieces you need, then merge those PDFs in order." },
+    ],
+    relatedGuides: ["how-to-merge-pdf-files", "how-to-split-a-pdf", "merge-pdf-files-in-the-correct-order"],
   },
+  ...educationalGuides,
 ];
 
 export const guideUrl = (slug) => `https://quickpdfhd.com/pdf-guides/${slug}`;
@@ -381,7 +402,12 @@ export const findGuide = (slug) => pdfGuides.find((guide) => guide.slug === slug
 export const getGuidesForTool = (toolPath) => {
   const path = String(toolPath || "").split("#")[0];
   const resolved = path === "/jpeg-to-pdf" ? "/jpg-to-pdf" : path;
-  return pdfGuides.filter((guide) => guide.tool === resolved);
+  return pdfGuides.filter((guide) => {
+    if (guide.tool === resolved) return true;
+    if (Array.isArray(guide.tools) && guide.tools.includes(path)) return true;
+    if (path === "/jpeg-to-pdf" && Array.isArray(guide.tools) && guide.tools.includes("/jpg-to-pdf")) return true;
+    return false;
+  });
 };
 
 export const getRelatedGuides = (guide) =>

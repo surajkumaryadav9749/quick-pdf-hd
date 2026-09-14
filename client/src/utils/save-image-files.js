@@ -16,14 +16,6 @@ export const uniqueFilename = (filename, used) => {
   return name;
 };
 
-export const resizedFallbackName = (filename) => {
-  const trimmed = String(filename || "image").replace(/[\\/]+/g, "_");
-  const dot = trimmed.lastIndexOf(".");
-  const base = (dot > 0 ? trimmed.slice(0, dot) : trimmed) || "image";
-  const ext = dot > 0 ? trimmed.slice(dot) : "";
-  return `${base}-resized${ext}`;
-};
-
 export const downloadBlobAsFile = (blob, filename) => {
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
@@ -78,7 +70,7 @@ export const saveImageFiles = async (files, { subfolderName = "Resized" } = {}) 
   const used = new Set();
   for (let index = 0; index < files.length; index += 1) {
     const file = files[index];
-    const name = uniqueFilename(file.fallbackName || resizedFallbackName(file.filename), used);
+    const name = uniqueFilename(file.filename, used);
     downloadBlobAsFile(file.blob, name);
     if (index < files.length - 1) {
       await new Promise((resolve) => window.setTimeout(resolve, 450));

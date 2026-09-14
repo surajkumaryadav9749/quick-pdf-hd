@@ -4,13 +4,15 @@ import ImageResizerWorkspace from "../../components/filetools/ImageResizerWorksp
 import SEO from "../../components/seo/SEO";
 import RelatedTools from "../../components/seo/RelatedTools";
 import RelatedGuides from "../../components/seo/RelatedGuides";
+import ToolArticleBody from "../../components/seo/ToolArticleBody";
+import { toolExplainers } from "../../config/toolExplainers";
 
 const faqs = [
   { question: "Can I resize multiple images at once?", answer: "Yes. Upload up to 20 JPG, PNG, or WEBP images and resize them together. One image downloads as a file; several images are saved individually to a folder you choose, or downloaded one by one." },
   { question: "How can I resize an image without stretching it?", answer: "Keep aspect ratio locked and change width or height. The other side updates automatically, and the full image stays visible with no crop and no added white bars." },
   { question: "Can I resize JPG, PNG, and WEBP images?", answer: "Yes. The tool accepts JPG/JPEG, PNG, and WEBP images and can output JPG, PNG, or WEBP." },
   { question: "Can I resize images to the same dimensions?", answer: "Unlock aspect ratio to stretch every image to the exact width and height you enter. Keep the lock on to resize proportionally without cropping." },
-  { question: "Can I resize images by percentage?", answer: "Yes. Choose Percentage mode and select 25%, 50%, 75%, 100%, 150%, or 200% based on the first selected image." },
+  { question: "Can I resize images by percentage?", answer: "Yes. Choose Percentage mode and pick 25%, 50%, 75%, 100%, 150%, or 200%. Each image is scaled from its own pixel size. The preview uses the first selected image." },
   { question: "What is the maximum image size and batch size?", answer: "You can resize up to 20 images at once. Each image can be up to 10 MB and up to 8000 pixels in either dimension." },
   { question: "Does resizing reduce image file size?", answer: "Smaller dimensions often reduce file size, but the final size also depends on content, output format, and selected quality." },
   { question: "What does the quality setting do?", answer: "Quality applies to JPG and WEBP output. PNG uses lossless compression, so the quality control is disabled for PNG." },
@@ -101,6 +103,7 @@ const ResizeImage = () => (
           </div>
         </div>
       </section>
+      <ToolArticleBody explainer={toolExplainers["resize-image"]} />
       <section className="bg-white py-16 sm:py-20">
         <div className="mx-auto grid max-w-5xl gap-6 px-4 sm:grid-cols-2 sm:px-6">
           <article className="rounded-2xl border border-slate-200 bg-slate-50 p-7">

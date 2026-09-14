@@ -1,4 +1,5 @@
 const pdfService = require("../services/pdf.service");
+const { withExtension, contentDisposition } = require("../utils/download-filename");
 
 const convertImagesToPdf = async (req, res) => {
   try {
@@ -10,10 +11,11 @@ const convertImagesToPdf = async (req, res) => {
     }
 
     const pdfBuffer = await pdfService.generatePdf(req.files);
+    const filename = withExtension(req.files[0].originalname, ".pdf");
 
     res.set({
       "Content-Type": "application/pdf",
-      "Content-Disposition": 'attachment; filename="QuickPDFHD.pdf"',
+      "Content-Disposition": contentDisposition(filename),
       "Content-Length": pdfBuffer.length,
     });
 

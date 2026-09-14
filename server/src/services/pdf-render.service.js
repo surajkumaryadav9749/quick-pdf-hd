@@ -6,6 +6,7 @@ const { spawn } = require("child_process");
 const sharp = require("sharp");
 const { createZipFromFiles } = require("./zip.service");
 const { logMemory } = require("../utils/memory-log");
+const { archiveNameFrom, numberedFromOriginal } = require("../utils/download-filename");
 
 const MAX_PAGES = 40;
 const SCALE = 2;
@@ -323,8 +324,9 @@ const renderPdfPages = async (buffer, { maxPages = MAX_PAGES, scale = SCALE } = 
   }
 };
 
-const convertPdfToJpgOnDisk = async (buffer) => {
+const convertPdfToJpgOnDisk = async (buffer, { originalName } = {}) => {
   if (!buffer?.length) throw new Error("The PDF file is empty.");
+  const sourceName = originalName || "file.pdf";
 
   logMemory("after-upload-received", { pdfBytes: buffer.length });
   const workDir = fs.mkdtempSync(path.join(os.tmpdir(), "qpdf-jpg-"));
@@ -346,6 +348,7 @@ const convertPdfToJpgOnDisk = async (buffer) => {
       }
 
       const jpegPaths = [];
+      const usedNames = new Set();
       for (let pageNumber = 1; pageNumber <= pageCount; pageNumber += 1) {
         const page = await document.getPage(pageNumber);
         let rendered;
@@ -355,7 +358,7 @@ const convertPdfToJpgOnDisk = async (buffer) => {
           rendered = await renderPageToCanvas(page, scale);
           logMemory("after-rendering-page", { pageNumber, width: rendered.canvas.width, height: rendered.canvas.height });
           const jpeg = encodeJpeg(rendered.canvas);
-          const name = `page-${String(pageNumber).padStart(3, "0")}.jpg`;
+          const name = numberedFromOriginal(sourceName, ".jpg", pageNumber, pageCount, usedNames);
           const jpegPath = path.join(workDir, name);
           fs.writeFileSync(jpegPath, jpeg);
           jpegPaths.push({ name, path: jpegPath });
@@ -395,7 +398,7 @@ const convertPdfToJpgOnDisk = async (buffer) => {
       logMemory("before-response", { pages: jpegPaths.length, mode: "zip" });
       return {
         path: zipPath,
-        filename: "QuickPDFHD-pdf-pages.zip",
+        filename: archiveNameFrom(sourceName),
         contentType: "application/zip",
         cleanup,
       };
@@ -408,8 +411,8 @@ const convertPdfToJpgOnDisk = async (buffer) => {
   }
 };
 
-const pdfToJpgArchive = async (buffer) => {
-  const result = await convertPdfToJpgOnDisk(buffer);
+const pdfToJpgArchive = async (buffer, options = {}) => {
+  const result = await convertPdfToJpgOnDisk(buffer, options);
   try {
     return {
       buffer: fs.readFileSync(result.path),

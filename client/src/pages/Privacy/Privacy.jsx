@@ -34,10 +34,11 @@ const Privacy = () => {
         <LegalSection title="Information We Collect">
           <p>
             The conversion tools receive the files you choose to upload, such as
-            images, PDFs, Word documents, and Excel spreadsheets. The current
-            application processes those files in server memory to create your
-            requested download; it does not write uploaded files to its own disk
-            or database.
+            images, PDFs, Word documents, and Excel spreadsheets. Incoming
+            uploads are received in memory. The site does not keep a user file
+            library or database of those files. PDF to JPG and OCR jobs may write
+            temporary working files on the server while a request runs; those
+            working files are removed when the job finishes.
           </p>
 
           <ul className="list-disc space-y-3 pl-6">
@@ -70,24 +71,25 @@ const Privacy = () => {
         <LegalSection title="Uploaded Files">
           <p>
             Uploaded files are sent to the conversion server only to process your
-            request. The application uses memory storage for these requests and
-            does not include a feature that saves uploaded files to its own disk
-            or database. That is not a promise that no copy can exist anywhere:
-            hosting providers, email delivery, analytics, and advertising
-            services can still process other data as described on this page. Do
-            not upload files you are not authorized to handle.
+            request. Incoming files are received in memory, and there is no
+            feature that stores them in an application database. PDF to JPG and
+            OCR may create temporary files on the server for that request, then
+            delete those working files. Hosting providers, email delivery,
+            analytics, and advertising services can still process other data as
+            described on this page. Do not upload files you are not authorized to
+            handle.
           </p>
         </LegalSection>
 
         <LegalSection title="How long information is kept">
           <p>
-            Conversion uploads are handled in memory for the request. This policy
-            does not claim a specific deletion timer such as “files are removed
-            after X hours,” because the application does not implement a separate
-            retention schedule for uploads. Contact-form messages are sent by
-            email and may be retained in that inbox or by the email provider.
-            Analytics and advertising providers keep data under their own
-            retention rules if those services receive information from your visit.
+            Conversion uploads are handled for the duration of the request.
+            Temporary working files used for PDF to JPG or OCR are removed when
+            that job finishes. This policy does not claim a separate retention
+            timer such as “files are removed after X hours.” Contact-form messages
+            are sent by email and may be retained in that inbox or by the email
+            provider. Analytics and advertising providers keep data under their
+            own retention rules if those services receive information from your visit.
           </p>
         </LegalSection>
 

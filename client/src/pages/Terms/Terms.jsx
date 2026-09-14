@@ -44,11 +44,11 @@ const Terms = () => {
         <LegalSection title="File Processing">
           <p>
             Uploaded files are processed to generate the requested PDF, Word,
-            Excel, image, or ZIP download. The application uses memory storage
-            for conversion requests and does not include a feature that writes
-            uploaded files to its own disk or database. You remain responsible
-            for the files you choose to upload and for checking the output
-            before you rely on it.
+            Excel, image, or ZIP download. Incoming files are received in memory
+            and are not stored in an application database. PDF to JPG and OCR may
+            use temporary server files for that request, then remove them. You
+            remain responsible for the files you choose to upload and for checking
+            the output before you rely on it.
           </p>
         </LegalSection>
 

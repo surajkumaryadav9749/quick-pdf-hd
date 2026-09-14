@@ -80,11 +80,13 @@ const makeImage = (width, height, format = "png") =>
     assert(one.status === 200, `single resize expected 200, got ${one.status}`);
     assert(String(one.headers.get("content-type")).includes("image/jpeg"), "single resize should be image/jpeg");
     assert(!String(one.headers.get("content-disposition") || "").toLowerCase().includes(".zip"), "single resize must not be a ZIP");
+    assert(String(one.headers.get("content-disposition") || "").includes("photo.jpg"), "single resize should keep the original filename");
     const oneBytes = Buffer.from(await one.arrayBuffer());
     assert(oneBytes[0] === 0xff && oneBytes[1] === 0xd8, "single resize JPEG magic missing");
 
     const pngRes = await postResize(port, [pngFile], "png");
     assert(String(pngRes.headers.get("content-type")).includes("image/png"), "png resize should be image/png");
+    assert(String(pngRes.headers.get("content-disposition") || "").includes("photo.png"), "png resize should keep the original filename");
     await pngRes.arrayBuffer();
 
     const many = await postResize(port, [jpegFile, pngFile], "webp");
@@ -93,7 +95,7 @@ const makeImage = (width, height, format = "png") =>
     const body = await many.json();
     assert(Array.isArray(body.files) && body.files.length === 2, "multi resize should return two files");
     assert(body.files.every((file) => file.contentType === "image/webp"), "multi resize should respect webp output");
-    assert(body.files.every((file) => /\.webp$/i.test(file.name)), "multi resize filenames should use .webp");
+    assert(body.files[0].name === "photo.webp" && body.files[1].name === "photo-1.webp", "multi resize should keep original names with unique suffixes");
   } finally {
     await new Promise((resolve, reject) => server.close((error) => (error ? reject(error) : resolve())));
   }

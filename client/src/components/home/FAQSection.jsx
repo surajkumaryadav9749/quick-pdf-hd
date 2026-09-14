@@ -70,15 +70,13 @@ const FAQSection = () => {
                   )}
                 </button>
 
-                {/* Answer */}
-                {isOpen && (
-                  <div
-                    id={`faq-answer-${index}`}
-                    className="border-t border-slate-200 px-6 py-5"
-                  >
-                    <p className="leading-7 text-slate-600">{faq.answer}</p>
-                  </div>
-                )}
+                <div
+                  id={`faq-answer-${index}`}
+                  hidden={!isOpen}
+                  className="border-t border-slate-200 px-6 py-5"
+                >
+                  <p className="leading-7 text-slate-600">{faq.answer}</p>
+                </div>
               </article>
             );
           })}

@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 import { convertImagesToPdf } from "../services/pdf.service";
+import { downloadNameFromOriginal } from "../utils/download-filename";
 import useImageUpload from "./useImageUpload";
 
 const useConvertPdf = () => {
@@ -26,12 +27,17 @@ const useConvertPdf = () => {
       const toastId = toast.loading("Creating your PDF...");
 
       // Backend API Call
-      const pdfBlob = await convertImagesToPdf(images);
+      const { blob: pdfBlob, filename } = await convertImagesToPdf(images);
 
       // Create temporary browser URL
       const pdfUrl = URL.createObjectURL(pdfBlob);
 
-      setResult({ url: pdfUrl, size: pdfBlob.size, imageCount: images.length });
+      setResult({
+        url: pdfUrl,
+        size: pdfBlob.size,
+        imageCount: images.length,
+        filename: filename || downloadNameFromOriginal(images[0]?.file?.name, "application/pdf"),
+      });
 
       toast.success("Your PDF is ready.", {
         id: toastId,

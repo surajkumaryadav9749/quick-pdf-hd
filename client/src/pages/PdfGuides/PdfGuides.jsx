@@ -38,7 +38,7 @@ export const PdfGuides = () => (
   <Layout>
     <SEO
       title="PDF Guides | QuickPDFHD"
-      description="Practical guides for Word to PDF, PDF to Word and OCR, Excel conversion, split, merge, PDF to JPG, image PDFs, scanning, ZIP packaging, and image resizing."
+      description="Guides on PDF file size, OCR, A4 vs Letter, DPI vs pixels, plus how-tos for Word, Excel, split, merge, scanning, and image tools on QuickPDFHD."
       canonical="https://quickpdfhd.com/pdf-guides"
     />
     <main>
@@ -48,24 +48,44 @@ export const PdfGuides = () => (
             <Link to="/" className="hover:text-teal-800">Home</Link> <span aria-hidden="true">/</span> PDF Guides
           </nav>
           <p className="mt-4 text-sm font-semibold uppercase tracking-wide text-teal-800">QuickPDFHD help</p>
-          <h1 className="mt-3 text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl">PDF guides for real file tasks</h1>
+          <h1 className="mt-3 text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl">PDF and image guides</h1>
           <p className="mt-5 text-lg leading-8 text-slate-600">
-            Short instructions for tools that already exist on QuickPDFHD. For the full directory, see{" "}
+            Explanations of file size, OCR, page size, and DPI, plus short how-tos that match the tools on this site. For the full directory, see{" "}
             <Link to="/all-services" className="font-semibold text-teal-800 hover:underline">All Services</Link>.
           </p>
         </div>
       </section>
       <section className="bg-white py-16 sm:py-20">
-        <div className="mx-auto grid max-w-5xl gap-6 px-4 sm:grid-cols-2 sm:px-6">
-          {pdfGuides.map((guide) => (
-            <article key={guide.slug} className="rounded-2xl border border-slate-200 p-7 shadow-sm">
-              <h2 className="text-2xl font-bold text-slate-900">
-                <Link to={`/pdf-guides/${guide.slug}`} className="hover:text-teal-800">{guide.title}</Link>
-              </h2>
-              <p className="mt-4 leading-7 text-slate-600">{guide.description}</p>
-              <Link to={`/pdf-guides/${guide.slug}`} className="mt-5 inline-block font-semibold text-teal-800 hover:underline">Read guide →</Link>
-            </article>
-          ))}
+        <div className="mx-auto max-w-5xl px-4 sm:px-6">
+          <h2 className="text-3xl font-bold text-slate-900">Understand the files you are working with</h2>
+          <p className="mt-4 max-w-3xl leading-8 text-slate-600">These articles explain concepts. They are not extra copies of the tool pages.</p>
+          <div className="mt-8 grid gap-6 sm:grid-cols-2">
+            {pdfGuides.filter((guide) => guide.kind === "article").map((guide) => (
+              <article key={guide.slug} className="rounded-2xl border border-slate-200 p-7 shadow-sm">
+                <h3 className="text-2xl font-bold text-slate-900">
+                  <Link to={`/pdf-guides/${guide.slug}`} className="hover:text-teal-800">{guide.title}</Link>
+                </h3>
+                <p className="mt-4 leading-7 text-slate-600">{guide.description}</p>
+                <Link to={`/pdf-guides/${guide.slug}`} className="mt-5 inline-block font-semibold text-teal-800 hover:underline">Read guide →</Link>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+      <section className="bg-slate-50 py-16 sm:py-20">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6">
+          <h2 className="text-3xl font-bold text-slate-900">How to use each tool</h2>
+          <div className="mt-8 grid gap-6 sm:grid-cols-2">
+            {pdfGuides.filter((guide) => guide.kind !== "article").map((guide) => (
+              <article key={guide.slug} className="rounded-2xl border border-slate-200 bg-white p-7 shadow-sm">
+                <h3 className="text-2xl font-bold text-slate-900">
+                  <Link to={`/pdf-guides/${guide.slug}`} className="hover:text-teal-800">{guide.title}</Link>
+                </h3>
+                <p className="mt-4 leading-7 text-slate-600">{guide.description}</p>
+                <Link to={`/pdf-guides/${guide.slug}`} className="mt-5 inline-block font-semibold text-teal-800 hover:underline">Read guide →</Link>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
     </main>
@@ -112,14 +132,31 @@ export const PdfGuide = () => {
                 <p className="mt-5 leading-8 text-slate-600">{guide.formats}</p>
               </>
             )}
-            <h2 className={`${guide.why || guide.formats ? "mt-12" : ""} text-3xl font-bold text-slate-900`}>Steps</h2>
-            <ol className="mt-7 space-y-5">
-              {guide.steps.map((step, index) => (
-                <li key={step} className="rounded-2xl border border-slate-200 p-6 leading-7 text-slate-600">
-                  <span className="mr-3 font-bold text-teal-800">{index + 1}.</span>{step}
-                </li>
-              ))}
-            </ol>
+            {guide.sections?.map((section) => (
+              <section key={section.heading} className="mt-12">
+                <h2 className="text-3xl font-bold text-slate-900">{section.heading}</h2>
+                {section.paragraphs?.map((paragraph) => (
+                  <p key={paragraph.slice(0, 48)} className="mt-5 leading-8 text-slate-600">{paragraph}</p>
+                ))}
+                {section.list?.length ? (
+                  <ul className="mt-5 list-disc space-y-2 pl-6 leading-7 text-slate-600">
+                    {section.list.map((item) => <li key={item}>{item}</li>)}
+                  </ul>
+                ) : null}
+              </section>
+            ))}
+            {guide.steps?.length ? (
+              <>
+                <h2 className={`${guide.why || guide.formats || guide.sections ? "mt-12" : ""} text-3xl font-bold text-slate-900`}>{guide.kind === "article" ? "A practical sequence" : "Steps"}</h2>
+                <ol className="mt-7 space-y-5">
+                  {guide.steps.map((step, index) => (
+                    <li key={step} className="rounded-2xl border border-slate-200 p-6 leading-7 text-slate-600">
+                      <span className="mr-3 font-bold text-teal-800">{index + 1}.</span>{step}
+                    </li>
+                  ))}
+                </ol>
+              </>
+            ) : null}
             {guide.limitations?.length ? (
               <>
                 <h2 className="mt-12 text-3xl font-bold text-slate-900">Limitations</h2>

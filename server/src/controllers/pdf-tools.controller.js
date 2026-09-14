@@ -9,11 +9,12 @@ const { pdfToWord, pdfToExcel, inspectPdfText } = require("../services/pdf-offic
 const { pdfToWordOcr, OCR_MAX_PAGES, resolveOcrLanguage } = require("../services/ocr.service");
 const { logMemory } = require("../utils/memory-log");
 const { acquireJpgSlot, releaseJpgSlot } = require("../utils/jpg-job-lock");
+const { withExtension, archiveNameFrom, numberedFromOriginal, contentDisposition } = require("../utils/download-filename");
 
 const sendFile = (res, buffer, contentType, filename) => {
   res.set({
     "Content-Type": contentType,
-    "Content-Disposition": `attachment; filename="${filename}"`,
+    "Content-Disposition": contentDisposition(filename),
     "Content-Length": Buffer.byteLength(buffer),
     "X-Content-Type-Options": "nosniff",
   });
@@ -38,7 +39,7 @@ const sendFileFromPath = (res, filePath, contentType, filename, cleanup) => {
   const size = fs.statSync(filePath).size;
   res.set({
     "Content-Type": contentType,
-    "Content-Disposition": `attachment; filename="${filename}"`,
+    "Content-Disposition": contentDisposition(filename),
     "Content-Length": size,
     "X-Content-Type-Options": "nosniff",
   });
@@ -74,7 +75,7 @@ const mergePdfs = async (req, res) => {
   try {
     requirePdfFiles(req.files, 2);
     const buffer = await pdfPages.mergePdfs(req.files);
-    return sendFile(res, buffer, "application/pdf", "QuickPDFHD-merged.pdf");
+    return sendFile(res, buffer, "application/pdf", withExtension(req.files[0].originalname, ".pdf"));
   } catch (error) {
     return fail(res, error);
   }
@@ -84,23 +85,32 @@ const splitPdf = async (req, res) => {
   try {
     requirePdfFiles(req.files, 1);
     const file = req.files[0];
+    const originalName = file.originalname;
     const mode = String(req.body.mode || "extract").toLowerCase();
     const range = req.body.range || "";
 
     if (mode === "pages") {
       const outputs = await pdfPages.splitIntoSinglePages(file.buffer, range);
-      const zip = createZip(outputs);
-      return sendFile(res, zip, "application/zip", "QuickPDFHD-split-pages.zip");
+      const usedNames = new Set();
+      const zip = createZip(outputs.map((output, index) => ({
+        ...output,
+        name: numberedFromOriginal(originalName, ".pdf", index + 1, outputs.length, usedNames),
+      })));
+      return sendFile(res, zip, "application/zip", archiveNameFrom(originalName));
     }
 
     if (mode === "chunks") {
       const outputs = await pdfPages.splitIntoChunks(file.buffer, req.body.chunkSize);
-      const zip = createZip(outputs);
-      return sendFile(res, zip, "application/zip", "QuickPDFHD-split-pdf.zip");
+      const usedNames = new Set();
+      const zip = createZip(outputs.map((output, index) => ({
+        ...output,
+        name: numberedFromOriginal(originalName, ".pdf", index + 1, outputs.length, usedNames),
+      })));
+      return sendFile(res, zip, "application/zip", archiveNameFrom(originalName));
     }
 
     const buffer = await pdfPages.extractPages(file.buffer, range);
-    return sendFile(res, buffer, "application/pdf", "QuickPDFHD-extracted-pages.pdf");
+    return sendFile(res, buffer, "application/pdf", withExtension(originalName, ".pdf"));
   } catch (error) {
     return fail(res, error);
   }
@@ -114,7 +124,7 @@ const convertPdfToJpg = async (req, res) => {
     logMemory("after-upload-received", { pdfBytes: req.files[0].size || req.files[0].buffer?.length || 0 });
     acquireJpgSlot();
     occupied = true;
-    const result = await convertPdfToJpgOnDisk(req.files[0].buffer);
+    const result = await convertPdfToJpgOnDisk(req.files[0].buffer, { originalName: req.files[0].originalname });
     try {
       logMemory("before-response");
       return sendFileFromPath(res, result.path, result.contentType, result.filename, result.cleanup);
@@ -146,7 +156,7 @@ const convertWordToPdf = async (req, res) => {
     if (extension === ".docx" && !isZipBuffer(file.buffer)) throw new Error("The DOCX file could not be read.");
     if (extension === ".doc" && !isOleBuffer(file.buffer)) throw new Error("The DOC file could not be read.");
     const buffer = await wordToPdf(file);
-    return sendFile(res, buffer, "application/pdf", "QuickPDFHD-word.pdf");
+    return sendFile(res, buffer, "application/pdf", withExtension(file.originalname, ".pdf"));
   } catch (error) {
     return fail(res, error);
   }
@@ -158,7 +168,7 @@ const convertExcelToPdf = async (req, res) => {
     if (!file) throw new Error("Upload an Excel spreadsheet.");
     if (!file.size) throw new Error("The spreadsheet is empty.");
     const buffer = await excelToPdf(file);
-    return sendFile(res, buffer, "application/pdf", "QuickPDFHD-excel.pdf");
+    return sendFile(res, buffer, "application/pdf", withExtension(file.originalname, ".pdf"));
   } catch (error) {
     return fail(res, error);
   }
@@ -174,7 +184,7 @@ const convertPdfToWord = async (req, res) => {
     const buffer = useOcr
       ? await pdfToWordOcr(req.files[0].buffer, req.body.language)
       : await pdfToWord(req.files[0].buffer);
-    return sendFile(res, buffer, "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "QuickPDFHD-document.docx");
+    return sendFile(res, buffer, "application/vnd.openxmlformats-officedocument.wordprocessingml.document", withExtension(req.files[0].originalname, ".docx"));
   } catch (error) {
     return fail(res, error);
   }
@@ -194,7 +204,7 @@ const convertPdfToExcel = async (req, res) => {
   try {
     requirePdfFiles(req.files, 1);
     const buffer = await pdfToExcel(req.files[0].buffer);
-    return sendFile(res, buffer, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "QuickPDFHD-tables.xlsx");
+    return sendFile(res, buffer, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", withExtension(req.files[0].originalname, ".xlsx"));
   } catch (error) {
     return fail(res, error);
   }

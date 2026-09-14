@@ -4,16 +4,41 @@ import SEO from "../../components/seo/SEO";
 import ScannerWorkspace from "../../components/scanner/ScannerWorkspace";
 import RelatedTools from "../../components/seo/RelatedTools";
 import RelatedGuides from "../../components/seo/RelatedGuides";
+import ToolArticleBody from "../../components/seo/ToolArticleBody";
+import { toolExplainers } from "../../config/toolExplainers";
 
 const faqs = [
-  { question: "Can I combine several document photos into one PDF?", answer: "Yes. Upload up to 20 images and QuickPDFHD will create one PDF with one image on each page." },
-  { question: "Can I reduce the PDF file size?", answer: "Choose a size goal of 100 KB, 200 KB, 500 KB, or 1 MB. The final size depends on the number of pages and image detail." },
-  { question: "How are document photos handled?", answer: "Files are uploaded to the conversion server and processed in memory to create the PDF. The application does not write uploaded files to its own disk or database." },
+  { question: "Can I combine several document photos into one PDF?", answer: "Yes. Upload up to 20 JPG, PNG, or WEBP images. The PDF uses A4 pages, one image per page after processing." },
+  { question: "Can I download the processed photos without a PDF?", answer: "Yes. Use Download Image or Download Images. That path returns processed JPEGs rather than a document." },
+  { question: "What does auto-crop white edges do?", answer: "It tries to trim extra blank margin around the page. A busy desk background or a dark table can confuse the crop, so check the preview." },
+  { question: "What do color, grayscale, and black-and-white change?", answer: "Color keeps hues. Grayscale drops color. Black-and-white pushes the page toward high-contrast text and can hide light pencil or stamps." },
+  { question: "Are blank or blurry warnings definite?", answer: "No. They are a simple brightness and edge check in the browser. A page can still be usable, or a “clean” page can still be unreadable. Review the preview." },
+  { question: "Does a size goal guarantee an exact file size?", answer: "No. Goals of 100 KB, 200 KB, 500 KB, or 1 MB steer JPEG quality. Page count and detail still change the outcome." },
+  { question: "Does Document Scanner run OCR?", answer: "No. It prepares images and a PDF. For editable text, open the PDF in PDF to Word and choose OCR." },
+  { question: "How are the photos handled?", answer: "Photos are uploaded for the scan request. There is no user file library. See the Privacy Policy for temporary-file details on other tools." },
 ];
 
 const DocumentScanner = () => (
   <Layout>
-    <SEO title="Scan Multiple Photos to PDF – Document Scanner | QuickPDFHD" description="Scan up to 20 document photos into one PDF. Crop white edges, choose color or black-and-white mode, add page numbers, and set a compact size goal." canonical="https://quickpdfhd.com/document-scanner" structuredData={{ "@context": "https://schema.org", "@graph": [{ "@type": "WebApplication", name: "QuickPDFHD Document Scanner", url: "https://quickpdfhd.com/document-scanner", applicationCategory: "UtilitiesApplication", operatingSystem: "Web", description: "Scan up to 20 document photos into a cleaned, page-numbered PDF with size and color settings." }, { "@type": "FAQPage", mainEntity: faqs.map((faq) => ({ "@type": "Question", name: faq.question, acceptedAnswer: { "@type": "Answer", text: faq.answer } })) }] }} />
+    <SEO
+      title="Scan Multiple Photos to PDF – Document Scanner | QuickPDFHD"
+      description="Scan up to 20 document photos into one PDF. Crop white edges, choose color or black-and-white mode, add page numbers, and set a compact size goal."
+      canonical="https://quickpdfhd.com/document-scanner"
+      structuredData={{
+        "@context": "https://schema.org",
+        "@graph": [
+          { "@type": "WebApplication", name: "QuickPDFHD Document Scanner", url: "https://quickpdfhd.com/document-scanner", applicationCategory: "UtilitiesApplication", operatingSystem: "Web", description: "Scan up to 20 document photos into a cleaned, page-numbered PDF with size and color settings." },
+          {
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: "https://quickpdfhd.com/" },
+              { "@type": "ListItem", position: 2, name: "Document Scanner", item: "https://quickpdfhd.com/document-scanner" },
+            ],
+          },
+          { "@type": "FAQPage", mainEntity: faqs.map((faq) => ({ "@type": "Question", name: faq.question, acceptedAnswer: { "@type": "Answer", text: faq.answer } })) },
+        ],
+      }}
+    />
     <main>
       <section className="bg-slate-50 pb-10 pt-16 text-center sm:pt-20">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
@@ -38,6 +63,7 @@ const DocumentScanner = () => (
           </ol>
         </div>
       </section>
+      <ToolArticleBody explainer={toolExplainers["document-scanner"]} />
       <section className="bg-slate-50 py-16 sm:py-20">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <p className="text-sm font-semibold uppercase tracking-wide text-teal-800">FAQs</p>

@@ -12,7 +12,7 @@ export const homeFaqs = [
   {
     question: "How are uploaded files handled?",
     answer:
-      "Files are uploaded to the conversion server and processed in memory to generate your download. The application does not write uploaded files to its own disk or database. Hosting logs, email, and analytics can still receive other information, as described in the Privacy Policy.",
+      "Files are uploaded for the current request. There is no user file library. Most tools process files in memory; PDF to JPG and OCR may use temporary server files that are removed when the request finishes. Hosting logs, email, and analytics can still receive other information, as described in the Privacy Policy.",
   },
   {
     question: "Do I need to install software?",
@@ -28,5 +28,10 @@ export const homeFaqs = [
     question: "Where can I see every tool?",
     answer:
       "Open All Services for the full directory, or read the PDF Guides for step-by-step examples of common tasks.",
+  },
+  {
+    question: "Is there a PDF compressor?",
+    answer:
+      "There is no dedicated compress-PDF tool. To make a photo PDF smaller, rebuild it with Document Scanner size goals, resize images before JPG to PDF, or remove unused pages with Split PDF. ZIP packaging does not recompress PDF pages.",
   },
 ];

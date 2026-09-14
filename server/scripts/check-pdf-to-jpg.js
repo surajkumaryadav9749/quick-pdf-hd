@@ -43,16 +43,16 @@ const postPdf = async (port, buffer, filename = "file.pdf", extraHeaders = {}) =
   const startRss = mem();
 
   const onePage = await makePdf(["Single page JPEG test"]);
-  const one = await pdfToJpgArchive(onePage);
+  const one = await pdfToJpgArchive(onePage, { originalName: "My_Document.pdf" });
   assert(one.contentType === "image/jpeg", "single page should return image/jpeg");
-  assert(one.filename === "page-001.jpg", "single page filename should be page-001.jpg");
+  assert(one.filename === "My_Document.jpg", "single page filename should keep the original name");
   assert(one.buffer[0] === 0xff && one.buffer[1] === 0xd8, "single page JPEG magic missing");
   console.log("1-page service rssMb", mem(), "delta", mem() - startRss);
 
   const threePage = await makePdf(["Page A", "Page B", "Page C"]);
-  const zip = await pdfToJpgArchive(threePage);
+  const zip = await pdfToJpgArchive(threePage, { originalName: "My_Document.pdf" });
   assert(zip.contentType === "application/zip", "multi-page should return a ZIP");
-  assert(zip.filename === "QuickPDFHD-pdf-pages.zip", "multi-page ZIP name mismatch");
+  assert(zip.filename === "My_Document.zip", "multi-page ZIP should use the original filename");
   assert(zip.buffer[0] === 0x50 && zip.buffer[1] === 0x4b, "ZIP magic missing");
 
   const fivePage = await makePdf(["P1", "P2", "P3", "P4", "P5"]);
@@ -95,14 +95,14 @@ const postPdf = async (port, buffer, filename = "file.pdf", extraHeaders = {}) =
     const ok = await postPdf(port, onePage, "one.pdf");
     assert(ok.status === 200, `HTTP single-page expected 200, got ${ok.status}`);
     assert(String(ok.headers.get("content-type")).includes("image/jpeg"), "HTTP single-page content-type");
-    assert(String(ok.headers.get("content-disposition")).includes("page-001.jpg"), "HTTP single-page disposition");
+    assert(String(ok.headers.get("content-disposition")).includes("one.jpg"), "HTTP single-page disposition");
     const jpegBytes = Buffer.from(await ok.arrayBuffer());
     assert(jpegBytes[0] === 0xff && jpegBytes[1] === 0xd8, "HTTP JPEG magic missing");
     console.log("HTTP 1-page", ok.status, jpegBytes.length, "rssMb", mem());
 
     const fiveHttp = await postPdf(port, fivePage, "five.pdf");
     assert(fiveHttp.status === 200, `HTTP 5-page expected 200, got ${fiveHttp.status}`);
-    assert(String(fiveHttp.headers.get("content-type")).includes("application/zip"), "HTTP 5-page content-type");
+    assert(String(fiveHttp.headers.get("content-disposition") || "").includes("five.zip"), "HTTP 5-page ZIP should use the original filename");
     await fiveHttp.arrayBuffer();
     console.log("HTTP 5-page", fiveHttp.status, "rssMb", mem());
 

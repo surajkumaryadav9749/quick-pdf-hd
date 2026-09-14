@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { FiArrowDown, FiArrowUp, FiCheckCircle, FiFileText, FiFolderPlus, FiTrash2, FiUploadCloud, FiX } from "react-icons/fi";
 import { inspectPdfFile, processPdfTool } from "../../services/file-tools.service";
+import { downloadNameFromOriginal } from "../../utils/download-filename";
 import useResultFocus from "../common/useResultFocus";
 
 const formatBytes = (bytes) => `${(bytes / 1024 / 1024).toFixed(bytes >= 10 * 1024 * 1024 ? 1 : 2)} MB`;
@@ -11,14 +12,7 @@ const extensionOf = (name = "") => {
   return match ? match[1] : "";
 };
 
-const downloadNameFromType = (tool, contentType) => {
-  if (contentType.includes("zip")) {
-    if (tool.id === "split-pdf") return "QuickPDFHD-split-pdf.zip";
-    if (tool.id === "pdf-to-jpg") return "QuickPDFHD-pdf-pages.zip";
-  }
-  if (contentType.includes("jpeg") || contentType.includes("jpg")) return "QuickPDFHD-page.jpg";
-  return tool.downloadName;
-};
+const fallbackDownloadName = (tool, files, contentType) => downloadNameFromOriginal(files[0]?.name, contentType, tool.downloadName || "file");
 
 const DocumentToolWorkspace = ({ tool }) => {
   const inputRef = useRef(null);
@@ -111,12 +105,12 @@ const DocumentToolWorkspace = ({ tool }) => {
           : "Running OCR on the server...");
         const { blob, contentType, filename } = await processPdfTool(tool.endpoint, files, fields);
         setProgressLabel("Creating Word document...");
-        setResult({ url: URL.createObjectURL(blob), filename: filename || downloadNameFromType(tool, contentType), size: blob.size });
+        setResult({ url: URL.createObjectURL(blob), filename: filename || fallbackDownloadName(tool, files, contentType), size: blob.size });
         toast.success("Your file is ready.");
         return;
       }
       const { blob, contentType, filename } = await processPdfTool(tool.endpoint, files, fields);
-      setResult({ url: URL.createObjectURL(blob), filename: filename || downloadNameFromType(tool, contentType), size: blob.size });
+      setResult({ url: URL.createObjectURL(blob), filename: filename || fallbackDownloadName(tool, files, contentType), size: blob.size });
       toast.success("Your file is ready.");
     } catch (error) {
       toast.error(error.message || "Could not process the file. Please try again.");

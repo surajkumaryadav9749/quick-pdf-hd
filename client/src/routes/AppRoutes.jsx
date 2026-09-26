@@ -24,6 +24,11 @@ const SplitPdf = lazy(() => import("../pages/PdfTools/SplitPdf"));
 const MergePdf = lazy(() => import("../pages/PdfTools/MergePdf"));
 const PdfGuides = lazy(() => import("../pages/PdfGuides/PdfGuides").then((module) => ({ default: module.PdfGuides })));
 const PdfGuide = lazy(() => import("../pages/PdfGuides/PdfGuides").then((module) => ({ default: module.PdfGuide })));
+const CookiePolicy = lazy(() => import("../pages/CookiePolicy/CookiePolicy"));
+const WebpToJpg = lazy(() => import("../pages/ImageConvert/WebpToJpg"));
+const WebpToPng = lazy(() => import("../pages/ImageConvert/WebpToPng"));
+const JpgToPng = lazy(() => import("../pages/ImageConvert/JpgToPng"));
+const PngToJpg = lazy(() => import("../pages/ImageConvert/PngToJpg"));
 
 const AppRoutes = () => {
   return (
@@ -36,6 +41,7 @@ const AppRoutes = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/privacy-policy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
+          <Route path="/cookie-policy" element={<CookiePolicy />} />
 
           {/* Image to PDF SEO Pages */}
           <Route path="/jpg-to-pdf" element={<JpgToPdf />} />
@@ -51,9 +57,18 @@ const AppRoutes = () => {
           <Route path="/document-scanner" element={<DocumentScanner />} />
           <Route path="/pdf-to-zip" element={<PdfToZip />} />
           <Route path="/resize-image" element={<ResizeImage />} />
+
+          {/* Image Conversion Tools */}
+          <Route path="/webp-to-jpg" element={<WebpToJpg />} />
+          <Route path="/webp-to-png" element={<WebpToPng />} />
+          <Route path="/jpg-to-png" element={<JpgToPng />} />
+          <Route path="/png-to-jpg" element={<PngToJpg />} />
+
           <Route path="/all-services" element={<AllServices />} />
           <Route path="/pdf-guides" element={<PdfGuides />} />
           <Route path="/pdf-guides/:slug" element={<PdfGuide />} />
+          <Route path="/guides" element={<PdfGuides />} />
+          <Route path="/guides/:slug" element={<PdfGuide />} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>

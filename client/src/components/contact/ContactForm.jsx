@@ -16,6 +16,7 @@ const ContactForm = () => {
     email: "",
     subject: "",
     message: "",
+    website: "", // Honeypot field for spam prevention
   });
 
   const [loading, setLoading] = useState(false);
@@ -41,6 +42,23 @@ const ContactForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!formData.name.trim() || !formData.email.trim() || !formData.subject.trim() || !formData.message.trim()) {
+      setStatus({
+        type: "error",
+        message: "Please fill in all required fields.",
+      });
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email.trim())) {
+      setStatus({
+        type: "error",
+        message: "Please provide a valid email address.",
+      });
+      return;
+    }
 
     setLoading(true);
 
@@ -230,6 +248,20 @@ const ContactForm = () => {
             </div>
           </div>
 
+          {/* Honeypot anti-spam field (hidden from legitimate users) */}
+          <div className="hidden" aria-hidden="true" style={{ display: "none" }}>
+            <label htmlFor="contact-website">Website (Leave empty)</label>
+            <input
+              id="contact-website"
+              type="text"
+              name="website"
+              value={formData.website}
+              onChange={handleChange}
+              tabIndex={-1}
+              autoComplete="off"
+            />
+          </div>
+
           {/* Status Message */}
           {status.message && (
             <div
@@ -260,6 +292,10 @@ const ContactForm = () => {
 
             {loading ? "Sending..." : "Send Message"}
           </button>
+
+          <p className="mt-4 text-center text-xs leading-5 text-slate-500">
+            Privacy notice: Your name and email address are solely used to answer your question or feedback. We never share or sell contact information.
+          </p>
         </form>
       </Container>
     </section>

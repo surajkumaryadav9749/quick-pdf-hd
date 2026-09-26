@@ -13,6 +13,10 @@ const icons = {
   png: FiImage,
   webp: FiImage,
   resize: FiMaximize,
+  webpjpg: FiImage,
+  webppng: FiImage,
+  jpgpng: FiImage,
+  pngjpg: FiImage,
 };
 
 export const iconForService = (key) => icons[key] || FiFileText;

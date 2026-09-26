@@ -119,6 +119,22 @@ export const resizeImageFiles = async (files, options) => {
   }
 };
 
+export const convertImageFiles = async (files, targetFormat, options = {}) => {
+  const formData = new FormData();
+  files.forEach((file) => formData.append("images", file));
+  formData.append("targetFormat", targetFormat);
+  if (options.quality) formData.append("quality", String(options.quality));
+  try {
+    const response = await axios.post(apiUrl("/api/image-tools/convert"), formData, {
+      responseType: "blob",
+    });
+    const fallbackExt = targetFormat === "jpeg" || targetFormat === "jpg" ? "jpg" : targetFormat;
+    return parseImageFileResponse(response, `converted.${fallbackExt}`);
+  } catch (error) {
+    throw new Error(await readErrorMessage(error), { cause: error });
+  }
+};
+
 export const inspectPdfFile = async (file) => {
   const formData = new FormData();
   formData.append("files", file);

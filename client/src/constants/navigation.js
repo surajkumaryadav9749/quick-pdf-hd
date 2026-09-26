@@ -4,11 +4,11 @@ export const NAV_LINKS = [
     path: "/",
   },
   {
-    name: "All Services",
+    name: "Tools",
     path: "/all-services",
   },
   {
-    name: "PDF Guides",
+    name: "Guides",
     path: "/pdf-guides",
   },
   {
@@ -29,6 +29,10 @@ export const LEGAL_LINKS = [
   {
     name: "Terms & Conditions",
     path: "/terms",
+  },
+  {
+    name: "Cookie Policy",
+    path: "/cookie-policy",
   },
 ];
 

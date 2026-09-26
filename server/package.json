@@ -9,7 +9,8 @@
     "test:tools": "node scripts/check-pdf-tools.js",
     "test:resize": "node scripts/check-resize.js",
     "test:scan-images": "node scripts/check-scan-images.js",
-    "test:ocr": "node scripts/audit-ocr.js"
+    "test:ocr": "node scripts/audit-ocr.js",
+    "test:image-convert": "node scripts/check-image-convert.js"
   },
   "keywords": [],
   "author": "",

@@ -15,6 +15,7 @@ const staticRoutes = [
   "/contact",
   "/privacy-policy",
   "/terms",
+  "/cookie-policy",
   "/all-services",
   "/jpg-to-pdf",
   "/png-to-pdf",
@@ -28,6 +29,10 @@ const staticRoutes = [
   "/pdf-to-excel",
   "/split-pdf",
   "/merge-pdf",
+  "/webp-to-jpg",
+  "/webp-to-png",
+  "/jpg-to-png",
+  "/png-to-jpg",
   "/pdf-guides",
 ];
 
